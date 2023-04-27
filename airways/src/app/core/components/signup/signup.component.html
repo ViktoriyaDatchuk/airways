@@ -1,0 +1,108 @@
+<div class="signup">
+    <div class="signup__buttons">
+        <button mat-button class="signup__buttons--google button-top">
+            <img src="../../../../assets/google_24px.svg" class="button-top__icon">
+            <span class="button-top__text">Continue with Google</span>
+        </button>
+        <button mat-button class="signup__buttons--google button-top">
+            <img src="../../../../assets/facebbok_24px.svg" class="button-top__icon">
+            <span class="button-top__text">Continue with Facebook</span>
+        </button>
+    </div>
+    <div class="signup__form">
+        <div class="signup__form-header">or sign up with your email</div>
+        <form [formGroup]="signup">
+            <mat-form-field class="signup__form-input">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                <mat-error *ngIf="checkIfError('email', 'email')">
+                Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="checkIfError('email', 'required')">
+                Email is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="signup__form-input">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="Password" type="password" formControlName="password" required>
+                <mat-icon matSuffix [color]="checkIfError('password', 'required') && getInput('password')?.touched ? 'warn' : ''">info</mat-icon>
+                <mat-error *ngIf="checkIfError('password', 'required')">
+                    Password required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="signup__form-input">
+                <mat-label>First name</mat-label>
+                <input matInput placeholder="Password" type="text" formControlName="name" required>
+                <mat-icon matSuffix [color]="(checkIfError('name', 'required') || checkIfError('name', 'pattern')) && getInput('name')?.touched   ? 'warn' : ''">info</mat-icon>
+                <mat-error *ngIf="checkIfError('name', 'required')">
+                    First name required
+                </mat-error>
+                <mat-error *ngIf="checkIfError('name', 'pattern')">
+                    Invalid character
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="signup__form-input">
+                <mat-label>Last name</mat-label>
+                <input matInput placeholder="Last name" type="text" formControlName="lastname" required>
+                <mat-icon matSuffix [color]="(checkIfError('lastname', 'required') || checkIfError('lastname', 'pattern')) && getInput('lastname')?.touched   ? 'warn' : ''">info</mat-icon>
+                <mat-error *ngIf="checkIfError('lastname', 'required')">
+                    Last name required
+                </mat-error>
+                <mat-error *ngIf="checkIfError('lastname', 'pattern')">
+                    Invalid character
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="signup__form-input">
+                <mat-label>Date of birth</mat-label>
+                <input matInput placeholder="Last name" type="date" formControlName="birthday" required>
+                <mat-icon matSuffix [color]="checkIfError('birthday', 'required') && getInput('birthday')?.touched   ? 'warn' : ''">event</mat-icon>
+                <mat-error *ngIf="checkIfError('birthday', 'required')">
+                    Birthday required
+                </mat-error>
+            </mat-form-field>
+            <mat-button-toggle-group name="fontStyle" class="signup__gender">
+                <mat-button-toggle class="signup__gender-button" value="male" checked #male>
+                    <mat-icon matSuffix *ngIf="male.checked">check_small</mat-icon>
+                    Male
+                </mat-button-toggle>
+                <mat-button-toggle class="signup__gender-button" value="female" #female>
+                    <mat-icon matSuffix *ngIf="female.checked">check_small</mat-icon>
+                    Female
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+            <div class="signup__double-input">
+                <mat-form-field appearance="fill" class="signup__double-input--first">
+                    <mat-label>Country code</mat-label>
+                    <select matNativeControl formControlName="phoneRegion">
+                      <option value=""></option>
+                      <option *ngFor="let tel of tels; index as i"
+                              [selected]="i === 0">{{ tel }}</option>
+                    </select>
+                </mat-form-field>
+                <mat-form-field class="signup__form-input">
+                    <mat-label>Mobile phone number</mat-label>
+                    <input matInput placeholder=" e.g. 1111111111" type="tel" formControlName="phoneNumber" required>
+                    <mat-error *ngIf="checkIfError('phoneNumber', 'required')">
+                        Phone number required
+                    </mat-error>
+                    <mat-error *ngIf="checkIfError('phoneNumber', 'pattern')">
+                        Phone number invalid
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="fill" class="signup__form-input">
+                <mat-label>Citizenship</mat-label>
+                <select matNativeControl formControlName="citizenship">
+                  <option value="">Citizenship</option>
+                  <option *ngFor="let val of citizenship">{{ val }}</option>
+                </select>
+            </mat-form-field>
+            <div class="signup__checkbox-wrapper">
+                <mat-checkbox color="primary" class="signup__checkbox" formControlName="policy">
+                    I agree to Airway's <a class="signup__checkbox-link">Privacy Policy</a> and <a class="signup__checkbox-link">Terms of Use</a>
+                </mat-checkbox>
+            </div>
+            <button (click)="submit()" class="signup__buttons--submit" [disabled]="signup.invalid">Sign up</button>
+        </form>
+    </div>
+</div>
