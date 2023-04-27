@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+import { AirportModel } from 'src/app/shared/models/types.model';
+import { AirportsService } from 'src/app/shared/service/airways.service';
 
 @Component({
   selector: 'app-main',
@@ -10,11 +12,14 @@ import { Observable, map, startWith } from 'rxjs';
 export class MainComponent implements OnInit {
   myControl = new FormControl('');
   myControl2 = new FormControl('');
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions!: Observable<string[]>;
-  filteredOptions2!: Observable<string[]>;
+  airports: AirportModel[] = [];
+  filteredOptions!: Observable<AirportModel[]>;
+  filteredOptions2!: Observable<AirportModel[]>;
+
+  constructor(private airportService: AirportsService) {}
 
   ngOnInit() {
+    this.getBooks();
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
@@ -25,11 +30,17 @@ export class MainComponent implements OnInit {
     );
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): AirportModel[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter((option) =>
-      option.toLowerCase().includes(filterValue)
+    return this.airports.filter((airport) =>
+      airport.city.toLowerCase().includes(filterValue)
     );
+  }
+
+  getBooks() {
+    this.airportService.all().subscribe((airports) => {
+      this.airports = airports;
+    });
   }
 }
