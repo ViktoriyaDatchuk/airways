@@ -1,0 +1,53 @@
+@import "../abstracts/variables";
+
+$border-color: rgba(208, 217, 223, 1);
+
+.footer-text {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+.footer {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 92px;
+  margin: 0 auto;
+  border-top: 1px solid $border-color;
+
+  .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 36px 204px 36px 200px;
+
+    .footer__title {
+      @extend .footer-text;
+      color: $primary-color;
+    }
+
+    .footer__payment {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+
+      .payment__text {
+        @extend .footer-text;
+      }
+
+      .payment__icons {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .icons__item {
+          display: flex;
+          align-items: center;
+          list-style: none;
+        }
+      }
+    }
+  }
+}

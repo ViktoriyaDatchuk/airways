@@ -1,1 +1,13 @@
-<p>footer works!</p>
+<div class="footer container">
+  <div class="footer__content">
+    <p class="footer__title">© 2023, AIRWAY. All rights reserved.</p>
+    <div class="footer__payment">
+      <p class="payment__text">We accept these payment methods</p>
+      <ul class="payment__icons">
+        <li class="icons__item" *ngFor="let icon of icons">
+          <img [src]="icon" [alt]="icon" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
