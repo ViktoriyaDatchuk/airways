@@ -1,1 +1,59 @@
-<p>header works!</p>
+<div class="header container">
+  <div class="header__content">
+    <img class="header__content__logo" src="./assets/logo.svg" alt="logo" />
+    <div class="header__content__elements">
+      <button class="title-button" *ngIf="page === 'main'">Book flights</button>
+      <mat-form-field appearance="fill" class="date">
+        <mat-select
+          [class..mat-mdc-select-value-text]="page !== 'main'"
+          panelClass="date-select"
+          [value]="datesFormat[0].value"
+        >
+          <mat-option *ngFor="let date of datesFormat" [value]="date.value">
+            {{ date.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="currency">
+        <mat-select panelClass="currency-select" [value]="currency[0].value">
+          <mat-option *ngFor="let cur of currency" [value]="cur.value">
+            {{ cur.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="login-button">
+        <img
+          [style.filter]="
+            page == 'main'
+              ? '#000000'
+              : 'invert(75%) sepia(1%) saturate(4760%) hue-rotate(211deg) brightness(106%) contrast(96%)'
+          "
+          src="./assets/header-icons/signin-icon.svg"
+          alt="sign-in"
+        />
+        <span
+          [style.color]="page == 'main' ? 'white' : '#49454F'"
+          class="login-button__text"
+          >Sign in</span
+        >
+      </button>
+      <span
+        [matBadge]="badgeCounter"
+        matBadgeColor="warn"
+        matBadgeSize="small"
+        [matBadgeHidden]="hidden"
+        class="basket"
+      >
+        <img
+          [style.filter]="
+            page == 'main'
+              ? '#000000'
+              : 'invert(75%) sepia(1%) saturate(4760%) hue-rotate(211deg) brightness(106%) contrast(96%)'
+          "
+          src="./assets/header-icons/shopping_basket.svg"
+          alt="basket"
+        />
+      </span>
+    </div>
+  </div>
+</div>
