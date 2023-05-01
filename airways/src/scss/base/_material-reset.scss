@@ -148,3 +148,13 @@ $text-color: #49454f;
 .mat-step-header .mat-step-icon-state-edit {
   background-color: #0090bd !important;
 }
+
+//badge//
+
+.mat-badge-content {
+  background: #b3261e !important;
+}
+
+.mat-badge-small.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  right: -5px !important;
+}
