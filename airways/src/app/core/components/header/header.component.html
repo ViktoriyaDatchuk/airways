@@ -1,11 +1,30 @@
-<div class="header container">
+<div
+  class="header container"
+  [style.background]="page == 'main' ? 'rgba(116, 118, 122, 0.2)' : 'white'"
+>
   <div class="header__content">
     <img class="header__content__logo" src="./assets/logo.svg" alt="logo" />
-    <div class="header__content__elements">
-      <button class="title-button" *ngIf="page === 'main'">Book flights</button>
+    <div
+      class="header__content__elements"
+      [style.gap]="page == 'book' ? '17px' : '40px'"
+    >
+      <button class="title-button" *ngIf="page === 'main'; else stepperBlock">
+        Book flights
+      </button>
+      <ng-template #stepperBlock>
+        <mat-stepper *ngIf="page === 'book'">
+          <mat-step label="Flights" matStepperIcon="phone"></mat-step>
+          <mat-step label="Passengers"></mat-step>
+          <mat-step label="Review & Payment"></mat-step>
+        </mat-stepper>
+      </ng-template>
       <mat-form-field appearance="fill" class="date">
         <mat-select
-          [class..mat-mdc-select-value-text]="page !== 'main'"
+          [style.filter]="
+            page == 'main'
+              ? 'none'
+              : 'invert(75%) sepia(1%) saturate(4760%) hue-rotate(211deg) brightness(106%) contrast(96%)'
+          "
           panelClass="date-select"
           [value]="datesFormat[0].value"
         >
@@ -15,7 +34,15 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill" class="currency">
-        <mat-select panelClass="currency-select" [value]="currency[0].value">
+        <mat-select
+          [style.filter]="
+            page == 'main'
+              ? 'none'
+              : 'invert(75%) sepia(1%) saturate(4760%) hue-rotate(211deg) brightness(106%) contrast(96%)'
+          "
+          panelClass="currency-select"
+          [value]="currency[0].value"
+        >
           <mat-option *ngFor="let cur of currency" [value]="cur.value">
             {{ cur.viewValue }}
           </mat-option>
@@ -45,6 +72,7 @@
         class="basket"
       >
         <img
+          [style.margin-left]="page == 'main' ? '-9px' : '15px'"
           [style.filter]="
             page == 'main'
               ? '#000000'

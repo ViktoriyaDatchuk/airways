@@ -1,7 +1,5 @@
 @import "../abstracts/variables";
 
-$header-background-color: rgba(116, 118, 122, 0.2);
-
 .header {
   position: fixed;
   top: 0px;
@@ -10,7 +8,6 @@ $header-background-color: rgba(116, 118, 122, 0.2);
   height: 88px;
   margin-bottom: -88px;
   z-index: 2;
-  background: $header-background-color;
 
   &__content {
     display: flex;
@@ -25,7 +22,6 @@ $header-background-color: rgba(116, 118, 122, 0.2);
     &__elements {
       display: flex;
       align-items: center;
-      gap: 41px;
 
       .title-button {
         padding: 8px 16px;
@@ -40,8 +36,8 @@ $header-background-color: rgba(116, 118, 122, 0.2);
       .login-button {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 7px 15.5px;
+        gap: 13px;
+        padding: 9px 15.5px 9px 20.5px;
         background-color: rgba(241, 243, 246, 0.15);
         border: 0.5px solid #cecece;
         border-radius: 4px;
@@ -54,7 +50,6 @@ $header-background-color: rgba(116, 118, 122, 0.2);
 
       .basket {
         display: block;
-        margin-left: -9px;
 
         .mat-badge-content {
           right: -10px;

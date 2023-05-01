@@ -1,10 +1,14 @@
 @import "../abstracts/variables";
 
 $button-background-color: rgba(241, 243, 246, 0.15);
+$text-color: #49454f;
+
+//select//
 
 .header__content__elements {
   .mat-mdc-select-value-text {
     color: white;
+    font-weight: 300;
   }
 
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -45,6 +49,8 @@ $button-background-color: rgba(241, 243, 246, 0.15);
 .header__content__elements .date {
   .mat-mdc-select-value-text {
     margin-right: 15px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
   }
 
   .mat-mdc-select-arrow svg {
@@ -52,7 +58,7 @@ $button-background-color: rgba(241, 243, 246, 0.15);
   }
 
   .mdc-text-field {
-    padding: 9.5px 17.33px 9.5px 16px;
+    padding: 9.5px 16.5px 9.5px 15.5px;
   }
 
   .mat-mdc-select-arrow-wrapper {
@@ -61,12 +67,18 @@ $button-background-color: rgba(241, 243, 246, 0.15);
 }
 
 .header__content__elements .currency {
+  .mat-mdc-select-value-text {
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+
   .mat-mdc-select-arrow-wrapper {
     display: none;
   }
 
   .mdc-text-field {
-    padding: 9.5px 16px;
+    padding: 9px 15.5px;
   }
 
   .mat-mdc-form-field.mat-focused {
@@ -94,4 +106,45 @@ $button-background-color: rgba(241, 243, 246, 0.15);
 
 .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
   width: 12px !important;
+}
+
+//stepper//
+
+.mat-horizontal-content-container {
+  padding: 0 !important;
+}
+
+.mat-horizontal-stepper-header {
+  height: auto !important;
+  padding: 0 15px 0 17px !important;
+}
+
+.mat-stepper-horizontal-line {
+  margin: 0 -7px !important;
+  min-width: 79px !important;
+}
+
+.mat-step-text-label {
+  font-size: 14px;
+  line-height: 20px;
+  color: #74767a;
+}
+
+.mat-step-icon {
+  height: 16px !important;
+  width: 16px !important;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.mat-step-icon .mat-icon {
+  font-size: 12px !important;
+  height: 12px !important;
+  width: 12px !important;
+}
+
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+  background-color: #0090bd !important;
 }
