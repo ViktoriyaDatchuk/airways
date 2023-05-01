@@ -1,0 +1,9 @@
+<div mat-menu-item>
+  <h3>{{ passenger.title }}</h3>
+  <p>{{ passenger.age }}</p>
+</div>
+<div>
+  <button mat-button (click)="decrease()">-</button>
+  {{ getCounter() }}
+  <button mat-button (click)="increase()">+</button>
+</div>

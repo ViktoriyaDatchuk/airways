@@ -1,0 +1,7 @@
+<button mat-button [matMenuTriggerFor]="belowMenu">Below</button>
+<mat-menu #belowMenu="matMenu" yPosition="below">
+  <app-passenger-type
+    *ngFor="let passenger of passengerList"
+    [passenger]="passenger"
+  ></app-passenger-type>
+</mat-menu>
