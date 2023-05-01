@@ -22,7 +22,7 @@
         <mat-autocomplete autoActiveFirstOption #autoFrom="matAutocomplete">
           <mat-option
             *ngFor="let optionFrom of filteredOptions | async"
-            [value]="optionFrom.code"
+            [value]="optionFrom.key"
           >
             {{ optionFrom.city }}
           </mat-option>
@@ -44,7 +44,7 @@
         >
           <mat-option
             *ngFor="let destination of filteredOptions2 | async"
-            [value]="destination.code"
+            [value]="destination.key"
           >
             {{ destination.city }}
           </mat-option>
@@ -66,14 +66,14 @@
       </mat-form-field>
     </div>
     <div>
-      <button mat-button [matMenuTriggerFor]="belowMenu">Below</button>
-      <mat-menu #belowMenu="matMenu" yPosition="below">
-        <button mat-menu-item>Item 1</button>
-        <button mat-menu-item>Item 2</button>
-        <button mat-menu-item>Item 2</button>
-      </mat-menu>
+      <app-passenger-list></app-passenger-list>
     </div>
     <button mat-button color="primary">Search</button>
     <button mat-icon-button><mat-icon>switch</mat-icon></button>
   </form>
 </mat-card>
+<div>
+  <pre>
+    {{ airports | json }}
+  </pre>
+</div>

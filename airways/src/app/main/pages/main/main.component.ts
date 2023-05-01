@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { AirportModel } from 'src/app/shared/models/types.model';
-import { AirportsService } from 'src/app/shared/service/airways.service';
+import { AirportsService } from 'src/app/shared/services/airways.service';
 
 @Component({
   selector: 'app-main',
@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
   constructor(private airportService: AirportsService) {}
 
   ngOnInit() {
-    this.getBooks();
+    this.getAirports();
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
@@ -38,9 +38,10 @@ export class MainComponent implements OnInit {
     );
   }
 
-  getBooks() {
+  getAirports() {
     this.airportService.all().subscribe((airports) => {
       this.airports = airports;
+      console.log(airports);
     });
   }
 }
