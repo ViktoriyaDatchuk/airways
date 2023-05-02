@@ -26,7 +26,19 @@ export class HeaderComponent {
     { value: 'cur-3', viewValue: 'PLN' },
   ];
 
+  public backgroundColor: string = 'rgba(116, 118, 122, 0.2)';
+
+  public bookingFilter: string =
+    'invert(75%) sepia(1%) saturate(4760%) hue-rotate(211deg) brightness(106%) contrast(96%)';
+
+  public cartFilter: string =
+    'invert(86%) sepia(38%) saturate(4871%) hue-rotate(209deg) brightness(97%) contrast(89%)';
+
   public hidden: boolean = true;
 
   public badgeCounter: number = 2;
+
+  public isAuth: boolean = false;
+
+  public userName: string = 'Viktoryia';
 }
