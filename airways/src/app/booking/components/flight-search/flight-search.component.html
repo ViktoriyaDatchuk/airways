@@ -1,0 +1,23 @@
+<div class="flight-search">
+    <div class="flight-search__way">
+        <span class="flight-search__way-text">Dublin</span>
+        <div class="flight-search__way-icon">
+            <img src="./assets/return_trip_24px.svg" />
+        </div>
+        <span class="flight-search__way-text">Warsaw Modlin</span>
+    </div>
+    <div class="flight-search__info">
+        <div class="flight-search__info-return">Return</div>
+        <div class="flight-search__info-point"></div>
+        <div class="flight-search__info-date">1Mar - 18 Mar</div>
+        <div class="flight-search__info-point"></div>
+        <div class="flight-search__info-passagers flight-search__passagers">
+            <span class="flight-search__passagers-text">3</span>
+            <mat-icon matSuffix class="flight-search__passagers-icon">person</mat-icon>
+        </div>
+    </div>
+    <div class="flight-search__edit" (click)="isEdit = !isEdit">Edit</div>
+</div>
+<div *ngIf="isEdit" class="flight-search__bottom-panel">
+    Open
+</div>
