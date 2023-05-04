@@ -9,10 +9,10 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
     this.icons = [
-      '../../../../assets/payment-icons/master-card.svg',
-      '../../../../assets/payment-icons/pay.svg',
-      '../../../../assets/payment-icons/american-express.svg',
-      '../../../../assets/payment-icons/visa.svg',
+      './assets/payment-icons/master-card.svg',
+      './assets/payment-icons/pay.svg',
+      './assets/payment-icons/american-express.svg',
+      './assets/payment-icons/visa.svg',
     ];
   }
 }

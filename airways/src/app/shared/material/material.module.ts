@@ -8,6 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatStepperModule } from '@angular/material/stepper';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -18,11 +22,20 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatInputModule,
   MatTabsModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSelectModule,
+  MatBadgeModule,
+  MatStepperModule,
 ];
 
 @NgModule({
   imports: [MaterialComponents],
   exports: [MaterialComponents],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false },
+    },
+  ],
 })
 export class MaterialModule {}
