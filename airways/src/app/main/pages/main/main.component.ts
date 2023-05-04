@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map, startWith } from 'rxjs';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
@@ -10,21 +12,30 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  myControl = new FormControl('');
-  myControl2 = new FormControl('');
+  fromControl = new FormControl('');
+  destControl = new FormControl('');
   airports: AirportModel[] = [];
-  filteredOptions!: Observable<AirportModel[]>;
-  filteredOptions2!: Observable<AirportModel[]>;
+  filteredFrom!: Observable<AirportModel[]>;
+  filteredDest!: Observable<AirportModel[]>;
 
-  constructor(private airportService: AirportsService) {}
+  constructor(
+    private airportService: AirportsService,
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'switch',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/switch.svg')
+    );
+  }
 
   ngOnInit() {
     this.getAirports();
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredFrom = this.fromControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
     );
-    this.filteredOptions2 = this.myControl2.valueChanges.pipe(
+    this.filteredDest = this.destControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value || ''))
     );
@@ -41,7 +52,6 @@ export class MainComponent implements OnInit {
   getAirports() {
     this.airportService.all().subscribe((airports) => {
       this.airports = airports;
-      console.log(airports);
     });
   }
 }

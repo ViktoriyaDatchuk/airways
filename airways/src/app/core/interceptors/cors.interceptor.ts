@@ -20,7 +20,6 @@ export class CorsInterceptor implements HttpInterceptor {
         .append('Access-Control-Allow-Origin', '*')
         .append('Access-Control-Allow-Methods', ['GET', 'POST']),
     });
-    console.log('Interceptor');
     return next.handle(cloned);
   }
 }
