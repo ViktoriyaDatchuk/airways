@@ -12,11 +12,11 @@ import { bookingReducer } from './redux/reducers/booking.reducer';
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    CoreModule, 
-    SharedModule, 
-    BrowserAnimationsModule, 
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    SharedModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ booking: bookingReducer }),
   ],
   providers: [],
