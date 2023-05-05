@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="background"></div>
+  <div class="inner-container">
+    <mat-card class="card">
+      <form action="" class="form">
+        <div>
+          <mat-radio-group>
+            <mat-radio-button value="round-trip" checked color="primary"
+              >Round Trip</mat-radio-button
+            >
+            <mat-radio-button value="one-way" color="primary"
+              >One way</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div>
+          <mat-form-field class="destination">
+            <mat-label>From</mat-label>
+            <input
+              type="text"
+              placeholder="From"
+              aria-label="Number"
+              matInput
+              [formControl]="fromControl"
+              [matAutocomplete]="autoFrom"
+            />
+            <mat-autocomplete autoActiveFirstOption #autoFrom="matAutocomplete">
+              <mat-option
+                *ngFor="let optionFrom of filteredFrom | async"
+                [value]="optionFrom.key"
+              >
+                {{ optionFrom.city }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="destination">
+            <mat-label>Destination</mat-label>
+            <input
+              type="text"
+              placeholder="Choose your destination"
+              aria-label="Number2"
+              matInput
+              [formControl]="destControl"
+              [matAutocomplete]="autoDestination"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoDestination="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let destination of filteredDest | async"
+                [value]="destination.key"
+              >
+                {{ destination.city }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field appearance="fill">
+            <mat-label>Dates</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Start date" />
+              <input matEndDate placeholder="End date" />
+            </mat-date-range-input>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+          <app-passenger-list></app-passenger-list>
+        </div>
+        <button mat-button color="primary">Search</button>
+        <button mat-icon-button class="switch">
+          <mat-icon svgIcon="switch"></mat-icon>
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>
