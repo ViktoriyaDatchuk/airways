@@ -12,7 +12,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, CoreModule, SharedModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    CoreModule, 
+    SharedModule, 
+    BrowserAnimationsModule, 
+    StoreModule.forRoot({ booking: bookingReducer }),
+    HttpClientModule,],
   providers: [],
   bootstrap: [AppComponent],
 })
