@@ -4,13 +4,15 @@ import { SharedModule } from '../shared/shared.module';
 import { BookingComponent } from './pages/booking/booking.component';
 import { RouterModule } from '@angular/router';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
+import { TicketsComponent } from './components/tickets/tickets.component';
 
 
 
 @NgModule({
   declarations: [
     BookingComponent,
-    FlightSearchComponent
+    FlightSearchComponent,
+    TicketsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,22 @@
+.tickets {
+    &__header {
+        display: flex;
+        &-icon {
+
+            &--left {
+                transform: rotate(180deg);
+            }
+        }
+
+        &-text {
+            margin-left: 14px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28px;
+            display: flex;
+            align-items: center;
+            color: #11397E;
+        }
+    }
+}
