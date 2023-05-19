@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 interface Select {
   value: string;
@@ -9,8 +10,8 @@ interface Select {
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
-  public page: string = 'book';
+export class HeaderComponent implements OnInit {
+  public page: string = 'cart';
 
   public datesFormat: Select[] = [
     { value: 'date-0', viewValue: 'MM/DD/YYYY' },
@@ -41,4 +42,10 @@ export class HeaderComponent {
   public isAuth: boolean = false;
 
   public userName: string = 'Viktoryia';
+
+  constructor(private location: Location) {}
+
+  ngOnInit(): void {
+    console.log(this.location.path());
+  }
 }
