@@ -1,4 +1,14 @@
+:host {
+    max-width: 1128px;
+    margin-top: 6px;
+}
 .tickets {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    max-width: 1128px;
+    margin: 0 auto;
     &__header {
         display: flex;
         &-icon {
@@ -17,6 +27,15 @@
             display: flex;
             align-items: center;
             color: #11397E;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        &--first {
+            margin-right: 55px;
         }
     }
 }

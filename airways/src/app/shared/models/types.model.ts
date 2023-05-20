@@ -43,6 +43,36 @@ export interface PriceModel {
   pln: number;
 }
 
+export interface IFlightModel {
+  flightNumber: string
+  form: {
+    key: string, name: string, city: string, gmt: string, country: string
+  }
+  landingDate: string 
+  price: {eur: number, usd: number, rub: number, pln: number}
+  seats: {total: number, avaible: number}
+  takeoffDate: string
+  timeMins: number
+  to: {key: string, name: string, city: string, gmt: string , country: string}
+  otherFlights: IOtherFlights
+}
+
+export type IFlightModelWithoutOtherFlights = Omit<IFlightModel, 'otherFlights'>
+// export type IFlightModelWithoutOtherFlights = Omit<Partial<IFlightModel>, 'otherFlights'>
+
+export interface IOtherFlights {
+  "1"?: IFlightModelWithoutOtherFlights
+  "2"?: IFlightModelWithoutOtherFlights
+  "3"?: IFlightModelWithoutOtherFlights
+  "4"?: IFlightModelWithoutOtherFlights
+  "5"?: IFlightModelWithoutOtherFlights
+  "-1"?: IFlightModelWithoutOtherFlights
+  "-2"?: IFlightModelWithoutOtherFlights
+  "-3"?: IFlightModelWithoutOtherFlights
+  "-4"?: IFlightModelWithoutOtherFlights
+  "-5"?: IFlightModelWithoutOtherFlights
+}
+
 export interface FlightModel {
   form: AirportModel;
   to: AirportModel;

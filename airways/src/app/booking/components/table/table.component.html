@@ -1,0 +1,41 @@
+<div class="table">
+    <div class="table__date table__date--left">
+        <div class="table__date-header">{{ getDate(true) }}</div>
+        <div class="table__date-body">
+            <div class="table__date-time table__date-time--left">{{ getTime(true) }}</div>
+            <div class="table__date-UTC">UTC {{ getUTC(true) }}</div>
+        </div>
+        <div class="table__date-footer">{{ ticket?.form?.city }}</div>
+    </div>
+    <div class="table__time">
+        <div class="table__time-hourse">{{ getFlightHours() }}</div>
+        <div class="table__time-icon">
+            <mat-icon [class]="from ? 'table__time-icon' : 'table__time-icon table__time-icon--left'" >flight_takeoff</mat-icon>
+        </div>
+        <div class="table__time-text">Direct</div>
+
+    </div>
+    <div class="table__date table__date--right">
+        <div class="table__date-header">{{ getDate(false) }}</div>
+        <div class="table__date-body">
+            <div class="table__date-UTC">UTC {{ getUTC(false) }}</div>
+            <div class="table__date-time table__date-time--right">{{ getTime(false) }}</div>
+        </div>
+        <div class="table__date-footer">{{ ticket?.to?.city }}</div>
+    </div>
+    <div class="table__flightNumber">
+        Flight no. 
+        <div class="table__flightNumber-text">{{ ticket?.flightNumber }}</div>
+    </div>
+    <div class="table__price">
+        <div class="table__price-seats" [class]="getSeatsClass()">
+            <p class="table__price-seats--top">{{ ticket?.seats?.avaible }} seats</p>
+            <p class="table__price-seats--bot">available</p>
+        </div>
+        <div class="table__price-text">Price</div>
+        <div class="table__price-cost">${{ ticket?.price?.eur }}</div>
+    </div>
+    <div class="table__button-wrapper">
+        <button class="table__button" (click)="buttonHandlerClick()">Select</button>
+    </div>
+</div>

@@ -10,6 +10,11 @@ export const initialState: IDataTravel = {
   adults: 0,
   childs: 0,
   infants: 0,
+  travelFrom: [],
+  travelTo: [],
+  isLoadingFlight: false,
+  ticketFrom: null,
+  ticketTo: null,
 };
 
 export const bookingReducer = createReducer(
@@ -17,5 +22,26 @@ export const bookingReducer = createReducer(
   on(bookinActions.setDataTravel, (state, { booking }) => ({
     ...state,
     ...booking,
+  })),
+  on(bookinActions.setDataTravelFrom, (state, { from }) => ({
+    ...state,
+    travelFrom: from
+  })),
+  on(bookinActions.setDataTravelTo, (state, { to }) => ({
+    ...state,
+    travelTo: to
+  })),
+  on(bookinActions.setTicketFrom, (state, { ticketFrom }) => ({
+    ...state,
+    ticketFrom
+  })),
+  on(bookinActions.setTicketTo, (state, { ticketTo }) => ({
+    ...state,
+    ticketTo
+  })),
+  on(bookinActions.setIsLoadingFlight, (state, { loading }) => ({
+    ...state,
+    isLoadingFlight: loading
   }))
+
 );
