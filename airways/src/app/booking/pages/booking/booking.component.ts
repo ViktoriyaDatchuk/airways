@@ -21,10 +21,6 @@ export class BookingComponent implements OnInit {
     backDate: "2023-10-11T00:00:00.000Z"
   }
 
-  products: IFlightModel[] = [];
-  flightFrom: ISliderData[] = []
-  flightTo: ISliderData[] = []
-
   constructor(
     private airportService: AirportsService,
     private state: Store<{ booking: IDataTravel }>,
@@ -37,16 +33,16 @@ export class BookingComponent implements OnInit {
   getFlightData() {
     this.state.dispatch(setIsLoadingFlight(true))
     this.airportService.searchFlight(this.fakeData).subscribe((flight) => {
-      this.products = flight;
-      this.flightFrom = this.getArrayOfFlight(this.products[0].otherFlights, this.products[0])
-      this.flightTo = this.getArrayOfFlight(this.products[1].otherFlights, this.products[1])
-
-      this.state.dispatch(setDataTravelFrom({from: this.flightFrom}))
-      this.state.dispatch(setDataTravelTo({to: this.flightTo}))
-      this.state.dispatch(setTicketFrom({ticketFrom: this.products[0]}))
-      this.state.dispatch(setTicketTo({ticketTo: this.products[1]}))
+      const products = flight;
+      const flightFrom = this.getArrayOfFlight(products[0].otherFlights, products[0])
+      const flightTo = this.getArrayOfFlight(products[1].otherFlights, products[1])
+      this.state.dispatch(setDataTravelFrom({from: flightFrom}))
+      this.state.dispatch(setDataTravelTo({to: flightTo}))
+      this.state.dispatch(setTicketFrom({ticketFrom: products[0]}))
+      this.state.dispatch(setTicketTo({ticketTo: products[1]}))
+      this.state.dispatch(setIsLoadingFlight(false))
+      console.log('массив продлуктов', products)
     });
-    this.state.dispatch(setIsLoadingFlight(false))
   }
 
   getArrayOfFlight(overFlightArr: IOtherFlights, ticket: IFlightModelWithoutOtherFlights): ISliderData[] {

@@ -24,7 +24,7 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
 
   hasFromCarusel = true;
 
-  hasToCarusel = true;
+  hasToCarusel = false;
 
   constructor(private store: Store<{ booking: IDataTravel }>, private router: Router) {
     
@@ -60,6 +60,7 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
         return true
       }
     } else {
+      // return this.hasFromCarusel
       if (!this.hasFromCarusel) {
         return false
       }
@@ -69,7 +70,9 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
 
   ngAfterContentInit(): void {
     
-    
+    if (this.return) {
+      this.hasToCarusel = true
+    }
   }
 
   ngAfterContentChecked(): void {
@@ -79,6 +82,8 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
   
 
   ngAfterViewInit(): void {
+    
+    
   }
 
 

@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { selectTicketFrom, selectTicketTo } from 'src/app/redux/selectors/booking.selectors';
-import { IFlightModel, IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
+import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import { FROMTOSTRINGS } from '../../booking.model';
 
 
@@ -12,7 +12,7 @@ import { FROMTOSTRINGS } from '../../booking.model';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit{
   @Input() from!: boolean;
 
   @Output() onSelectTicket = new EventEmitter<FROMTOSTRINGS>();
@@ -22,14 +22,22 @@ export class TableComponent {
   ticket: IFlightModelWithoutOtherFlights | null = null;
 
   constructor(private state: Store<{booking: IDataTravel}>) {
-    if (this.from) {
-      this.ticket$ = this.state.select(selectTicketTo)
-    } else {
-      this.ticket$ = this.state.select(selectTicketFrom)
-    }
-    this.ticket$.subscribe((ticket) => { 
-      this.ticket = ticket;
-    })
+    this.ticket$ = this.state.select(selectTicketTo)
+    
+  }
+  ngOnInit(): void {
+    
+      if (this.from) {
+        console.log('this from')
+        this.ticket$ = this.state.select(selectTicketFrom)
+      } else {
+        console.log('!this from')
+        this.ticket$ = this.state.select(selectTicketTo)
+      }
+    
+      this.ticket$.subscribe((ticket) => { 
+        this.ticket = ticket;
+      })
   }
 
   getDate(from: boolean) {
@@ -64,17 +72,16 @@ export class TableComponent {
   }
 
   getSeatsClass() {
-    const avaibleSeats = this.ticket?.seats.avaible
     const totalSeats = this.ticket?.seats.total
-    if (!avaibleSeats || !totalSeats) return
+    const avaibleSeats = this.ticket?.seats.avaible
 
-    const percentAvaible = Number((((totalSeats - avaibleSeats) / totalSeats) * 100).toFixed())
-    const PERCENT50NUMBER = 50
+    if (!avaibleSeats || !totalSeats) return
     const TENSEATSNUMBER = 10
-    if (percentAvaible > PERCENT50NUMBER) {
+    const halfSeats = totalSeats / 2
+    if (avaibleSeats > halfSeats) {
       return 'table__price-seats table__price-seats--green'
     }
-    if (percentAvaible < PERCENT50NUMBER && percentAvaible > TENSEATSNUMBER) {
+    if (avaibleSeats < halfSeats && avaibleSeats > TENSEATSNUMBER) {
       return 'table__price-seats table__price-seats--yellow'
     } else {
       return 'table__price-seats table__price-seats--red'

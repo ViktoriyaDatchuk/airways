@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild, DoCheck } from '@angular/core';
 import SwiperCore, { Keyboard, Pagination, Navigation, Virtual } from 'swiper';
 import { AirportModel, IFlightModel, IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
@@ -18,7 +18,7 @@ SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
   templateUrl: './corousel.component.html',
   styleUrls: ['./corousel.component.scss', '../../../../../node_modules/keen-slider/keen-slider.min.css'],
 })
-export class CorouselComponent implements OnDestroy, AfterViewInit {
+export class CorouselComponent implements OnDestroy, AfterViewInit, DoCheck, OnInit {
 
   @Input() from!: boolean
 
@@ -37,17 +37,25 @@ export class CorouselComponent implements OnDestroy, AfterViewInit {
   slideLength = 0;
 
   constructor(private airportService: AirportsService, private state: Store<{booking: IDataTravel}>) {
+    this.carousel$ = this.state.select(selectTravelFrom)
+    this.ticket$ = this.state.select(selectTicketFrom)
+    
+    
+  }
+  ngOnInit(): void {
     if (this.from) {
-      this.carousel$ = this.state.select(selectTravelTo)
-      this.ticket$ = this.state.select(selectTicketTo)
-    } else {
       this.carousel$ = this.state.select(selectTravelFrom)
       this.ticket$ = this.state.select(selectTicketFrom)
+    } else {
+      this.carousel$ = this.state.select(selectTravelTo)
+      this.ticket$ = this.state.select(selectTicketTo)
     }
 
     this.ticket$.subscribe((el) => {
       this.ticket = el
+      console.log('типо приход в тикет билета', el)
     })
+
     this.carousel$.subscribe((data) => {
       if (data?.length !== 0) {
         setTimeout(() => {
@@ -55,12 +63,16 @@ export class CorouselComponent implements OnDestroy, AfterViewInit {
         }, 5)
       }
     })
+   
+  }
+  ngDoCheck(): void {
   }
 
   ngAfterViewInit() {
     // setTimeout(() => {
     //   this.setSlider();
     // }, 500)
+    
   }
 
   setSlider() {
@@ -169,19 +181,16 @@ export class CorouselComponent implements OnDestroy, AfterViewInit {
     const avaibleSeats = this.ticket?.seats.avaible
 
     if (!avaibleSeats || !totalSeats) return
-
-    const percentAvaible = Number((((totalSeats - avaibleSeats) / totalSeats) * 100).toFixed())
-    const PERCENT50NUMBER = 50
     const TENSEATSNUMBER = 10
-    if (percentAvaible > PERCENT50NUMBER) {
+    const halfSeats = totalSeats / 2
+    if (avaibleSeats > halfSeats) {
       return 'carousel__slide-bottom--green'
     }
-    if (percentAvaible < PERCENT50NUMBER && percentAvaible > TENSEATSNUMBER) {
+    if (avaibleSeats < halfSeats && avaibleSeats > TENSEATSNUMBER) {
       return 'carousel__slide-bottom--yellow'
     } else {
       return 'carousel__slide-bottom--red'
     }
-
   }
 
   ngOnDestroy() {
