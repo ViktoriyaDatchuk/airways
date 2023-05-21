@@ -26,12 +26,9 @@ export class TableComponent implements OnInit{
     
   }
   ngOnInit(): void {
-    
       if (this.from) {
-        console.log('this from')
         this.ticket$ = this.state.select(selectTicketFrom)
       } else {
-        console.log('!this from')
         this.ticket$ = this.state.select(selectTicketTo)
       }
     

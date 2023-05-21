@@ -1,14 +1,12 @@
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, ViewChild, DoCheck } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, ViewChild, SimpleChanges } from '@angular/core';
 import SwiperCore, { Keyboard, Pagination, Navigation, Virtual } from 'swiper';
-import { AirportModel, IFlightModel, IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
-import { AirportsService } from 'src/app/shared/services/airways.service';
+import { IFlightModel, IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import KeenSlider, { KeenSliderInstance } from "keen-slider"
-import { SwiperComponent } from "swiper/angular";
 import { INoFlightModel, ISliderData } from '../../booking.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IDataTravel } from 'src/app/redux/models/models';
-import { selectFlightIsLoading, selectTicketFrom, selectTicketTo, selectTravelFrom, selectTravelTo } from 'src/app/redux/selectors/booking.selectors';
+import { selectTicketFrom, selectTicketTo, selectTravelFrom, selectTravelTo } from 'src/app/redux/selectors/booking.selectors';
 import { setTicketFrom, setTicketTo } from 'src/app/redux/actions/booking-main.actions';
 
 SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
@@ -18,13 +16,13 @@ SwiperCore.use([Keyboard, Pagination, Navigation, Virtual]);
   templateUrl: './corousel.component.html',
   styleUrls: ['./corousel.component.scss', '../../../../../node_modules/keen-slider/keen-slider.min.css'],
 })
-export class CorouselComponent implements OnDestroy, AfterViewInit, DoCheck, OnInit {
+export class CorouselComponent implements OnDestroy, OnChanges {
 
   @Input() from!: boolean
 
-  carousel$: Observable<ISliderData[]>
+  carousel$: Observable<ISliderData[]> | undefined
 
-  ticket$: Observable<IFlightModelWithoutOtherFlights | null>
+  ticket$: Observable<IFlightModelWithoutOtherFlights | null> | undefined
 
   ticket: IFlightModelWithoutOtherFlights | null = null
 
@@ -36,13 +34,9 @@ export class CorouselComponent implements OnDestroy, AfterViewInit, DoCheck, OnI
 
   slideLength = 0;
 
-  constructor(private airportService: AirportsService, private state: Store<{booking: IDataTravel}>) {
-    this.carousel$ = this.state.select(selectTravelFrom)
-    this.ticket$ = this.state.select(selectTicketFrom)
-    
-    
-  }
-  ngOnInit(): void {
+  constructor(private state: Store<{booking: IDataTravel}>) {}
+  
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.from) {
       this.carousel$ = this.state.select(selectTravelFrom)
       this.ticket$ = this.state.select(selectTicketFrom)
@@ -53,26 +47,15 @@ export class CorouselComponent implements OnDestroy, AfterViewInit, DoCheck, OnI
 
     this.ticket$.subscribe((el) => {
       this.ticket = el
-      console.log('типо приход в тикет билета', el)
     })
 
-    this.carousel$.subscribe((data) => {
-      if (data?.length !== 0) {
-        setTimeout(() => {
-          this.setSlider();
-        }, 5)
-      }
-    })
-   
-  }
-  ngDoCheck(): void {
-  }
-
-  ngAfterViewInit() {
-    // setTimeout(() => {
-    //   this.setSlider();
-    // }, 500)
-    
+    this.carousel$?.subscribe((data) => {
+        if (data?.length !== 0) {
+          setTimeout(() => {
+            this.setSlider();
+          }, 5)
+        }
+      })
   }
 
   setSlider() {
@@ -153,7 +136,7 @@ export class CorouselComponent implements OnDestroy, AfterViewInit, DoCheck, OnI
       })
       target.classList.add('carousel__slide--active')
       const id = this._getId(target.classList.value)
-      this.carousel$.subscribe((el) => {
+      this.carousel$?.subscribe((el) => {
         const newTicketSliderData = el[id]
         if (!newTicketSliderData) return
         const newTicket = newTicketSliderData[1]

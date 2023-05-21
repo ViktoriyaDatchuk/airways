@@ -1,9 +1,9 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { Store } from '@ngrx/store';
-import { selectFlightIsLoading } from 'src/app/redux/selectors/booking.selectors';
-import { IFlightModel } from 'src/app/shared/models/types.model';
+import { selectFlightIsLoading, selectTicketFrom } from 'src/app/redux/selectors/booking.selectors';
+import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import { FROMTOSTRINGS } from '../../booking.model';
 import { Router } from '@angular/router';
 
@@ -13,8 +13,7 @@ import { Router } from '@angular/router';
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.scss']
 })
-export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterContentChecked {
-  
+export class TicketsComponent implements AfterContentInit, OnInit {
   
   @Input() return!: boolean;
 
@@ -26,11 +25,22 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
 
   hasToCarusel = false;
 
+  ticket$!: Observable<IFlightModelWithoutOtherFlights | null>
+
+  ticket: IFlightModelWithoutOtherFlights | null = null
+
   constructor(private store: Store<{ booking: IDataTravel }>, private router: Router) {
     
     this.isLoadingFlight$ = this.store.select(selectFlightIsLoading)
     this.isLoadingFlight$.subscribe((loading) => {
-      this.isLoading = !loading
+      this.isLoading = loading
+    })
+  }
+
+  ngOnInit(): void {
+    this.ticket$ = this.store.select(selectTicketFrom)
+    this.ticket$.subscribe((el) => {
+      this.ticket = el
     })
   }
 
@@ -60,7 +70,6 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
         return true
       }
     } else {
-      // return this.hasFromCarusel
       if (!this.hasFromCarusel) {
         return false
       }
@@ -69,21 +78,17 @@ export class TicketsComponent implements AfterViewInit, AfterContentInit, AfterC
   }
 
   ngAfterContentInit(): void {
-    
     if (this.return) {
       this.hasToCarusel = true
     }
   }
 
-  ngAfterContentChecked(): void {
-    
-  }
-  
-  
+  getDirectionHeader(from: boolean) {
+    const fromCity = this.ticket?.form.city
+    const toCity = this.ticket?.to.city
+    if (from) return `${fromCity} to ${toCity}`
+    else return `${toCity} to ${fromCity}`
 
-  ngAfterViewInit(): void {
-    
-    
   }
 
 

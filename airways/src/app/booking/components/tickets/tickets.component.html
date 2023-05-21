@@ -1,13 +1,20 @@
 <div class="tickets">
     <div class="tickets__header">
-        <img src="./assets/airplane.svg" [class]="return ? 'tickets__header-icon' : 'tickets__header-icon--left'"  /> 
-        <span class="tickets__header-text">Dublin to Warsaw Modlin</span>
+        <img src="./assets/airplane.svg" class="tickets__header-icon"  /> 
+        <span class="tickets__header-text">{{ getDirectionHeader(true) }}</span>
     </div>
-        <app-corousel *ngIf="hasFromCarusel" [from]="true" ></app-corousel>
-        <app-table [from]="true" (onSelectTicket)="selectedTicket($event)"></app-table>
-        <app-corousel *ngIf="hasToCarusel && return" [from]="false"></app-corousel>
-        <app-table *ngIf="return" [from]="false" (onSelectTicket)="selectedTicket($event)"></app-table>
+    <app-corousel *ngIf="hasFromCarusel" [from]="true" ></app-corousel>
+    <app-table [from]="true" (onSelectTicket)="selectedTicket($event)"></app-table>
 
+
+    <div class="tickets__header">
+        <img src="./assets/airplane.svg" class="tickets__header-icon--left"  /> 
+        <span class="tickets__header-text">{{ getDirectionHeader(false) }}</span>
+    </div>
+    <app-corousel *ngIf="hasToCarusel && return" [from]="false"></app-corousel>
+    <app-table *ngIf="return" [from]="false" (onSelectTicket)="selectedTicket($event)"></app-table>
+
+    
     <div class="tickets__buttons">
         <button mat-button color="primary" class="tickets__buttons--first" (click)="buttonBackHandlerClick()">Back</button>
         <button mat-raised-button color="primary" (click)="buttonContinueHandlerClick()" [disabled]="isDisabledButton()">Continue</button>

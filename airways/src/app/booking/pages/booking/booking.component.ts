@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IFlightModel, IFlightModelWithoutOtherFlights, IOtherFlights, SearchFlightModel } from 'src/app/shared/models/types.model';
+import { IFlightModelWithoutOtherFlights, IOtherFlights, SearchFlightModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
 import { ISliderData } from '../../booking.model';
 import { Store } from '@ngrx/store';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { setDataTravelFrom, setDataTravelTo, setIsLoadingFlight, setTicketFrom, setTicketTo } from 'src/app/redux/actions/booking-main.actions';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-booking',
@@ -41,7 +41,6 @@ export class BookingComponent implements OnInit {
       this.state.dispatch(setTicketFrom({ticketFrom: products[0]}))
       this.state.dispatch(setTicketTo({ticketTo: products[1]}))
       this.state.dispatch(setIsLoadingFlight(false))
-      console.log('массив продлуктов', products)
     });
   }
 
@@ -63,7 +62,6 @@ export class BookingComponent implements OnInit {
     }
     arrayOfFlight.push(zeroFlight)
 
-    console.log(arrayOfFlight.sort((a,b) => Number(a[0]) - Number(b[0])))
     return arrayOfFlight.sort((a,b) => Number(a[0]) - Number(b[0]))
   }
 
