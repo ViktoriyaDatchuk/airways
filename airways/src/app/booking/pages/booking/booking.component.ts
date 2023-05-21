@@ -5,6 +5,8 @@ import { ISliderData } from '../../booking.model';
 import { Store } from '@ngrx/store';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { setDataTravelFrom, setDataTravelTo, setIsLoadingFlight, setTicketFrom, setTicketTo } from 'src/app/redux/actions/booking-main.actions';
+import { Observable } from 'rxjs';
+import { selectFlightIsLoading } from 'src/app/redux/selectors/booking.selectors';
 
 
 @Component({
@@ -21,6 +23,10 @@ export class BookingComponent implements OnInit {
     backDate: "2023-10-11T00:00:00.000Z"
   }
 
+  ticketIsLoading$!: Observable<boolean>
+
+  ticketIsLoading = false
+
   constructor(
     private airportService: AirportsService,
     private state: Store<{ booking: IDataTravel }>,
@@ -28,6 +34,10 @@ export class BookingComponent implements OnInit {
 
   ngOnInit() {
     this.getFlightData();
+    this.ticketIsLoading$ = this.state.select(selectFlightIsLoading)
+    this.ticketIsLoading$.subscribe((el) => {
+      this.ticketIsLoading = el
+    })
   }
 
   getFlightData() {

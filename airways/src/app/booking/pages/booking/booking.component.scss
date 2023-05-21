@@ -6,4 +6,12 @@
     height: 100%;
     max-width: 1128px;
     margin: 40px auto 68px auto;
+
+    &__spiner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
