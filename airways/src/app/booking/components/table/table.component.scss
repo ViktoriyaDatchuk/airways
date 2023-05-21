@@ -6,8 +6,10 @@
     border-radius: 8px;
     padding: 16px 20px;
     max-width: 1128px;
+    background-color: #FFF;
+    margin-top: 9px;
+    margin-bottom: 24px;
     &__date {
-        
         &--right {
             display: flex;
             flex-direction: column;

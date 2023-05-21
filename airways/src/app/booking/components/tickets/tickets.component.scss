@@ -1,14 +1,16 @@
 :host {
     max-width: 1128px;
-    margin-top: 6px;
+    margin-top: 40px;
 }
 .tickets {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 40px;
     max-width: 1128px;
     margin: 0 auto;
+    padding: 0 156px;
     &__header {
         display: flex;
         &-icon {
