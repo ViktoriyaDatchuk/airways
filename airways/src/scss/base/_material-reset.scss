@@ -125,7 +125,7 @@ $text-color: #49454f;
 .mat-step-text-label {
   font-size: 14px;
   line-height: 20px;
-  color: #74767a;
+  color: $stepper-text-color;
 }
 
 .mat-step-icon {

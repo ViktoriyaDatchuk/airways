@@ -13,11 +13,162 @@
       color: $primary-color;
     }
 
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 38px 34px 28px;
+
+      .add-button {
+        padding: 4px 8px;
+        margin-bottom: 8px;
+        border: none;
+        background: #f4f6f9;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: $primary-color;
+        cursor: pointer;
+      }
+
+      .total-price {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-weight: 700;
+
+        &__title {
+          font-size: 20px;
+          line-height: 20px;
+        }
+
+        &__value {
+          font-size: 30px;
+          line-height: 36px;
+          background: linear-gradient(90deg, $primary-color 0%, #005abc 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          // text-fill-color: transparent;
+        }
+      }
+    }
+
+    .divider-margin {
+      margin: 0 34px;
+    }
+
+    .payment-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 34px 0 28px;
+
+      &__form {
+        position: relative;
+
+        .promo-input {
+          padding: 4px 16px;
+          width: 340px;
+          height: 38px;
+          border-radius: 4px;
+          border: 0.5px solid $stepper-text-color;
+          outline: none;
+
+          &::-webkit-input-placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: $stepper-text-color;
+          }
+
+          &::-moz-placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: $stepper-text-color;
+          }
+
+          &:-ms-input-placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: $stepper-text-color;
+          }
+
+          &::-ms-input-placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: $stepper-text-color;
+          }
+
+          &::placeholder {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: $stepper-text-color;
+          }
+        }
+
+        .apply-button {
+          position: absolute;
+          top: 10px;
+          right: 16px;
+          padding: 4px 8px;
+          border: none;
+          background-color: transparent;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: 0.1px;
+          color: $primary-color;
+          cursor: pointer;
+        }
+      }
+
+      .payment-button {
+        display: flex;
+        align-items: center;
+        gap: 38px;
+
+        &__selected {
+          line-height: 24px;
+          letter-spacing: 0.5px;
+          color: $stepper-text-color;
+        }
+
+        &__pay {
+          padding: 20px 31px;
+          border: none;
+          border-radius: 4px;
+          background: $primary-color;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: 0.1px;
+          color: #ffffff;
+        }
+      }
+    }
+
     .mat-mdc-card-header {
       padding: 0 0 27px 31px;
     }
 
     .mat-mdc-card-content {
+      padding: 0;
+    }
+
+    .mdc-card__actions {
+      display: block;
       padding: 0;
     }
   }
