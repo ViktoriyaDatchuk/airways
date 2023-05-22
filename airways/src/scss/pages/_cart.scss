@@ -1,3 +1,29 @@
 .cart {
   margin-top: 128px;
+
+  .booking-table {
+    max-width: $content-width;
+    margin: 0 auto;
+    padding: 33px 0 39px;
+
+    &__title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 28px;
+      color: $primary-color;
+    }
+
+    .mat-mdc-card-header {
+      padding: 0 0 27px 31px;
+    }
+
+    .mat-mdc-card-content {
+      padding: 0;
+    }
+  }
+}
+
+.mat-mdc-card {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 8px !important;
 }

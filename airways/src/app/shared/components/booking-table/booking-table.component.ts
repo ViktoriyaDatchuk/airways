@@ -1,63 +1,28 @@
 import { Component } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-
-interface IDataTravel {
-  number: string;
-  type: string;
-  from: string;
-  destination: string;
-  dateFrom: string;
-  dateTo: string;
-  dateFromBack?: string;
-  dateToBack?: string;
-  adults: number;
-  childs: number;
-  infants: number;
-  price: number;
-}
+import { IDataTravel, trips } from '../../../cart/tripsmock';
 
 @Component({
   selector: 'app-booking-table',
   templateUrl: './booking-table.component.html',
 })
 export class BookingTableComponent {
-  public trips: IDataTravel[] = [
-    {
-      number: 'FR 1925',
-      type: 'Round Trip',
-      from: 'Dublin',
-      destination: 'Warsaw',
-      dateFrom: '1 Mar, 2023, 8:40',
-      dateTo: '1 Mar, 2023, 12:00',
-      dateFromBack: '18 Mar, 2023, 7:40',
-      dateToBack: '18 Mar, 2023, 11:00',
-      adults: 1,
-      childs: 1,
-      infants: 1,
-      price: 551.38,
-    },
-    {
-      number: 'FR 1936',
-      type: 'One way',
-      from: 'Gdansk',
-      destination: 'Warsaw',
-      dateFrom: '28 May, 2023, 15:40',
-      dateTo: '28 May, 2023, 16:40',
-      adults: 1,
-      childs: 0,
-      infants: 0,
-      price: 20.96,
-    },
-  ];
+  public isVisible: boolean = false;
 
   public sortedTrips!: IDataTravel[];
 
   constructor() {
-    this.sortedTrips = this.trips.slice();
+    this.sortedTrips = trips.slice();
+  }
+
+  toggle(e: Event) {
+    (e.currentTarget as HTMLElement)
+      ?.getElementsByTagName('app-edit-menu')[0]
+      .classList.toggle('unhidden');
   }
 
   sortData(sort: Sort) {
-    const data = this.trips.slice();
+    const data = trips.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedTrips = data;
       return;

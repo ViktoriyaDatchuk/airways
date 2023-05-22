@@ -1,101 +1,89 @@
-.booking-table {
-  max-width: $content-width;
-  margin: 0 auto;
-  padding: 33px 0 39px;
+.trip-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-weight: 700;
+  font-size: 20px;
 
-  &__title {
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 28px;
-    color: $primary-color;
+  &__header {
+    height: 67px;
+    background: $background-color;
+    border: 0.5px solid #e9edf1;
+    line-height: 20px;
+
+    .checkbox-col {
+      width: calc(0.05 * $container-width);
+    }
+
+    .passengers-title {
+      text-align: left;
+    }
   }
 
-  .trip-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-weight: 700;
+  .checkbox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+
+  &__row {
+    padding: 30px 0;
+    border-bottom: 1px solid #e1e5eb;
+    font-weight: 500;
     font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.5px;
+  }
 
-    &__header {
-      height: 67px;
-      background: $background-color;
-      line-height: 20px;
+  .number-row {
+    font-weight: 700;
+    line-height: 24px;
+    color: #0090bd;
+  }
 
-      .checkbox-col {
-        width: calc(0.05 * $container-width);
-      }
+  .destination-row {
+    width: calc(0.143 * $container-width);
+  }
 
-      .passengers-title {
-        text-align: left;
-      }
-    }
+  .passengers-list {
+    list-style: none;
+  }
 
-    .checkbox-section {
-      display: flex;
-      align-content: center;
-      align-items: center;
-    }
+  .dots-row {
+    text-align: right;
+  }
 
-    &__row {
-      padding: 30px 0;
-      border-bottom: 1px solid #e1e5eb;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 32px;
-      letter-spacing: 0.5px;
-    }
+  .dots-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
 
-    .number-row {
-      font-weight: 700;
-      line-height: 24px;
-      color: #0090bd;
-    }
-
-    .destination-row {
-      width: calc(0.143 * $container-width);
-    }
-
-    .passengers-list {
-      list-style: none;
-    }
-
-    .dots-row {
-      text-align: right;
-    }
-
-    .dots-button {
-      width: 40px;
-      height: 40px;
-      margin-right: 16px;
-      border: none;
-      border-radius: 50%;
-      background-color: transparent;
-      cursor: pointer;
-
-      &:active {
-        background-color: #d0d9df;
-      }
-    }
-
-    .mat-mdc-checkbox.mat-accent {
-      margin-left: 20px;
-      --mdc-checkbox-selected-focus-icon-color: #11397e;
-      --mdc-checkbox-selected-hover-icon-color: #11397e;
-      --mdc-checkbox-selected-icon-color: #11397e;
-      --mdc-checkbox-selected-pressed-icon-color: #11397e;
+    &:active {
+      background-color: #d0d9df;
     }
   }
 
-  .mat-mdc-card-header {
-    padding: 0 0 27px 31px;
+  .menu-position {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    top: 26px;
+    left: 28px;
   }
 
-  .mat-mdc-card-content {
-    padding: 0;
+  .unhidden {
+    display: block;
   }
-}
 
-.mat-mdc-card {
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2) !important;
-  border-radius: 8px !important;
+  .mat-mdc-checkbox.mat-accent {
+    margin-left: 20px;
+    --mdc-checkbox-selected-focus-icon-color: #11397e;
+    --mdc-checkbox-selected-hover-icon-color: #11397e;
+    --mdc-checkbox-selected-icon-color: #11397e;
+    --mdc-checkbox-selected-pressed-icon-color: #11397e;
+  }
 }
