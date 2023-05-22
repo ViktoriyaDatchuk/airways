@@ -1,0 +1,190 @@
+{
+  "airports": [
+    {
+      "id": 1,
+      "code": "ATL",
+      "title": "Hartsfield-Jackson Atlanta International Airport",
+      "city": "Atlanta"
+    },
+    {
+      "id": 2,
+      "code": "PEK",
+      "title": "Beijing Capital International Airport",
+      "city": "Beijing"
+    },
+    {
+      "id": 3,
+      "code": "PKX",
+      "title": "Beijing Daxing International Airport",
+      "city": "Beijing"
+    },
+    {
+      "id": 4,
+      "code": "LHR",
+      "title": "London Heathrow Airport",
+      "city": "London"
+    },
+    {
+      "id": 5,
+      "code": "HND",
+      "title": "Tokyo International Airport",
+      "city": "Tokyo"
+    },
+    {
+      "id": 6,
+      "code": "ORD",
+      "title": "O'Hare International Airport",
+      "city": "Chicago"
+    },
+    {
+      "id": 7,
+      "code": "LAX",
+      "title": "Los Angeles International Airport",
+      "city": "Los Angeles"
+    },
+    {
+      "id": 8,
+      "code": "CDG",
+      "title": "Charles de Gaulle International Airport",
+      "city": "Paris"
+    },
+    {
+      "id": 9,
+      "code": "DFW",
+      "title": "Dallas-Fort Worth International Airport",
+      "city": "Dallas"
+    },
+    {
+      "id": 10,
+      "code": "CGK",
+      "title": "Soekarno-Hatta International Airport",
+      "city": "Tangerang"
+    },
+    {
+      "id": 11,
+      "code": "DXB",
+      "title": "Dubai International Airport",
+      "city": "Dubai"
+    },
+    {
+      "id": 12,
+      "code": "FRA",
+      "title": "Frankfurt International Airport",
+      "city": "Frankfurt"
+    },
+    {
+      "id": 13,
+      "code": "HKG",
+      "title": "Hong Kong International Airport",
+      "city": "Hong Kong"
+    },
+    {
+      "id": 14,
+      "code": "DEN",
+      "title": "Denver International Airport",
+      "city": "Denver"
+    },
+    {
+      "id": 15,
+      "code": "BKK",
+      "title": "Suvarnabhumi Airport",
+      "city": "Bangkok"
+    },
+    {
+      "id": 16,
+      "code": "SIN",
+      "title": "Singapore Changi Airport",
+      "city": "Singapore"
+    },
+    {
+      "id": 17,
+      "code": "AMS",
+      "title": "Amsterdam Airport Schiphol",
+      "city": "Amsterdam"
+    },
+    {
+      "id": 18,
+      "code": "JFK",
+      "title": "John F. Kennedy International Airport",
+      "city": "New York"
+    },
+    {
+      "id": 19,
+      "code": "CAN",
+      "title": "Guangzhou Baiyun International Airport",
+      "city": "Guangzhou"
+    },
+    {
+      "id": 20,
+      "code": "MAD",
+      "title": "Barajas International Airport",
+      "city": "Madrid"
+    },
+    {
+      "id": 21,
+      "code": "IST",
+      "title": "Atatürk International Airport",
+      "city": "Istanbul"
+    },
+    {
+      "id": 22,
+      "code": "PVG",
+      "title": "Shanghai Pudong International Airport",
+      "city": "Shanghai"
+    },
+    {
+      "id": 23,
+      "code": "SFO",
+      "title": "San Francisco International Airport",
+      "city": "San Francisco"
+    },
+    {
+      "id": 24,
+      "code": "LAS",
+      "title": "McCarran International Airport",
+      "city": "Paradise"
+    },
+    {
+      "id": 25,
+      "code": "CLT",
+      "title": "Charlotte/Douglas International Airport",
+      "city": "Charlotte"
+    },
+    {
+      "id": 26,
+      "code": "PHX",
+      "title": "Sky Harbor International Airport",
+      "city": "Phoenix"
+    },
+    {
+      "id": 27,
+      "code": "IAH",
+      "title": "George Bush Intercontinental Airport",
+      "city": "Houston"
+    },
+    {
+      "id": 28,
+      "code": "KUL",
+      "title": "Kuala Lumpur International Airport",
+      "city": "Sepang"
+    },
+    {
+      "id": 29,
+      "code": "MIA",
+      "title": "Miami International Airport",
+      "city": "Miami"
+    },
+    {
+      "id": 30,
+      "code": "ICN",
+      "title": "Incheon International Airport",
+      "city": "Seoul"
+    },
+    {
+      "id": 31,
+      "code": "MUC",
+      "title": "Franz Josef Strauss International Airport",
+      "city": "Munich"
+    }
+  ]
+}
