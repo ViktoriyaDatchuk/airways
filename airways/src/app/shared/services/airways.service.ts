@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   AirportModel,
-  FlightModel,
+  IFlightModel,
   LoginModel,
   SearchFlightModel,
   TokenModel,
@@ -30,7 +30,7 @@ export class AirportsService {
   searchFlight(search: SearchFlightModel) {
     const flight_url = `${BASE_URL}/search/flight`;
 
-    return this.http.post<FlightModel[]>(
+    return this.http.post<IFlightModel[]>(
       `${flight_url}`,
       JSON.stringify(search),
       HEADER

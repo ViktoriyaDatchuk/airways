@@ -1,0 +1,152 @@
+[class^="number-slide"],
+[class*=" number-slide"] {
+  background: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: #fff;
+  font-weight: 500;
+  height: 300px;
+  max-height: 100vh;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  &__slider {
+
+  }
+
+  &__slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgb(64, 175, 255);
+    background: linear-gradient(
+      128deg,
+      rgba(64, 175, 255, 1) 0%,
+      rgba(63, 97, 255, 1) 100%
+    );
+    height: 200px;
+    color: red;
+    padding: 4px 0px;
+    width: 225px;
+    height: 70px;
+    background: #FFFFFF;
+    border: 1px solid #CECECE;
+
+    &.active {
+      cursor: pointer;
+    }
+
+    &-day {
+      font-weight: 500;
+      font-size: 14px;
+      color: #0090BD;
+
+      &--off {
+        font-weight: 500;
+        font-size: 14px;
+        color: #D0D9DF;
+      }
+    }
+    &-week {
+      color: #74767A;
+      font-weight: 100;
+      font-size: 12px;  
+    }
+    &-cost {
+      margin-top: 6px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #11397E;
+    }
+
+    &-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      width: 24px;
+      height: 24px;
+      &-fly {
+        
+        margin-top: 6px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        
+        color: #ccc;
+      }
+    }
+
+    &--active {
+      background-color: #fff5f5;
+      & .carousel__slide-bottom {
+        display: block;
+      }
+    }
+
+    &-bottom {
+      width: 100%;
+      height: 6px;
+      background-color: red;
+      position: absolute;
+      bottom: 0;
+      display: none;
+
+      &--red  {
+        background: rgba(179, 38, 30, 0.3);
+      }
+      &--yellow {
+          background: rgba(241, 201, 51, 0.3);
+      }
+      &--green {
+          background: rgba(30, 179, 50, 0.3);
+      }
+      
+    }
+  }
+}
+
+
+.arrow {
+  width: 8px;
+  height: 8px;
+  fill: #1C1B1F;
+
+  &-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    top: 30%;
+    border-radius: 50%;
+    background-color: #E9EDF1;
+    cursor: pointer;
+    &--right {
+      right: 5px;
+      transform: rotate(180deg);
+    }
+    &--left {
+      left: 5px;
+    }
+  }
+}
+
+.arrow--left {
+  left: 5px;
+}
+
+.arrow--right {
+  right: 5px;
+  transform: rotate(180deg);
+}
+
+.arrow--disabled {
+  fill: rgba(255, 255, 255, 0.5);
+}

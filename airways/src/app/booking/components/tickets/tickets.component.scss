@@ -1,0 +1,43 @@
+:host {
+    max-width: 1128px;
+    margin-top: 40px;
+}
+.tickets {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 0 156px;
+    &__header {
+        display: flex;
+        &-icon {
+
+            &--left {
+                transform: rotate(180deg);
+            }
+        }
+
+        &-text {
+            margin-left: 14px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 28px;
+            display: flex;
+            align-items: center;
+            color: #11397E;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        &--first {
+            margin-right: 55px;
+        }
+    }
+}
