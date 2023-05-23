@@ -22,4 +22,7 @@ export class PassengerTypeComponent {
   decrease() {
     return this.counter.decrease();
   }
+  disabled() {
+    return this.getCounter() > 0 ? false : true;
+  }
 }
