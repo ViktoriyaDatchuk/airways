@@ -1,17 +1,51 @@
+:host {
+  width: 100%;
+  margin-left: 15px;
+}
+
 .relative {
   position: relative;
+  padding-top: 17px;
+  padding-bottom: 8px;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgb(238, 238, 238);;
+  }
+  &__button {
+    width: 100%;
+    border-bottom: 1px solid rgb(119, 119, 119);
+    border-radius: 0;
+    margin-top: 19px;
+    text-align: center;
+    &:hover {
+      border-bottom: 1px solid black;
+    }
+  }
+
+  &__error {
+  }
+
   &.active {
    & .list {
     display: block;
    }
-
   }
+
+  &.invalid {
+    & button {
+      margin-top: 0px;
+    }
+    & .list {
+      top: 55px
+    } 
+  }
+  
 }
 .list {
   display: none;
   position: absolute;
   left: 0;
-  top: 36px;
+  top: 60px;
   z-index: 5;
   // display: none;
   width: 201px;
@@ -20,4 +54,10 @@
   /* Neutral/neutral100 */
   background: #ffffff;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.danger-text {
+  color: red;
 }

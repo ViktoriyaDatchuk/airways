@@ -21,6 +21,8 @@ export class PassengerListComponent implements OnInit {
 
   isOpen = false
 
+  isTouched = false
+
   Adults$: Observable<number>
   Childs$: Observable<number>
   Infants$: Observable<number>
@@ -30,6 +32,8 @@ export class PassengerListComponent implements OnInit {
   Infants!: number
 
   text: string = 'adult 0, child 0, infant 0'
+
+  isValid = false
 
   constructor(private state: Store<{ booking: IDataTravel }>){
     this.Adults$ = this.state.select(selectAdultsCount)
@@ -56,6 +60,7 @@ export class PassengerListComponent implements OnInit {
     this.Childs$ = this.state.select(selectChildsCount)
     this.Infants$ = this.state.select(selectInfantsCount)
     this.getPasString()
+    this.setIsValid()
   }
 
   ngOnInit(): void {
@@ -66,8 +71,18 @@ export class PassengerListComponent implements OnInit {
     this.text = `${this.Adults} Adult, ${this.Childs} Child, ${this.Infants} Infant`
   }
 
-  openList() {
+  openList(event: MouseEvent) {
     this.isOpen = !this.isOpen
+    if (this.isTouched) {
+      this.setIsValid()
+    }
+    this.isTouched = true
+  }
+
+  setIsValid() {
+    const isValid = this.Adults + this.Childs + this.Infants
+    this.isValid =  isValid  === 0 && this.isTouched ? false : true
+    console.log(this.isValid, isValid, this.isTouched)
   }
 
 }

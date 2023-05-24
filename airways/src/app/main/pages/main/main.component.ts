@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatRadioChange } from '@angular/material/radio';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,11 +18,15 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
 export class MainComponent implements OnInit {
   tripTypes = ['round-trip', 'one-way']
   return = true;
-  fromControl = new FormControl('');
-  destControl = new FormControl('');
+  fromControl = new FormControl('', Validators.required);
+  destControl = new FormControl('', Validators.required);
+  startDateControl = new FormControl('', Validators.required);
+  endDateControl = new FormControl('', this.return ? Validators.required : null);
+  
   airports: AirportModel[] = [];
   filteredFrom!: Observable<AirportModel[]>;
   filteredDest!: Observable<AirportModel[]>;
+  isValid = false;
 
   constructor(
     private airportService: AirportsService,
@@ -78,4 +82,6 @@ export class MainComponent implements OnInit {
       this.store.dispatch(setTypeTrip(false))
     }
   }
+
+
 }

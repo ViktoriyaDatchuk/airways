@@ -35,12 +35,14 @@ export class PassengerTypeComponent {
     }
   }
 
-  increase() {
+  increase(event: MouseEvent) {
+    event.stopPropagation();
     this.counter.increase();
     this.setChanges()
   }
 
-  decrease() {
+  decrease(event: MouseEvent) {
+    event.stopPropagation();
     this.counter.decrease();
     this.setChanges()
   }
