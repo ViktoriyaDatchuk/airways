@@ -3,7 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatRadioChange } from '@angular/material/radio';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
+import { setTypeTrip } from 'src/app/redux/actions/booking-main.actions';
+import { IDataTravel } from 'src/app/redux/models/models';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
 
@@ -24,7 +27,8 @@ export class MainComponent implements OnInit {
   constructor(
     private airportService: AirportsService,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private store: Store<{ booking: IDataTravel }>
   ) {
     this.matIconRegistry.addSvgIcon(
       'switch',
@@ -68,8 +72,10 @@ export class MainComponent implements OnInit {
   changeTrip(e: MatRadioChange) {
     if (e.value === this.tripTypes[0]) {
       this.return = true
+      this.store.dispatch(setTypeTrip(true))
     } else if (e.value === this.tripTypes[1]) {
       this.return = false
+      this.store.dispatch(setTypeTrip(false))
     }
   }
 }

@@ -6,6 +6,7 @@ import { IFlightModel, IFlightModelWithoutOtherFlights } from 'src/app/shared/mo
 
 
 
+export const setTypeTrip = createAction('[BOOKIN_PAGE] SET DATA TRAVEL', (isRoundTrip: boolean) => ({isRoundTrip}));;
 export const setDataTravel = createAction('[BOOKIN_PAGE] SET DATA TRAVEL', props<{ booking: IDataTravel }>());
 export const setDataTravelFrom = createAction('[BOOKIN_PAGE] SET DATA TRAVEL FROM', props<{ from: ISliderData[] }>());
 export const setDataTravelTo = createAction('[BOOKIN_PAGE] SET DATA TRAVEL TO', props<{ to: ISliderData[] }>());
