@@ -5,10 +5,10 @@
       <form action="" class="form">
         <div>
           <mat-radio-group>
-            <mat-radio-button value="round-trip" checked color="primary"
+            <mat-radio-button value="round-trip" checked color="primary" (change)="changeTrip($event)"
               >Round Trip</mat-radio-button
             >
-            <mat-radio-button value="one-way" color="primary"
+            <mat-radio-button value="one-way" color="primary" (change)="changeTrip($event)"
               >One way</mat-radio-button
             >
           </mat-radio-group>
@@ -59,7 +59,7 @@
           </mat-form-field>
         </div>
         <div class="inline">
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" *ngIf="this.return; else soloDatePicker" class="dates">
             <mat-label>Dates</mat-label>
             <mat-date-range-input [rangePicker]="picker">
               <input matStartDate placeholder="Start date" />
@@ -69,8 +69,27 @@
               matIconSuffix
               [for]="picker"
             ></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-date-range-picker #picker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-date-range-picker>
           </mat-form-field>
+
+          <ng-template #soloDatePicker>
+            <mat-form-field class="dates">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="datepicker">
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </ng-template>
           <app-passenger-list></app-passenger-list>
         </div>
         <button mat-button color="primary">Search</button>

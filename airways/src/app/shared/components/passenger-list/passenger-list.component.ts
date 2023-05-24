@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PassengerType } from '../../models/types.model';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-passenger-list',
@@ -13,7 +14,17 @@ export class PassengerListComponent {
     { title: 'Infant', age: '0-2 years' },
   ];
 
+  @ViewChild('buttonList') buttonList!: HTMLDivElement
+
+  isOpen = false
+
   getPasString() {
     return `adult ${0}, child ${0}, infant ${0}`;
   }
+
+  openList() {
+    this.isOpen = !this.isOpen
+  }
+
 }
+

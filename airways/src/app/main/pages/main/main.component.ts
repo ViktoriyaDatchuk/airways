@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatRadioChange } from '@angular/material/radio';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable, map, startWith } from 'rxjs';
 import { AirportModel } from 'src/app/shared/models/types.model';
@@ -12,6 +13,8 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  tripTypes = ['round-trip', 'one-way']
+  return = true;
   fromControl = new FormControl('');
   destControl = new FormControl('');
   airports: AirportModel[] = [];
@@ -60,5 +63,13 @@ export class MainComponent implements OnInit {
     const tempFrom = this.fromControl.value
     this.fromControl.setValue(tempDest)
     this.destControl.setValue(tempFrom)
+  }
+
+  changeTrip(e: MatRadioChange) {
+    if (e.value === this.tripTypes[0]) {
+      this.return = true
+    } else if (e.value === this.tripTypes[1]) {
+      this.return = false
+    }
   }
 }

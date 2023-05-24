@@ -16,13 +16,18 @@ export class PassengerTypeComponent {
   getCounter() {
     return this.counter.counter;
   }
+
   increase() {
-    return this.counter.increase();
+    this.counter.increase();
   }
+
   decrease() {
-    return this.counter.decrease();
+    this.counter.decrease();
   }
+
   disabled() {
     return this.getCounter() > 0 ? false : true;
   }
+
+
 }

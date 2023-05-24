@@ -1,5 +1,5 @@
-<div class="relative">
-  <button mat-button>{{ getPasString() }}</button>
+<div class="relative" [class]="isOpen ? 'active' : ''" #buttonList>
+  <button mat-button (click)="openList()" >{{ getPasString() }}</button>
   <div class="list">
     <app-passenger-type
       *ngFor="let passenger of passengerList"

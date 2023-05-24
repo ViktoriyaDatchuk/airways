@@ -1,7 +1,14 @@
 .relative {
   position: relative;
+  &.active {
+   & .list {
+    display: block;
+   }
+
+  }
 }
 .list {
+  display: none;
   position: absolute;
   left: 0;
   top: 36px;
