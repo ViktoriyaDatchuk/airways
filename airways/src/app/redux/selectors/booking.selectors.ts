@@ -16,6 +16,24 @@ export const selectFrom = createSelector(
     return state.from},
 );
 
+export const selectAdultsCount = createSelector(
+  selectFeature,
+  (state: IDataTravel) => {
+    return state.adults},
+);
+
+export const selectChildsCount = createSelector(
+  selectFeature,
+  (state: IDataTravel) => {
+    return state.childs},
+);
+
+export const selectInfantsCount = createSelector(
+  selectFeature,
+  (state: IDataTravel) => {
+    return state.infants},
+);
+
 export const selectTravelFrom = createSelector(
   selectFeature,
   (state: IDataTravel) => {
