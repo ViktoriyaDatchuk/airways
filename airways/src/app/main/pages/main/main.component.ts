@@ -54,4 +54,11 @@ export class MainComponent implements OnInit {
       this.airports = airports;
     });
   }
+
+  changeInputFields() {
+    const tempDest = this.destControl.value
+    const tempFrom = this.fromControl.value
+    this.fromControl.setValue(tempDest)
+    this.destControl.setValue(tempFrom)
+  }
 }
