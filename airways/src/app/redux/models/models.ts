@@ -14,4 +14,5 @@ export interface IDataTravel {
   ticketFrom: IFlightModelWithoutOtherFlights | null;
   ticketTo: IFlightModelWithoutOtherFlights | null;
   isLoadingFlight: boolean;
+  isRoundTrip: boolean;
 }

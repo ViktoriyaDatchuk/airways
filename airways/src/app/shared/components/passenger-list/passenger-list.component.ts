@@ -12,4 +12,8 @@ export class PassengerListComponent {
     { title: 'Child', age: '2-14 years' },
     { title: 'Infant', age: '0-2 years' },
   ];
+
+  getPasString() {
+    return `adult ${0}, child ${0}, infant ${0}`;
+  }
 }

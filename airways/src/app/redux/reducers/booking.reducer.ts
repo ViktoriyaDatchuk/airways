@@ -13,6 +13,7 @@ export const initialState: IDataTravel = {
   travelFrom: [],
   travelTo: [],
   isLoadingFlight: false,
+  isRoundTrip: true,
   ticketFrom: null,
   ticketTo: null,
 };
@@ -25,23 +26,22 @@ export const bookingReducer = createReducer(
   })),
   on(bookinActions.setDataTravelFrom, (state, { from }) => ({
     ...state,
-    travelFrom: from
+    travelFrom: from,
   })),
   on(bookinActions.setDataTravelTo, (state, { to }) => ({
     ...state,
-    travelTo: to
+    travelTo: to,
   })),
   on(bookinActions.setTicketFrom, (state, { ticketFrom }) => ({
     ...state,
-    ticketFrom
+    ticketFrom,
   })),
   on(bookinActions.setTicketTo, (state, { ticketTo }) => ({
     ...state,
-    ticketTo
+    ticketTo,
   })),
   on(bookinActions.setIsLoadingFlight, (state, { loading }) => ({
     ...state,
-    isLoadingFlight: loading
+    isLoadingFlight: loading,
   }))
-
 );

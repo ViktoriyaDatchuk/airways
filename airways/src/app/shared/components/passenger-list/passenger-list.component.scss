@@ -1,0 +1,16 @@
+.relative {
+  position: relative;
+}
+.list {
+  position: absolute;
+  left: 0;
+  top: 36px;
+  z-index: 5;
+  // display: none;
+  width: 201px;
+  height: 184px;
+
+  /* Neutral/neutral100 */
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+}
