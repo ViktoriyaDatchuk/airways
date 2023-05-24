@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
+import { MatRadioChange } from '@angular/material/radio';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
+import { setDateFrom, setDateTo, setFrom, setTo, setTypeTrip } from 'src/app/redux/actions/booking-main.actions';
+import { IDataTravel } from 'src/app/redux/models/models';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
 
@@ -12,16 +17,25 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  fromControl = new FormControl('');
-  destControl = new FormControl('');
+  tripTypes = ['round-trip', 'one-way']
+  return = true;
+  fromControl = new FormControl('', Validators.required);
+  destControl = new FormControl('', Validators.required);
+  startDateControl = new FormControl('', Validators.required);
+  endDateControl = new FormControl('', this.return ? Validators.required : null);
+  
   airports: AirportModel[] = [];
   filteredFrom!: Observable<AirportModel[]>;
   filteredDest!: Observable<AirportModel[]>;
+  isValid = true;
+  passengerIsValid = false;
 
   constructor(
     private airportService: AirportsService,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private router: Router,
+    private store: Store<{ booking: IDataTravel }>
   ) {
     this.matIconRegistry.addSvgIcon(
       'switch',
@@ -54,4 +68,53 @@ export class MainComponent implements OnInit {
       this.airports = airports;
     });
   }
+
+  changeInputFields() {
+    const tempDest = this.destControl.value
+    const tempFrom = this.fromControl.value
+    this.fromControl.setValue(tempDest)
+    this.destControl.setValue(tempFrom)
+  }
+
+  changeTrip(e: MatRadioChange) {
+    if (e.value === this.tripTypes[0]) {
+      this.return = true
+      this.store.dispatch(setTypeTrip(true))
+    } else if (e.value === this.tripTypes[1]) {
+      this.return = false
+      this.store.dispatch(setTypeTrip(false))
+    }
+  }
+
+  passengerValid(event: boolean) {
+    this.passengerIsValid = event
+  }
+
+  validateForm() {
+    let form
+    if (this.return) {
+      form = this.destControl.invalid || this.fromControl.invalid || this.endDateControl.invalid || this.startDateControl.invalid
+    } else {
+      form = this.destControl.invalid|| this.fromControl.invalid || this.startDateControl.invalid
+    }
+
+    this.isValid = !form && this.passengerIsValid
+  }
+
+  searchItems() {
+    this.validateForm()
+    if (!this.isValid) return
+
+    this.store.dispatch(setFrom(this.fromControl.value || 'AMS'))
+    this.store.dispatch(setTo(this.destControl.value || 'MAD'))
+    this.store.dispatch(setDateFrom(new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString()))
+    if (this.return) {
+      this.store.dispatch(setDateTo(new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString()))
+    }
+
+    this.router.navigate(['/booking'])
+
+    console.log(this.destControl.value, this.fromControl.value, new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString(), new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString())
+  }
+
 }

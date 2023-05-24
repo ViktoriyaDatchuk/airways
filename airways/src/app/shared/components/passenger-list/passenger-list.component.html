@@ -1,9 +1,10 @@
-<div class="relative">
-  <button mat-button>{{ getPasString() }}</button>
+<div class="relative" [class]="isOpen ? 'active' : ''" #buttonList (click)="openList($event)">
+  <div mat-button class="relative__button">{{ text }}</div>
   <div class="list">
     <app-passenger-type
       *ngFor="let passenger of passengerList"
       [passenger]="passenger"
     ></app-passenger-type>
   </div>
+  <div class="relative__error danger-text" *ngIf="!isValid">Passengers must be more then 0</div>
 </div>

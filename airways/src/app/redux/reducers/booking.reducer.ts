@@ -10,12 +10,12 @@ export const initialState: IDataTravel = {
   adults: 0,
   childs: 0,
   infants: 0,
+  isRoundTrip: true,
   travelFrom: [],
   travelTo: [],
-  isLoadingFlight: false,
-  isRoundTrip: true,
   ticketFrom: null,
   ticketTo: null,
+  isLoadingFlight: false,
 };
 
 export const bookingReducer = createReducer(
@@ -23,6 +23,38 @@ export const bookingReducer = createReducer(
   on(bookinActions.setDataTravel, (state, { booking }) => ({
     ...state,
     ...booking,
+  })),
+  on(bookinActions.setFrom, (state, { from }) => ({
+    ...state,
+    from,
+  })),
+  on(bookinActions.setTo, (state, { destination }) => ({
+    ...state,
+    destination,
+  })),
+  on(bookinActions.setDateFrom, (state, { dateFrom }) => ({
+    ...state,
+    dateFrom,
+  })),
+  on(bookinActions.setDateTo, (state, { dateTo }) => ({
+    ...state,
+    dateTo,
+  })),
+  on(bookinActions.setAdultsCount, (state, { adults }) => ({
+    ...state,
+    adults,
+  })),
+  on(bookinActions.setChildsCount, (state, { childs }) => ({
+    ...state,
+    childs,
+  })),
+  on(bookinActions.setInfantsCount, (state, { infants }) => ({
+    ...state,
+    infants,
+  })),
+  on(bookinActions.setTypeTrip, (state, { isRoundTrip }) => ({
+    ...state,
+    isRoundTrip,
   })),
   on(bookinActions.setDataTravelFrom, (state, { from }) => ({
     ...state,

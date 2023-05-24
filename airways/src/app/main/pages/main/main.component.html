@@ -5,10 +5,10 @@
       <form action="" class="form">
         <div>
           <mat-radio-group>
-            <mat-radio-button value="round-trip" checked color="primary"
+            <mat-radio-button value="round-trip" checked color="primary" (change)="changeTrip($event)"
               >Round Trip</mat-radio-button
             >
-            <mat-radio-button value="one-way" color="primary"
+            <mat-radio-button value="one-way" color="primary" (change)="changeTrip($event)"
               >One way</mat-radio-button
             >
           </mat-radio-group>
@@ -31,8 +31,11 @@
               >
                 {{ optionFrom.city }}
               </mat-option>
-            </mat-autocomplete>
+            </mat-autocomplete> 
           </mat-form-field>
+          <div *ngIf="fromControl.invalid && fromControl.touched" class="danger-text">
+            From Input Required
+          </div>
         </div>
         <div>
           <mat-form-field class="destination">
@@ -57,24 +60,55 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+          <div *ngIf="destControl.invalid && destControl.touched" class="danger-text">
+            Destination Input Required
+          </div>
         </div>
         <div class="inline">
-          <mat-form-field appearance="fill">
-            <mat-label>Dates</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-              <input matStartDate placeholder="Start date" />
-              <input matEndDate placeholder="End date" />
-            </mat-date-range-input>
-            <mat-datepicker-toggle
-              matIconSuffix
-              [for]="picker"
-            ></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-          <app-passenger-list></app-passenger-list>
+          <div class="dates">
+            <mat-form-field appearance="fill" *ngIf="this.return; else soloDatePicker" >
+              <mat-label>Dates</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" [formControl]="startDateControl"/>
+                <input matEndDate placeholder="End date" [formControl]="endDateControl" />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-date-range-picker>
+            </mat-form-field>
+            <div *ngIf="return && startDateControl.invalid && endDateControl.invalid && (endDateControl.touched || startDateControl.touched)" class="danger-text">
+              Dates Input Required
+            </div>
+          </div>
+          <ng-template #soloDatePicker>
+            <mat-form-field class="dates">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="datepicker" [formControl]="startDateControl">
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="startDateControl.invalid && startDateControl.touched" class="danger-text">
+              Date Input Required
+            </div>
+          </ng-template>
+          <app-passenger-list (validStatus)="passengerValid($event)"></app-passenger-list>
         </div>
-        <button mat-button color="primary">Search</button>
-        <button mat-icon-button class="switch">
+        <div  class="search">
+          <button mat-button color="primary" (click)="searchItems()">Search</button>
+        </div>
+        <button mat-icon-button class="switch" (click)="changeInputFields()">
           <mat-icon svgIcon="switch"></mat-icon>
         </button>
       </form>

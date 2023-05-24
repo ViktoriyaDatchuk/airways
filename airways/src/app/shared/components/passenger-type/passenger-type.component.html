@@ -4,8 +4,8 @@
     <p>{{ passenger.age }}</p>
   </div>
   <div class="counter">
-    <button (click)="decrease()" [disabled]="disabled()">-</button>
+    <button type="button" (click)="decrease($event)" [disabled]="disabled()">-</button>
     {{ getCounter() }}
-    <button (click)="increase()">+</button>
+    <button type="button" (click)="increase($event)">+</button>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { setDataTravelFrom, setDataTravelTo, setIsLoadingFlight, setTicketFrom, setTicketTo } from 'src/app/redux/actions/booking-main.actions';
 import { Observable } from 'rxjs';
-import { selectFlightIsLoading } from 'src/app/redux/selectors/booking.selectors';
+import { selectDateFrom, selectDateTo, selectFlightIsLoading, selectFrom, selectIsReturn, selectTo } from 'src/app/redux/selectors/booking.selectors';
 
 
 @Component({
@@ -22,6 +22,24 @@ export class BookingComponent implements OnInit {
     forwardDate: "2023-09-21T00:00:00.000Z",
     backDate: "2023-10-11T00:00:00.000Z"
   }
+  // fakeData: SearchFlightModel =  {
+  //   fromKey: "AMS",
+  //   toKey: "MAD",
+  //   forwardDate: "2023-09-21T00:00:00.000Z",
+  //   backDate: "2023-10-11T00:00:00.000Z"
+  // }
+
+  fromKey$!: Observable<string>
+  toKey$!: Observable<string>
+  forwardDate$!: Observable<string>
+  backDate$!: Observable<string>
+  returnTicket$!: Observable<boolean>
+
+  fromKey = ''
+  toKey = ''
+  forwardDate = ''
+  backDate = ''
+  returnTicket = true
 
   ticketIsLoading$!: Observable<boolean>
 
@@ -33,16 +51,51 @@ export class BookingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getFlightData();
+    
     this.ticketIsLoading$ = this.state.select(selectFlightIsLoading)
     this.ticketIsLoading$.subscribe((el) => {
       this.ticketIsLoading = el
     })
+
+    this.fromKey$ = this.state.select(selectFrom)
+    this.toKey$ = this.state.select(selectTo)
+    this.forwardDate$ = this.state.select(selectDateFrom)
+    this.backDate$ = this.state.select(selectDateTo)
+    this.returnTicket$ = this.state.select(selectIsReturn)
+
+    this.fromKey$.subscribe((el) => {
+      this.fromKey =  el
+    })
+    this.toKey$.subscribe((el) => {
+      this.toKey =  el
+    })
+    this.forwardDate$.subscribe((el) => {
+      this.forwardDate =  el
+    })
+    this.backDate$.subscribe((el) => {
+      this.backDate =  el
+    })
+    this.returnTicket$.subscribe((el) => {
+      this.returnTicket =  el
+    })
+    
+    this.getFlightData();
+  }
+
+  generateFlightRequest(): SearchFlightModel {
+    const response = {
+      forwardDate: this.forwardDate,
+      fromKey: this.fromKey,
+      toKey: this.toKey,
+      backDate: this.returnTicket ? this.backDate : ''
+    }
+    console.log(response)
+    return  response
   }
 
   getFlightData() {
     this.state.dispatch(setIsLoadingFlight(true))
-    this.airportService.searchFlight(this.fakeData).subscribe((flight) => {
+    this.airportService.searchFlight(this.generateFlightRequest()).subscribe((flight) => {
       const products = flight;
       const flightFrom = this.getArrayOfFlight(products[0].otherFlights, products[0])
       const flightTo = this.getArrayOfFlight(products[1].otherFlights, products[1])

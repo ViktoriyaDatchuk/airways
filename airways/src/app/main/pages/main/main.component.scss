@@ -44,5 +44,18 @@
 }
 .inline {
   display: flex;
-  align-items: center;
+  // align-items: center;
+}
+
+.dates {
+  width: 50%
+}
+
+.danger-text {
+  color: red;
+}
+
+.search {
+  display: flex;
+  justify-content: flex-end;
 }
