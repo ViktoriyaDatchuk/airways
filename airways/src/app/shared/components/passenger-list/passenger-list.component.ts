@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, EventEmitter, Output } from '@angular/core';
 import { PassengerType } from '../../models/types.model';
 import { Store } from '@ngrx/store';
 import { IDataTravel } from 'src/app/redux/models/models';
@@ -35,7 +35,9 @@ export class PassengerListComponent implements OnInit {
 
   isValid = false
 
-  constructor(private state: Store<{ booking: IDataTravel }>){
+  @Output() validStatus = new EventEmitter<boolean>();
+
+  constructor(private state: Store<{ booking: IDataTravel }>) {
     this.Adults$ = this.state.select(selectAdultsCount)
     this.Childs$ = this.state.select(selectChildsCount)
     this.Infants$ = this.state.select(selectInfantsCount)
@@ -82,7 +84,11 @@ export class PassengerListComponent implements OnInit {
   setIsValid() {
     const isValid = this.Adults + this.Childs + this.Infants
     this.isValid =  isValid  === 0 && this.isTouched ? false : true
-    console.log(this.isValid, isValid, this.isTouched)
+    this.emitValidStatus()
+  }
+
+  emitValidStatus() {
+    this.validStatus.emit(this.isValid)
   }
 
 }

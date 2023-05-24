@@ -24,6 +24,22 @@ export const bookingReducer = createReducer(
     ...state,
     ...booking,
   })),
+  on(bookinActions.setFrom, (state, { from }) => ({
+    ...state,
+    from,
+  })),
+  on(bookinActions.setTo, (state, { destination }) => ({
+    ...state,
+    destination,
+  })),
+  on(bookinActions.setDateFrom, (state, { dateFrom }) => ({
+    ...state,
+    dateFrom,
+  })),
+  on(bookinActions.setDateTo, (state, { dateTo }) => ({
+    ...state,
+    dateTo,
+  })),
   on(bookinActions.setAdultsCount, (state, { adults }) => ({
     ...state,
     adults,

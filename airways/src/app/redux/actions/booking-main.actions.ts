@@ -6,6 +6,10 @@ import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.mod
 
 
 
+export const setFrom = createAction('[BOOKIN_PAGE] SET FROM COUNTRY', (from: string) => ({from}));
+export const setTo = createAction('[BOOKIN_PAGE] SET TO COUNTRY', (destination: string) => ({destination}));
+export const setDateFrom = createAction('[BOOKIN_PAGE] SET DATE FROM', (dateFrom: string) => ({dateFrom}));
+export const setDateTo = createAction('[BOOKIN_PAGE] SET DATE TO', (dateTo: string) => ({dateTo}));
 export const setAdultsCount = createAction('[BOOKIN_PAGE] SET ADULTS COUNT', (adults: number) => ({adults}));
 export const setChildsCount = createAction('[BOOKIN_PAGE] SET CHILDS COUNT', (childs: number) => ({childs}));
 export const setInfantsCount = createAction('[BOOKIN_PAGE] SET INFANTS COUNT', (infants: number) => ({infants}));

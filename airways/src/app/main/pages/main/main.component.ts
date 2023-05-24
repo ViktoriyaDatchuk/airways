@@ -3,9 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MatRadioChange } from '@angular/material/radio';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
-import { setTypeTrip } from 'src/app/redux/actions/booking-main.actions';
+import { setDateFrom, setDateTo, setFrom, setTo, setTypeTrip } from 'src/app/redux/actions/booking-main.actions';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
@@ -26,12 +27,14 @@ export class MainComponent implements OnInit {
   airports: AirportModel[] = [];
   filteredFrom!: Observable<AirportModel[]>;
   filteredDest!: Observable<AirportModel[]>;
-  isValid = false;
+  isValid = true;
+  passengerIsValid = false;
 
   constructor(
     private airportService: AirportsService,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
+    private router: Router,
     private store: Store<{ booking: IDataTravel }>
   ) {
     this.matIconRegistry.addSvgIcon(
@@ -83,5 +86,35 @@ export class MainComponent implements OnInit {
     }
   }
 
+  passengerValid(event: boolean) {
+    this.passengerIsValid = event
+  }
+
+  validateForm() {
+    let form
+    if (this.return) {
+      form = this.destControl.invalid || this.fromControl.invalid || this.endDateControl.invalid || this.startDateControl.invalid
+    } else {
+      form = this.destControl.invalid|| this.fromControl.invalid || this.startDateControl.invalid
+    }
+
+    this.isValid = !form && this.passengerIsValid
+  }
+
+  searchItems() {
+    this.validateForm()
+    if (!this.isValid) return
+
+    this.store.dispatch(setFrom(this.fromControl.value || 'AMS'))
+    this.store.dispatch(setTo(this.destControl.value || 'MAD'))
+    this.store.dispatch(setDateFrom(new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString()))
+    if (this.return) {
+      this.store.dispatch(setDateTo(new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString()))
+    }
+
+    this.router.navigate(['/booking'])
+
+    console.log(this.destControl.value, this.fromControl.value, new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString(), new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString())
+  }
 
 }

@@ -103,10 +103,10 @@
               Date Input Required
             </div>
           </ng-template>
-          <app-passenger-list></app-passenger-list>
+          <app-passenger-list (validStatus)="passengerValid($event)"></app-passenger-list>
         </div>
         <div  class="search">
-          <button mat-button color="primary">Search</button>
+          <button mat-button color="primary" (click)="searchItems()">Search</button>
         </div>
         <button mat-icon-button class="switch" (click)="changeInputFields()">
           <mat-icon svgIcon="switch"></mat-icon>
