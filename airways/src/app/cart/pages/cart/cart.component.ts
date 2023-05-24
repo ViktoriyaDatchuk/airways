@@ -1,17 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ViewChild } from '@angular/core';
 import { trips } from '../../tripsmock';
 import { IDataTravel } from '../../tripsmock';
+import { BookingTableComponent } from 'src/app/shared/components/booking-table/booking-table.component';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements AfterViewChecked {
+  @ViewChild(BookingTableComponent) child!: BookingTableComponent;
+
   public trips: IDataTravel[] = trips;
 
-  public sum: number = 0;
+  public selected: number = 0;
 
-  ngOnInit(): void {
-    this.sum = this.trips.reduce((sum, trip) => sum + trip.price, 0);
+  public sum!: number;
+
+  ngAfterViewChecked(): void {
+    setTimeout(() => {
+      this.selected = this.child.selected;
+      this.sum = this.child.sum;
+    });
   }
 }

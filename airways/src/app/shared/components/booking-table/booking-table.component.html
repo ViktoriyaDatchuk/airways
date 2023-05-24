@@ -1,7 +1,15 @@
 <table class="trip-table" matSort (matSortChange)="sortData($event)">
   <thead class="trip-table__header">
     <tr>
-      <th class="checkbox-col"></th>
+      <th class="checkbox-col">
+        <mat-checkbox
+          class="example-margin"
+          [checked]="allComplete"
+          (change)="setAll($event.checked)"
+        >
+          All
+        </mat-checkbox>
+      </th>
       <th mat-sort-header="number">No.</th>
       <th mat-sort-header="flight">Flight</th>
       <th mat-sort-header="type">Type trip</th>
@@ -15,7 +23,10 @@
     <tr *ngFor="let trip of sortedTrips">
       <td class="trip-table__row">
         <section class="checkbox-section">
-          <mat-checkbox></mat-checkbox>
+          <mat-checkbox
+            [(ngModel)]="trip.selected"
+            (ngModelChange)="updateAllInputs()"
+          ></mat-checkbox>
         </section>
       </td>
       <td class="trip-table__row number-row">{{ trip.number }}</td>
@@ -57,7 +68,10 @@
       <td class="trip-table__row dots-row">
         <button class="dots-button" (click)="toggle($event)">
           <img src="./assets/dots.svg" alt="dots" />
-          <app-edit-menu class="menu-position"></app-edit-menu>
+          <app-edit-menu
+            class="menu-position"
+            (deleteItem)="deleteItem($event)"
+          ></app-edit-menu>
         </button>
       </td>
     </tr>

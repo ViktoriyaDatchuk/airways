@@ -1,4 +1,5 @@
 export interface IDataTravel {
+  selected: boolean;
   number: string;
   type: string;
   from: string;
@@ -15,6 +16,7 @@ export interface IDataTravel {
 
 export const trips: IDataTravel[] = [
   {
+    selected: false,
     number: 'FR 1925',
     type: 'Round Trip',
     from: 'Dublin',
@@ -29,6 +31,7 @@ export const trips: IDataTravel[] = [
     price: 551.38,
   },
   {
+    selected: false,
     number: 'FR 1936',
     type: 'One way',
     from: 'Gdansk',

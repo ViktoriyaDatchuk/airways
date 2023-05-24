@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { IDataTravel, trips } from '../../../cart/tripsmock';
 
@@ -6,13 +6,48 @@ import { IDataTravel, trips } from '../../../cart/tripsmock';
   selector: 'app-booking-table',
   templateUrl: './booking-table.component.html',
 })
-export class BookingTableComponent {
+export class BookingTableComponent implements DoCheck {
+  public trips: IDataTravel[] = trips;
+
   public isVisible: boolean = false;
+
+  public allComplete: boolean = false;
+
+  public selected: number = 0;
+
+  public sum!: number;
 
   public sortedTrips!: IDataTravel[];
 
-  constructor() {
-    this.sortedTrips = trips.slice();
+  ngDoCheck(): void {
+    this.sortedTrips = this.trips.slice();
+    this.sum = this.sortedTrips.reduce((sum, trip) => sum + trip.price, 0);
+  }
+
+  setAll(completed: boolean) {
+    if (this.allComplete === false) {
+      this.allComplete = completed;
+      this.sortedTrips.forEach((trip) => (trip.selected = true));
+    } else {
+      this.allComplete = false;
+      this.sortedTrips.forEach((trip) => (trip.selected = false));
+    }
+    this.selected = this.countSelected();
+  }
+
+  updateAllInputs() {
+    this.allComplete = this.sortedTrips.every((trip) => trip.selected);
+    this.selected = this.countSelected();
+  }
+
+  countSelected() {
+    let sum = 0;
+    this.sortedTrips.forEach((trip) => {
+      if (trip.selected === true) {
+        sum++;
+      }
+    });
+    return sum;
   }
 
   toggle(e: Event) {
@@ -21,8 +56,17 @@ export class BookingTableComponent {
       .classList.toggle('unhidden');
   }
 
+  deleteItem(number: string) {
+    Array.from(document.getElementsByTagName('app-edit-menu')).forEach(
+      (elem) => {
+        elem.classList.remove('unhidden');
+      }
+    );
+    this.trips = this.trips.filter((trip) => trip.number !== number);
+  }
+
   sortData(sort: Sort) {
-    const data = trips.slice();
+    const data = this.trips.slice();
     if (!sort.active || sort.direction === '') {
       this.sortedTrips = data;
       return;

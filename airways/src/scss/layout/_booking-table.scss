@@ -12,6 +12,22 @@
 
     .checkbox-col {
       width: calc(0.05 * $container-width);
+
+      .mat-mdc-checkbox.mat-accent {
+        margin-left: 3px;
+      }
+
+      .mdc-form-field {
+        position: relative;
+      }
+
+      .mdc-form-field > label {
+        position: absolute;
+        top: 30px;
+        left: 13px;
+        padding-left: 0;
+        font-size: 12px;
+      }
     }
 
     .passengers-title {
