@@ -8,16 +8,17 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { bookingReducer } from './redux/reducers/booking.reducer';
+import { settingsReducer } from './redux/reducers/settings.reducer';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    CoreModule, 
-    SharedModule, 
-    BrowserAnimationsModule, 
-    StoreModule.forRoot({ booking: bookingReducer }),
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+    SharedModule,
+    BrowserAnimationsModule,
+    StoreModule.forRoot({ booking: bookingReducer, settings: settingsReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent],

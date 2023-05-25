@@ -1,12 +1,18 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { IDataTravel, trips } from '../../../cart/tripsmock';
+import { Store } from '@ngrx/store';
+import {
+  SettingsState,
+  selectCurrency,
+} from 'src/app/redux/selectors/settings.selector';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-booking-table',
   templateUrl: './booking-table.component.html',
 })
-export class BookingTableComponent implements DoCheck {
+export class BookingTableComponent implements OnInit, DoCheck {
   public trips: IDataTravel[] = trips;
 
   public isVisible: boolean = false;
@@ -17,7 +23,23 @@ export class BookingTableComponent implements DoCheck {
 
   public sum!: number;
 
+  public currencyIcon!: string;
+
   public sortedTrips!: IDataTravel[];
+
+  constructor(
+    private dataService: DataService,
+    private store: Store<SettingsState>
+  ) {}
+
+  ngOnInit(): void {
+    this.store.select(selectCurrency).subscribe((data) => {
+      this.currencyIcon =
+        this.dataService.currencyIcons[
+          data as keyof typeof this.dataService.currencyIcons
+        ];
+    });
+  }
 
   ngDoCheck(): void {
     this.sortedTrips = this.trips.slice();

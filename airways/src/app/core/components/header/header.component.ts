@@ -1,5 +1,15 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import {
+  setCurrencyFormat,
+  setDateFormat,
+} from 'src/app/redux/actions/settings.actoins';
+import {
+  SettingsState,
+  selectCurrency,
+  selectDate,
+} from 'src/app/redux/selectors/settings.selector';
 
 interface Select {
   value: string;
@@ -11,20 +21,20 @@ interface Select {
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  public page: string = 'cart';
+  public page!: string;
 
   public datesFormat: Select[] = [
-    { value: 'date-0', viewValue: 'MM/DD/YYYY' },
-    { value: 'date-1', viewValue: 'DD/MM/YYYY' },
-    { value: 'date-2', viewValue: 'YYYY/DD/MM' },
-    { value: 'date-3', viewValue: 'YYYY/MM/DD' },
+    { value: 'MM/DD/YYYY', viewValue: 'MM/DD/YYYY' },
+    { value: 'DD/MM/YYYY', viewValue: 'DD/MM/YYYY' },
+    { value: 'YYYY/DD/MM', viewValue: 'YYYY/DD/MM' },
+    { value: 'YYYY/MM/DD', viewValue: 'YYYY/MM/DD' },
   ];
 
   public currency: Select[] = [
-    { value: 'cur-0', viewValue: 'EUR' },
-    { value: 'cur-1', viewValue: 'USA' },
-    { value: 'cur-2', viewValue: 'RUB' },
-    { value: 'cur-3', viewValue: 'PLN' },
+    { value: 'eur', viewValue: 'EUR' },
+    { value: 'usa', viewValue: 'USA' },
+    { value: 'rub', viewValue: 'RUB' },
+    { value: 'pln', viewValue: 'PLN' },
   ];
 
   public backgroundColor: string = 'rgba(116, 118, 122, 0.2)';
@@ -43,9 +53,20 @@ export class HeaderComponent implements OnInit {
 
   public userName: string = 'Viktoryia';
 
-  constructor(private location: Location) {}
+  constructor(
+    private location: Location,
+    private store: Store<SettingsState>
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.location.path());
+    this.page = this.location.path().slice(1);
+  }
+
+  addDateToStore(e: string) {
+    this.store.dispatch(setDateFormat({ date: e }));
+  }
+
+  addCurrencyToStore(e: string) {
+    this.store.dispatch(setCurrencyFormat({ currency: e }));
   }
 }

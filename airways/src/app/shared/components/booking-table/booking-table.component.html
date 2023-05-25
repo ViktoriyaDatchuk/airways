@@ -64,7 +64,9 @@
           <li *ngIf="trip.infants !== 0">{{ trip.infants }} x Infant</li>
         </ul>
       </td>
-      <td class="trip-table__row trip-price">{{ trip.price }}</td>
+      <td class="trip-table__row trip-price">
+        {{ currencyIcon }}{{ trip.price }}
+      </td>
       <td class="trip-table__row dots-row">
         <button class="dots-button" (click)="toggle($event)">
           <img src="./assets/dots.svg" alt="dots" />
