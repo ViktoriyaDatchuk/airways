@@ -1,0 +1,30 @@
+<div class="cart container">
+  <mat-card class="booking-table">
+    <mat-card-header>
+      <mat-card-title class="booking-table__title">Cart</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-booking-table></app-booking-table>
+      <div class="total-row">
+        <button class="add-button">+ Add new trip</button>
+        <div class="total-price">
+          <p class="total-price__title">Total</p>
+          <p class="total-price__value">{{ currencyIcon }}{{ sum }}</p>
+        </div>
+      </div>
+      <mat-divider class="divider-margin"></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <div class="payment-row">
+        <form class="payment-row__form">
+          <input class="promo-input" type="text" placeholder="Promo Code" />
+          <button class="apply-button">APPLY</button>
+        </form>
+        <div class="payment-button">
+          <p class="payment-button__selected">{{ selected }} selected</p>
+          <button class="payment-button__pay">Payment</button>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

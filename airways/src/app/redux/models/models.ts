@@ -16,3 +16,8 @@ export interface IDataTravel {
   isLoadingFlight: boolean;
   isRoundTrip: boolean;
 }
+
+export interface ISettings {
+  date: string;
+  currency: string;
+}

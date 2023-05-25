@@ -3,16 +3,21 @@
   [style.background]="page === 'main' ? backgroundColor : 'white'"
 >
   <div class="header__content">
-    <img class="header__content__logo" src="./assets/logo.svg" alt="logo" />
+    <img
+      class="header__content__logo"
+      src="./assets/logo.svg"
+      alt="logo"
+      [routerLink]="['/main']"
+    />
     <div
       class="header__content__elements"
-      [style.gap]="page === 'book' ? '17px' : '40px'"
+      [style.gap]="page === 'booking' ? '17px' : '40px'"
     >
       <button class="title-button" *ngIf="page === 'main'; else stepperBlock">
         Book flights
       </button>
       <ng-template #stepperBlock>
-        <mat-stepper *ngIf="page === 'book'">
+        <mat-stepper *ngIf="page === 'booking'">
           <mat-step label="Flights" matStepperIcon="phone"></mat-step>
           <mat-step label="Passengers"></mat-step>
           <mat-step label="Review & Payment"></mat-step>
@@ -23,6 +28,7 @@
           [style.filter]="page === 'main' ? 'none' : bookingFilter"
           panelClass="date-select"
           [value]="datesFormat[0].value"
+          (valueChange)="addDateToStore($event)"
         >
           <mat-option *ngFor="let date of datesFormat" [value]="date.value">
             {{ date.viewValue }}
@@ -34,12 +40,13 @@
           [style.filter]="
             page === 'main'
               ? 'none'
-              : page === 'book'
+              : page === 'booking'
               ? bookingFilter
               : cartFilter
           "
           panelClass="currency-select"
           [value]="currency[0].value"
+          (valueChange)="addCurrencyToStore($event)"
         >
           <mat-option *ngFor="let cur of currency" [value]="cur.value">
             {{ cur.viewValue }}
@@ -55,7 +62,7 @@
             [style.filter]="
               page === 'main'
                 ? 'none'
-                : page === 'book'
+                : page === 'booking'
                 ? bookingFilter
                 : cartFilter
             "
@@ -65,7 +72,11 @@
         </div>
         <span
           [style.color]="
-            page === 'main' ? 'white' : page === 'book' ? '#49454F' : '#11397E'
+            page === 'main'
+              ? 'white'
+              : page === 'booking'
+              ? '#49454F'
+              : '#11397E'
           "
           class="login-button__text"
           >{{ isAuth ? userName : "Sign in" }}</span
@@ -78,11 +89,11 @@
         class="basket"
       >
         <img
-          [style.margin-left]="page === 'book' ? '15px' : '-9px'"
+          [style.margin-left]="page === 'booking' ? '15px' : '-9px'"
           [style.filter]="
             page === 'main'
               ? 'none'
-              : page === 'book'
+              : page === 'booking'
               ? bookingFilter
               : cartFilter
           "
