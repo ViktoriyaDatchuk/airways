@@ -25,6 +25,7 @@ export class TableComponent implements OnInit{
     this.ticket$ = this.state.select(selectTicketTo)
     
   }
+
   ngOnInit(): void {
       if (this.from) {
         this.ticket$ = this.state.select(selectTicketFrom)

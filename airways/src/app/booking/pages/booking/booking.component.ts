@@ -63,6 +63,12 @@ export class BookingComponent implements OnInit {
     this.backDate$ = this.state.select(selectDateTo)
     this.returnTicket$ = this.state.select(selectIsReturn)
 
+    this.subscribe()    
+    
+    this.getFlightData();
+  }
+
+  subscribe() {
     this.fromKey$.subscribe((el) => {
       this.fromKey =  el
     })
@@ -78,8 +84,6 @@ export class BookingComponent implements OnInit {
     this.returnTicket$.subscribe((el) => {
       this.returnTicket =  el
     })
-    
-    this.getFlightData();
   }
 
   generateFlightRequest(): SearchFlightModel {
@@ -95,16 +99,20 @@ export class BookingComponent implements OnInit {
 
   getFlightData() {
     this.state.dispatch(setIsLoadingFlight(true))
+    
     this.airportService.searchFlight(this.generateFlightRequest()).subscribe((flight) => {
       const products = flight;
       const flightFrom = this.getArrayOfFlight(products[0].otherFlights, products[0])
-      const flightTo = this.getArrayOfFlight(products[1].otherFlights, products[1])
+      if (this.returnTicket) {
+        const flightTo = this.getArrayOfFlight(products[1].otherFlights, products[1])
+        this.state.dispatch(setDataTravelTo({to: flightTo}))
+      }
       this.state.dispatch(setDataTravelFrom({from: flightFrom}))
-      this.state.dispatch(setDataTravelTo({to: flightTo}))
       this.state.dispatch(setTicketFrom({ticketFrom: products[0]}))
       this.state.dispatch(setTicketTo({ticketTo: products[1]}))
       this.state.dispatch(setIsLoadingFlight(false))
     });
+    this.subscribe()
   }
 
   getArrayOfFlight(overFlightArr: IOtherFlights, ticket: IFlightModelWithoutOtherFlights): ISliderData[] {

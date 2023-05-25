@@ -2,7 +2,7 @@ import { AfterContentInit, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { Store } from '@ngrx/store';
-import { selectFlightIsLoading, selectTicketFrom } from 'src/app/redux/selectors/booking.selectors';
+import { selectFlightIsLoading, selectIsReturn, selectTicketFrom } from 'src/app/redux/selectors/booking.selectors';
 import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import { FROMTOSTRINGS } from '../../booking.model';
 import { Router } from '@angular/router';
@@ -15,7 +15,9 @@ import { Router } from '@angular/router';
 })
 export class TicketsComponent implements AfterContentInit, OnInit {
   
-  @Input() return!: boolean;
+  returnTicket = true;
+
+  returnTicket$!: Observable<boolean>
 
   isLoadingFlight$: Observable<boolean>
 
@@ -42,6 +44,13 @@ export class TicketsComponent implements AfterContentInit, OnInit {
     this.ticket$.subscribe((el) => {
       this.ticket = el
     })
+    this.returnTicket$ = this.store.select(selectIsReturn)
+    this.returnTicket$.subscribe((el) => {
+      this.returnTicket = el
+      console.log(this.returnTicket, '1')
+    })
+
+    console.log(this.returnTicket, '2')
   }
 
   selectedTicket(fromOrTo: any) {
@@ -63,7 +72,7 @@ export class TicketsComponent implements AfterContentInit, OnInit {
   }
 
   isDisabledButton() {
-    if (this.return) {
+    if (this.returnTicket) {
       if (!this.hasFromCarusel && !this.hasToCarusel) {
         return false
       } else {
@@ -78,7 +87,7 @@ export class TicketsComponent implements AfterContentInit, OnInit {
   }
 
   ngAfterContentInit(): void {
-    if (this.return) {
+    if (this.returnTicket) {
       this.hasToCarusel = true
     }
   }
@@ -88,7 +97,6 @@ export class TicketsComponent implements AfterContentInit, OnInit {
     const toCity = this.ticket?.to.city
     if (from) return `${fromCity} to ${toCity}`
     else return `${toCity} to ${fromCity}`
-
   }
 
 
