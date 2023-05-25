@@ -6,10 +6,11 @@ import { EditMenuComponent } from './components/edit-menu/edit-menu.component';
 import { BookingTableComponent } from './components/booking-table/booking-table.component';
 import { PassengerTypeComponent } from './components/passenger-type/passenger-type.component';
 import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
+import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 
 
 @NgModule({
-  declarations: [EditMenuComponent, BookingTableComponent, PassengerTypeComponent, PassengerListComponent],
+  declarations: [EditMenuComponent, BookingTableComponent, PassengerTypeComponent, PassengerListComponent, FlightSearchComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { PassengerListComponent } from './components/passenger-list/passenger-li
     EditMenuComponent,
     BookingTableComponent,
     PassengerListComponent,
+    FlightSearchComponent,
   ],
 })
 export class SharedModule {}
