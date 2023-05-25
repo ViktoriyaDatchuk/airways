@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { bookingReducer } from './redux/reducers/booking.reducer';
 import { settingsReducer } from './redux/reducers/settings.reducer';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { settingsReducer } from './redux/reducers/settings.reducer';
     SharedModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ booking: bookingReducer, settings: settingsReducer }),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,11 @@
+<div class="item">
+  <div class="data">
+    <h3>{{ passenger.title }}</h3>
+    <p>{{ passenger.age }}</p>
+  </div>
+  <div class="counter">
+    <button type="button" (click)="decrease($event)" [disabled]="disabled()">-</button>
+    {{ getCounter() }}
+    <button type="button" (click)="increase($event)">+</button>
+  </div>
+</div>

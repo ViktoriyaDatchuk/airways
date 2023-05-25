@@ -4,9 +4,12 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditMenuComponent } from './components/edit-menu/edit-menu.component';
 import { BookingTableComponent } from './components/booking-table/booking-table.component';
+import { PassengerTypeComponent } from './components/passenger-type/passenger-type.component';
+import { PassengerListComponent } from './components/passenger-list/passenger-list.component';
+
 
 @NgModule({
-  declarations: [EditMenuComponent, BookingTableComponent],
+  declarations: [EditMenuComponent, BookingTableComponent, PassengerTypeComponent, PassengerListComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [
     CommonModule,
@@ -15,6 +18,7 @@ import { BookingTableComponent } from './components/booking-table/booking-table.
     ReactiveFormsModule,
     EditMenuComponent,
     BookingTableComponent,
+    PassengerListComponent,
   ],
 })
 export class SharedModule {}

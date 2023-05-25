@@ -14,6 +14,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 const MaterialComponents = [
   MatButtonModule,
@@ -25,11 +31,17 @@ const MaterialComponents = [
   MatInputModule,
   MatTabsModule,
   MatCheckboxModule,
-  MatSelectModule,
   MatBadgeModule,
   MatStepperModule,
   MatDividerModule,
   MatSortModule,
+  MatRadioModule,
+  MatAutocompleteModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({
