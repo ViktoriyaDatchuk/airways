@@ -1,15 +1,12 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { trips } from 'src/app/cart/tripsmock';
 import {
   setCurrencyFormat,
   setDateFormat,
 } from 'src/app/redux/actions/settings.actoins';
-import {
-  SettingsState,
-  selectCurrency,
-  selectDate,
-} from 'src/app/redux/selectors/settings.selector';
+import { SettingsState } from 'src/app/redux/selectors/settings.selector';
 
 interface Select {
   value: string;
@@ -20,7 +17,7 @@ interface Select {
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements DoCheck {
   public page!: string;
 
   public datesFormat: Select[] = [
@@ -47,7 +44,7 @@ export class HeaderComponent implements OnInit {
 
   public hidden: boolean = true;
 
-  public badgeCounter: number = 2;
+  public badgeCounter!: number;
 
   public isAuth: boolean = false;
 
@@ -58,8 +55,14 @@ export class HeaderComponent implements OnInit {
     private store: Store<SettingsState>
   ) {}
 
-  ngOnInit(): void {
+  ngDoCheck(): void {
     this.page = this.location.path().slice(1);
+    this.badgeCounter = trips.length;
+    // if (this.badgeCounter !== 0) {
+    //   this.hidden = false;
+    // } else {
+    //   this.hidden = true;
+    // }
   }
 
   addDateToStore(e: string) {

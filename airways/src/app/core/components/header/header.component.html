@@ -1,19 +1,19 @@
 <div
   class="header container"
-  [style.background]="page === 'main' ? backgroundColor : 'white'"
+  [style.background]="page === '' ? backgroundColor : 'white'"
 >
   <div class="header__content">
     <img
       class="header__content__logo"
       src="./assets/logo.svg"
       alt="logo"
-      [routerLink]="['/main']"
+      [routerLink]="['/']"
     />
     <div
       class="header__content__elements"
       [style.gap]="page === 'booking' ? '17px' : '40px'"
     >
-      <button class="title-button" *ngIf="page === 'main'; else stepperBlock">
+      <button class="title-button" *ngIf="page === ''; else stepperBlock">
         Book flights
       </button>
       <ng-template #stepperBlock>
@@ -25,7 +25,7 @@
       </ng-template>
       <mat-form-field appearance="fill" class="date">
         <mat-select
-          [style.filter]="page === 'main' ? 'none' : bookingFilter"
+          [style.filter]="page === '' ? 'none' : bookingFilter"
           panelClass="date-select"
           [value]="datesFormat[0].value"
           (valueChange)="addDateToStore($event)"
@@ -38,7 +38,7 @@
       <mat-form-field appearance="fill" class="currency">
         <mat-select
           [style.filter]="
-            page === 'main'
+            page === ''
               ? 'none'
               : page === 'booking'
               ? bookingFilter
@@ -60,7 +60,7 @@
         >
           <img
             [style.filter]="
-              page === 'main'
+              page === ''
                 ? 'none'
                 : page === 'booking'
                 ? bookingFilter
@@ -72,11 +72,7 @@
         </div>
         <span
           [style.color]="
-            page === 'main'
-              ? 'white'
-              : page === 'booking'
-              ? '#49454F'
-              : '#11397E'
+            page === '' ? 'white' : page === 'booking' ? '#49454F' : '#11397E'
           "
           class="login-button__text"
           >{{ isAuth ? userName : "Sign in" }}</span
@@ -91,7 +87,7 @@
         <img
           [style.margin-left]="page === 'booking' ? '15px' : '-9px'"
           [style.filter]="
-            page === 'main'
+            page === ''
               ? 'none'
               : page === 'booking'
               ? bookingFilter
