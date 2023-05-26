@@ -19,6 +19,7 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
 })
 export class FlightSearchComponent {
   tripTypes = ['round-trip', 'one-way']
+  pageURL = '/booking'
   isEdit = false;
 
   return = true;
@@ -54,6 +55,8 @@ export class FlightSearchComponent {
   infant = 0
 
   returnWay$!: Observable<boolean>
+
+  isBookingPage = false;
   
 
   constructor(
@@ -118,6 +121,8 @@ export class FlightSearchComponent {
     this.returnWay$.subscribe((el) => {
       this.return = el
     })
+
+    this.setIsBooking()
   }
 
   passengerValid(event: boolean) {
@@ -204,5 +209,11 @@ export class FlightSearchComponent {
   }
   changeEndDate() {
     this.store.dispatch(setDateTo(new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString()))
+  }
+
+  setIsBooking() {
+    if (this.router.url === this.pageURL) {
+      this.isBookingPage = true
+    }
   }
 }

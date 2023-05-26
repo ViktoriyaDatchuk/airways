@@ -17,7 +17,7 @@
             <mat-icon matSuffix class="flight-search__passagers-icon">person</mat-icon>
         </div>
     </div>
-    <div class="flight-search__edit" (click)="isEdit = !isEdit">Edit</div>
+    <div class="flight-search__edit" *ngIf="isBookingPage" (click)="isEdit = !isEdit">Edit</div>
 </div>
 <div *ngIf="isEdit" class="flight-search__bottom-panel">
     <form action="" class="form">
