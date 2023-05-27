@@ -11,10 +11,10 @@ export const settingsReducer = createReducer(
   initialState,
   on(settingsAction.setDateFormat, (state, { date }) => ({
     ...state,
-    date: date,
+    date,
   })),
   on(settingsAction.setCurrencyFormat, (state, { currency }) => ({
     ...state,
-    currency: currency,
+    currency,
   }))
 );

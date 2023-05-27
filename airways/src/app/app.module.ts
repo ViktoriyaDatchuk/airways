@@ -10,6 +10,7 @@ import { StoreModule } from '@ngrx/store';
 import { bookingReducer } from './redux/reducers/booking.reducer';
 import { settingsReducer } from './redux/reducers/settings.reducer';
 import { HttpClientModule } from '@angular/common/http';
+import { cartReducer } from './redux/reducers/cart.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,11 @@ import { HttpClientModule } from '@angular/common/http';
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ booking: bookingReducer, settings: settingsReducer }),
+    StoreModule.forRoot({
+      booking: bookingReducer,
+      settings: settingsReducer,
+      cart: cartReducer,
+    }),
     HttpClientModule,
   ],
   providers: [],

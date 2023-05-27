@@ -6,6 +6,10 @@ import {
   setCurrencyFormat,
   setDateFormat,
 } from 'src/app/redux/actions/settings.actoins';
+import {
+  CartState,
+  selectFeature,
+} from 'src/app/redux/selectors/cart.selector';
 import { SettingsState } from 'src/app/redux/selectors/settings.selector';
 
 interface Select {
@@ -42,6 +46,8 @@ export class HeaderComponent implements DoCheck {
   public cartFilter: string =
     'invert(86%) sepia(38%) saturate(4871%) hue-rotate(209deg) brightness(97%) contrast(89%)';
 
+  public bookingPages: string[] = ['booking', 'passangers', 'summary', 'error'];
+
   public hidden: boolean = true;
 
   public badgeCounter!: number;
@@ -50,19 +56,26 @@ export class HeaderComponent implements DoCheck {
 
   public userName: string = 'Viktoryia';
 
+  public completed1!: boolean;
+
+  public completed2!: boolean;
+
   constructor(
     private location: Location,
-    private store: Store<SettingsState>
+    private store: Store<SettingsState>,
+    private cartStore: Store<CartState>
   ) {}
 
   ngDoCheck(): void {
     this.page = this.location.path().slice(1);
-    this.badgeCounter = trips.length;
-    // if (this.badgeCounter !== 0) {
-    //   this.hidden = false;
-    // } else {
-    //   this.hidden = true;
-    // }
+    this.cartStore.select(selectFeature).subscribe((data) => {
+      this.badgeCounter = data.length;
+    });
+    if (this.badgeCounter !== 0) {
+      this.hidden = false;
+    } else {
+      this.hidden = true;
+    }
   }
 
   addDateToStore(e: string) {
