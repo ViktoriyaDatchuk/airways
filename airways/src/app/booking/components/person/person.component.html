@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="total">
+    <h4>{{ getTitle() }}</h4>
+    <h4>{{ passFare.price | currency : passFare.cur }}</h4>
+  </div>
+  <div class="part">
+    <p>Fare</p>
+    <p>{{ passFare.fare | currency : passFare.cur }}</p>
+  </div>
+  <div class="part">
+    <p>Tax & Service Charge</p>
+    <p>{{ passFare.tax | currency : passFare.cur }}</p>
+  </div>
+</div>
