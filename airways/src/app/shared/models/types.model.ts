@@ -96,7 +96,7 @@ export interface PassengerType {
 }
 
 export interface IFligthForCart extends IFlightModelWithoutOtherFlights {
-  selected: boolean;
+  selected?: boolean;
   type: string;
   adults: number;
   childs: number;

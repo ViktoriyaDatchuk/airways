@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, DoCheck } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { trips } from 'src/app/cart/tripsmock';
 import {
   setCurrencyFormat,
   setDateFormat,
@@ -46,7 +45,7 @@ export class HeaderComponent implements DoCheck {
   public cartFilter: string =
     'invert(86%) sepia(38%) saturate(4871%) hue-rotate(209deg) brightness(97%) contrast(89%)';
 
-  public bookingPages: string[] = ['booking', 'passangers', 'summary'];
+  public bookingPages: string[] = ['booking', 'passenger', 'summary'];
 
   public hidden: boolean = true;
 

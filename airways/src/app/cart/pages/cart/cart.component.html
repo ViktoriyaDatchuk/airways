@@ -6,7 +6,7 @@
     <mat-card-content>
       <app-booking-table></app-booking-table>
       <div class="total-row">
-        <button class="add-button">+ Add new trip</button>
+        <button class="add-button" [routerLink]="['/']">+ Add new trip</button>
         <div class="total-price">
           <p class="total-price__title">Total</p>
           <p class="total-price__value">{{ currencyIcon }}{{ sum }}</p>
@@ -14,7 +14,7 @@
       </div>
       <mat-divider class="divider-margin"></mat-divider>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="trips.length > 0">
       <div class="payment-row">
         <form class="payment-row__form">
           <input class="promo-input" type="text" placeholder="Promo Code" />
@@ -22,7 +22,9 @@
         </form>
         <div class="payment-button">
           <p class="payment-button__selected">{{ selected }} selected</p>
-          <button class="payment-button__pay">Payment</button>
+          <button class="payment-button__pay" (click)="addFlightToUserStore()">
+            Payment
+          </button>
         </div>
       </div>
     </mat-card-actions>

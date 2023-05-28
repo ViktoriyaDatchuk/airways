@@ -53,7 +53,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="login-button">
+      <button
+        class="login-button"
+        [routerLink]="isAuth ? ['/user', userName] : ['/']"
+      >
         <div
           class="img-container"
           [style.background]="isAuth ? '#f1f3f6' : 'transparent'"
