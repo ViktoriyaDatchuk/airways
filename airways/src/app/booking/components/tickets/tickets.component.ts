@@ -158,7 +158,7 @@ export class TicketsComponent implements AfterContentInit, OnInit {
     this.fligthForCart.adults = this.fligth.adults;
     this.fligthForCart.childs = this.fligth.childs;
     this.fligthForCart.infants = this.fligth.infants;
-    this.cartStore.dispatch(addFlight({ fligth: this.fligthForCart }));
+    // this.cartStore.dispatch(addFlight({ fligth: this.fligthForCart }));
   }
 
   addFligthToStore2() {
@@ -183,7 +183,7 @@ export class TicketsComponent implements AfterContentInit, OnInit {
     this.fligthForCart2.adults = this.fligth.adults;
     this.fligthForCart2.childs = this.fligth.childs;
     this.fligthForCart2.infants = this.fligth.infants;
-    this.cartStore.dispatch(addFlight({ fligth: this.fligthForCart2 }));
+    // this.cartStore.dispatch(addFlight({ fligth: this.fligthForCart2 }));
   }
 
   isDisabledButton() {

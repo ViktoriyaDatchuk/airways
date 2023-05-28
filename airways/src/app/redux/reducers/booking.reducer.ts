@@ -17,7 +17,7 @@ export const initialState: IDataTravel = {
   ticketTo: null,
   isLoadingFlight: false,
   personsData: [],
-  personsContacts: null
+  personsContacts: null,
 };
 
 export const bookingReducer = createReducer(
@@ -79,12 +79,12 @@ export const bookingReducer = createReducer(
     isLoadingFlight: loading,
   })),
   on(bookinActions.setPersonData, (state, { person }) => {
-    if (typeof person === 'undefined') return state
+    if (typeof person === 'undefined') return state;
     else {
       return {
         ...state,
         personsData: [...state.personsData, person],
-      }
+      };
     }
   }),
   on(bookinActions.setPersonsContact, (state, { personsContacts }) => ({

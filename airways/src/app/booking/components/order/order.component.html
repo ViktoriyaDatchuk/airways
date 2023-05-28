@@ -1,18 +1,21 @@
 <div class="container">
   <div class="flight-info">
     <h4 class="title">
-      <span class="primary">FR 1925</span>
-      Dublin — Warsaw Modlin
+      <span class="primary">{{ ticket.flightNumber }}</span>
+      {{ getAirportsName() }}
     </h4>
     <p class="date">
-      Wednesday, 1 March, 2023
-      <span class="time">8:40 — 12:00</span>
+      {{ ticket.takeoffDate | date : "EEEE, d MMMM, y" : ticket.gmtFrom }}
+      <span class="time"
+        >{{ ticket.takeoffDate | date : "H:mm" : ticket.gmtFrom }} —
+        {{ ticket.landingDate | date : "H:mm" : ticket.gmtFrom }}</span
+      >
     </p>
   </div>
-  <div *ngFor="let person of persons" class="passanger-info">
+  <div *ngFor="let person of ticket.passengers" class="passanger-info">
     <p class="name">{{ person.name | uppercase }}</p>
-    <p class="info" *ngIf="person.hasBaggage">
-      1 checked bag (total 23 kg) included
+    <p class="info" *ngIf="person.baggage !== 0">
+      {{ person.baggage }} checked bag (total 23 kg) included
     </p>
     <p class="info">1 cabin bag + 1 personal item (max. 8 kg) included</p>
     <p class="info" *ngIf="person.seat">{{ getSeat(person) }}</p>

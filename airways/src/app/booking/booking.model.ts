@@ -16,9 +16,9 @@ export interface INoFlightModel {
 
 export interface IPassenger {
   name: string;
-  hasBaggage: boolean;
+  baggage: number;
   seat?: string;
-  type: AGEGROUP;
+  isInfant: boolean;
 }
 
 export enum FROMTOSTRINGS {
@@ -72,4 +72,21 @@ export interface IPriceData {
   tax: number;
   fare: number;
   cur: string;
+}
+
+export interface ITicketInfoSummary {
+  flightNumber: string;
+  nameFrom: string;
+  nameTo: string;
+  takeoffDate: Date;
+  gmtFrom: string;
+  landingDate: Date;
+  gmtTo: string;
+  passengers: IPassenger[];
+}
+
+export interface IFareInfoSummary {
+  fullPrice: number;
+  cur: string;
+  fares: IPassengerFare[];
 }
