@@ -23,6 +23,7 @@ import {
   selectUserFeature,
 } from 'src/app/redux/selectors/user.selector';
 import { Router } from '@angular/router';
+import { IDataTravel } from 'src/app/cart/tripsmock';
 
 @Component({
   selector: 'app-booking-table',
@@ -55,6 +56,7 @@ export class BookingTableComponent implements OnInit, DoCheck {
     private cartStore: Store<CartState>,
     private location: Location,
     private userStore: Store<UserState>,
+    private state: Store<{ booking: IDataTravel }>,
     private router: Router
   ) {}
 

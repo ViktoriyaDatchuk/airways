@@ -29,7 +29,7 @@ import { Router } from '@angular/router';
 import { addFlight } from 'src/app/redux/actions/cart.action';
 import { UserState } from 'src/app/redux/selectors/user.selector';
 import { addPaidFlight } from 'src/app/redux/actions/user.action';
-import { DataService } from 'src/app/shared/services/data.service';
+import { deletePersons } from 'src/app/redux/actions/booking-main.actions';
 
 @Component({
   selector: 'app-summary',
@@ -207,6 +207,7 @@ export class SummaryComponent implements OnInit {
         adults: this.adults,
         childs: this.childs,
         infants: this.infants,
+        personData: this.passInfo,
       };
 
       if (this.ticketTo) {
@@ -219,6 +220,7 @@ export class SummaryComponent implements OnInit {
         fligth: obj,
       };
       this.userState.dispatch(addPaidFlight({ fligth: flight.fligth }));
+      this.state.dispatch(deletePersons());
       this.router.navigate(['/']);
     }
   }
@@ -232,6 +234,7 @@ export class SummaryComponent implements OnInit {
         adults: this.adults,
         childs: this.childs,
         infants: this.infants,
+        personData: this.passInfo,
       };
 
       if (this.ticketTo) {
@@ -245,9 +248,7 @@ export class SummaryComponent implements OnInit {
       };
       this.state.dispatch(addFlight(flight));
     }
+    this.state.dispatch(deletePersons());
     this.router.navigate(['/cart']);
   }
-
-  // buttonHistoryHandlerClick() {
-  // }
 }

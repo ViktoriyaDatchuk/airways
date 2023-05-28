@@ -90,5 +90,9 @@ export const bookingReducer = createReducer(
   on(bookinActions.setPersonsContact, (state, { personsContacts }) => ({
     ...state,
     personsContacts,
+  })),
+  on(bookinActions.deletePersons, (state) => ({
+    ...state,
+    personsData: [],
   }))
 );
