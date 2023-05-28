@@ -1,10 +1,14 @@
 import { Location } from '@angular/common';
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { setIsAuthOpenWindow } from 'src/app/redux/actions/auth.actions';
 import {
   setCurrencyFormat,
   setDateFormat,
 } from 'src/app/redux/actions/settings.actoins';
+import { IAuthStore } from 'src/app/redux/models/models';
+import { selectFirstName, selectIsAuth, selectIsAuthWindowOpen } from 'src/app/redux/selectors/auth.selectors';
 import {
   CartState,
   selectFeature,
@@ -20,7 +24,7 @@ interface Select {
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent implements DoCheck, OnInit {
   public page!: string;
 
   public datesFormat: Select[] = [
@@ -59,11 +63,27 @@ export class HeaderComponent implements DoCheck {
 
   public completed2!: boolean;
 
+  public isAuthOpen = false;
+
   constructor(
     private location: Location,
     private store: Store<SettingsState>,
-    private cartStore: Store<CartState>
+    private authStore: Store<{auth: IAuthStore}>,
+    private cartStore: Store<CartState>,
+    private router: Router
   ) {}
+  ngOnInit(): void {
+    this.authStore.select(selectIsAuthWindowOpen).subscribe((el) => {
+      this.isAuthOpen = el
+    })
+    this.authStore.select(selectIsAuth).subscribe((el) => {
+      this.isAuth = el
+    })
+    this.authStore.select(selectFirstName).subscribe((el) => {
+      this.userName = el
+    })
+
+  }
 
   ngDoCheck(): void {
     this.page = this.location.path().slice(1);
@@ -83,5 +103,13 @@ export class HeaderComponent implements DoCheck {
 
   addCurrencyToStore(e: string) {
     this.store.dispatch(setCurrencyFormat({ currency: e }));
+  }
+
+  loginButtonHandlerClick() {
+    if (!this.isAuth) {
+      this.authStore.dispatch(setIsAuthOpenWindow(!this.isAuthOpen))
+    } else {
+      this.router.navigate(['/user', this.userName])
+    }
   }
 }

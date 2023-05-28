@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PersonComponent } from './components/person/person.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { aboutGuard } from '../shared/guards/auth.guard';
 
 
 
@@ -17,7 +18,7 @@ import { ContactComponent } from './components/contact/contact.component';
   imports: [
     SharedModule,
     CommonModule,
-    RouterModule.forChild([{ path: '', component: PassengerComponent }]),
+    RouterModule.forChild([{ path: '', component: PassengerComponent, canActivate: [aboutGuard] }]),
   ]
 })
 export class PassengerModule { }

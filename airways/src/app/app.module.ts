@@ -12,6 +12,7 @@ import { settingsReducer } from './redux/reducers/settings.reducer';
 import { HttpClientModule } from '@angular/common/http';
 import { cartReducer } from './redux/reducers/cart.reducer';
 import { userReducer } from './redux/reducers/user.reducer';
+import { authReducer } from './redux/reducers/auth.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,7 @@ import { userReducer } from './redux/reducers/user.reducer';
       settings: settingsReducer,
       cart: cartReducer,
       user: userReducer,
-    }),
+      auth: authReducer }),
     HttpClientModule,
   ],
   providers: [],

@@ -2,6 +2,7 @@
   class="header container"
   [style.background]="page === '' ? backgroundColor : 'white'"
 >
+  <app-auth *ngIf="isAuthOpen"></app-auth>
   <div class="header__content">
     <img
       class="header__content__logo"
@@ -54,8 +55,7 @@
         </mat-select>
       </mat-form-field>
       <button
-        class="login-button"
-        [routerLink]="isAuth ? ['/user', userName] : ['/']"
+        class="login-button" (click)="loginButtonHandlerClick()"
       >
         <div
           class="img-container"

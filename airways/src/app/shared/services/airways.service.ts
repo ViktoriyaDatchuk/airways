@@ -37,9 +37,13 @@ export class AirportsService {
     );
   }
 
-  authMe() {
+  authMe(token: string) {
     const auth_url = `${BASE_URL}/auth/me`;
-    return this.http.get<UserRes>(auth_url);
+    return this.http.get<UserRes>(auth_url, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
   }
 
   login(login: string, password: string) {
@@ -59,6 +63,6 @@ export class AirportsService {
   registration(user: RegistrationModel) {
     const reg_url = `${BASE_URL}/auth/registration`;
 
-    return this.http.post<User>(`${reg_url}`, JSON.stringify(user), HEADER);
+    return this.http.post<TokenModel>(`${reg_url}`, JSON.stringify(user), HEADER);
   }
 }
