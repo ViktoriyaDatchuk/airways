@@ -1,5 +1,5 @@
 import { ISliderData } from "src/app/booking/booking.model";
-import { IFlightModel, IFlightModelWithoutOtherFlights } from "src/app/shared/models/types.model";
+import { IFlightModelWithoutOtherFlights } from "src/app/shared/models/types.model";
 
 export interface IDataTravel {
   from: string;
@@ -15,9 +15,27 @@ export interface IDataTravel {
   ticketTo: IFlightModelWithoutOtherFlights | null;
   isLoadingFlight: boolean;
   isRoundTrip: boolean;
+  personsData: IPersonsData[];
+  personsContacts: IPersonsContact | null;
 }
 
 export interface ISettings {
   date: string;
   currency: string;
+}
+
+export interface IPersonsData {
+  name: string;
+  lastName: string;
+  sex: string;
+  birthDay: string;
+  specialAssistance?: string;
+  countWeight?: string;
+  infant: boolean;
+}
+
+export interface IPersonsContact {
+  code: string;
+  phone: string;
+  email: string;
 }

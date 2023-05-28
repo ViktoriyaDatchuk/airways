@@ -1,26 +1,59 @@
 <div class="passenger">
     <app-flight-search></app-flight-search>
     <div class="passenger__content">
-        <div class="passenger__passengers">
-            <div class="passenger__top">
-                <div class="passenger__header">
-                    <mat-icon>person</mat-icon>
-                    Passengers
+        <!-- <form action="" class="passenger__form" #myForm> -->
+            <div class="passenger__passengers">
+                <div class="passenger__top">
+                    <div class="passenger__header">
+                        <mat-icon>person</mat-icon>
+                        Passengers
+                    </div>
+                    <div class="passenger__text">Enter the passenger's names as they appear on document (passport or ID). </div>
                 </div>
-                <div class="passenger__text">Enter the passenger's names as they appear on document (passport or ID). </div>
-            </div>
-            <div class="passenger__body">
-                <app-person></app-person>
-            </div>
-        </div>
-        <div class="passenger__contacts">
-            <div class="passenger__top">
-                <div class="passenger__header">
-                    <mat-icon>contact_page</mat-icon>
-                    Contact details
+                <div class="passenger__body">
+                    <div class="passenger__adults passenger__part">
+                        <div class="passenger__part-header">
+                            1. Adult
+                        </div>
+                        <div class="passenger__part-body">
+                            <app-person *ngFor="let adult of getArray(adults)"></app-person>
+                        </div>
+                    </div>
+                    <div class="passenger__childs  passenger__part">
+                        <div class="passenger__part-header">
+                            2. Child
+                        </div>
+                        <div class="passenger__part-body">
+                            <app-person *ngFor="let adult of getArray(childs)"></app-person>
+                        </div>
+                    </div>
+                    <div class="passenger__infants  passenger__part">
+                        <div class="passenger__part-header">
+                            3. Infant
+                        </div>
+                        <div class="passenger__part-body">
+                            <app-person *ngFor="let adult of getArray(infants)" [hasFooter]="false" [infant]="true"></app-person>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div class="passenger__text">We need contact details to be able to deliver the latest information regarding your flight. </div>
             </div>
-        </div>
+            <div class="passenger__contacts">
+                <div class="passenger__top">
+                    <div class="passenger__header">
+                        <mat-icon>contact_page</mat-icon>
+                        Contact details
+                    </div>
+                    <div class="passenger__text">We need contact details to be able to deliver the latest information regarding your flight. </div>
+                </div>
+                <div class="passenger__body">
+                    <app-contact></app-contact>
+                </div>
+            </div>
+            <div class="passenger__buttons">
+                <button mat-button color="primary" class="tickets__buttons--first" (click)="buttonBackHandlerClick()">Back</button>
+                <button mat-raised-button color="primary" type="submit" (click)="buttonContinueHandlerClick()" [disabled]="isDisabledButton()">Continue</button>
+            </div>
+        <!-- </form> -->
     </div>
 </div>

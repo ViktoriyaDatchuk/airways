@@ -1,66 +1,73 @@
 <div class="person">
+  <form action="" class="person__form form" [formGroup]="personForm" novalidate>
     <div class="person__body">
-        <form action="" class="person__form form">
-            <div class="form__input-wrapper">
-              <mat-form-field class="form__input">
-                <mat-label>First name</mat-label>
-                <input
-                  type="text"
-                  placeholder="First name"
-                  aria-label="text"
-                  matInput
-                  [formControl]="firstNameControl"
-                />
-                <mat-icon matSuffix matTooltip="Add the passenger's last name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. ">info</mat-icon>
-                <mat-error *ngIf="firstNameControl.invalid">
-                  First Name is required
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="form__input-wrapper">
-                <mat-form-field class="form__input form__width200">
-                  <mat-label>Last name</mat-label>
-                  <input
-                    type="text"
-                    placeholder="Last name"
-                    aria-label="text"
-                    matInput
-                    [formControl]="secondNameControl"
-                  />
-                  <mat-icon matSuffix matTooltip="Add the passenger's last name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. ">info</mat-icon>
-                  <mat-error *ngIf="secondNameControl.invalid">
-                    Last Name is required
-                  </mat-error>
-                </mat-form-field>
-              </div>
-            <div class="form__radio-wrapper">
-                <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style">
-                    <mat-button-toggle value="Male" checked>Male</mat-button-toggle>
-                    <mat-button-toggle value="Female">Female</mat-button-toggle>
-                </mat-button-toggle-group>
-            </div>
-            <div class="form__input-wrapper">
-                <mat-form-field class="dates form__width300">
-                    <mat-label>Date</mat-label>
-                    <input matInput [matDatepicker]="datepicker" [formControl]="birthdayControl">
-                    <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker>
-                      <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button matDatepickerApply>Apply</button>
-                      </mat-datepicker-actions>
-                    </mat-datepicker>
-                    <mat-error *ngIf="birthdayControl.invalid">
-                      Date of birthday is required
-                    </mat-error>
-                </mat-form-field>
-            </div>
-          </form>
+      <div class="form__input-wrapper">
+        <mat-form-field class="form__input">
+          <mat-label>First name</mat-label>
+          <input
+            type="text"
+            placeholder="First name"
+            aria-label="text"
+            matInput
+            formControlName="firstNameControl"
+          />
+          <mat-icon matSuffix matTooltip="Add the passenger's last name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. ">info</mat-icon>
+          <mat-error *ngIf="checkIfError('firstNameControl', 'required')">
+            First Name is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form__input-wrapper">
+          <mat-form-field class="form__input form__width200">
+            <mat-label>Last name</mat-label>
+            <input
+              type="text"
+              placeholder="Last name"
+              aria-label="text"
+              matInput
+              formControlName="secondNameControl"
+            />
+            <mat-icon matSuffix matTooltip="Add the passenger's last name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. ">info</mat-icon>
+            <mat-error *ngIf="checkIfError('secondNameControl', 'required')">
+              Last Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      <div class="form__radio-wrapper">
+        <mat-button-toggle-group appearance="legacy" name="fontStyle" aria-label="Font Style" class="form__radio" formControlName="sexControl">
+            <mat-button-toggle value="Male" checked #male >
+              <mat-icon matSuffix *ngIf="male.checked">check_small</mat-icon>
+              Male
+            </mat-button-toggle>
+            <mat-button-toggle value="Female" #female>
+              <mat-icon matSuffix *ngIf="female.checked">check_small</mat-icon>
+              Female
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="form__input-wrapper">
+        <mat-form-field class="dates form__width300">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="datepicker" formControlName="birthdayControl">
+          <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+          <mat-error *ngIf="checkIfError('birthdayControl', 'required')">
+            Date of birthday is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+          
     </div>
     <div class="person__footer" *ngIf="hasFooter">
       <mat-slide-toggle
           class="form__assistance"
           color="black"
+          formControlName="specAssistance"
       >
         <mat-icon>accessible</mat-icon>
         Need special assistance?
@@ -76,11 +83,12 @@
       <div *ngIf="hasLugage">
         <mat-form-field class="count form__width300">
           <mat-label>Count</mat-label>
-          <input matInput [formControl]="countControl" type="number">
-          <mat-error *ngIf="countControl.invalid">
+          <input matInput formControlName="countControl" type="number">
+          <mat-error *ngIf="checkIfError('countControl', 'required')">
             Count is required
           </mat-error>
       </mat-form-field>
       </div>
     </div>
+  </form>
 </div>

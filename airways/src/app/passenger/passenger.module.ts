@@ -4,13 +4,15 @@ import { PassengerComponent } from './page/passenger/passenger.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PersonComponent } from './components/person/person.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 
 @NgModule({
   declarations: [
     PassengerComponent,
-    PersonComponent
+    PersonComponent,
+    ContactComponent
   ],
   imports: [
     SharedModule,

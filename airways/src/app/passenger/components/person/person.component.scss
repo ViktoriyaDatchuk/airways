@@ -1,4 +1,11 @@
+:host {
+    margin-bottom: 15px;
+}
+
 .person {
+    &__body {
+        display: flex;
+    }
     &__footer {
         display: flex;
         justify-content: flex-start;
@@ -8,8 +15,7 @@
 
 .form {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    flex-direction: column;
     &__input {
         width: 255px;
         &-wrapper {
