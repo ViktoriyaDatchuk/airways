@@ -90,7 +90,7 @@ export class BookingTableComponent implements OnInit, DoCheck {
 
   setAll(completed: boolean) {
     if (this.allComplete === false) {
-      this.allComplete = completed;
+      this.allComplete = true;
       this.sortedTrips.forEach((trip) =>
         this.cartStore.dispatch(changeSelected({ selected: true, trip: trip }))
       );

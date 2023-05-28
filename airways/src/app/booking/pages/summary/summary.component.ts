@@ -27,6 +27,8 @@ import {
 } from 'src/app/redux/selectors/settings.selector';
 import { Router } from '@angular/router';
 import { addFlight } from 'src/app/redux/actions/cart.action';
+import { UserState } from 'src/app/redux/selectors/user.selector';
+import { addPaidFlight } from 'src/app/redux/actions/user.action';
 
 @Component({
   selector: 'app-summary',
@@ -55,7 +57,8 @@ export class SummaryComponent implements OnInit {
   constructor(
     private state: Store<{ booking: IDataTravel }>,
     private store: Store<SettingsState>,
-    private router: Router
+    private router: Router,
+    private userState: Store<UserState>
   ) {}
 
   ngOnInit(): void {
@@ -161,6 +164,31 @@ export class SummaryComponent implements OnInit {
       }
     }
     return res;
+  }
+
+  buyNow() {
+    if (this.ticketFrom) {
+      const obj: IFligthForCart = {
+        ...this.ticketFrom,
+        selected: false,
+        type: 'One way',
+        adults: this.adults,
+        childs: this.childs,
+        infants: this.infants,
+      };
+
+      if (this.ticketTo) {
+        obj.type = 'Round Trip';
+        obj.takeoffDateBack = this.ticketTo.takeoffDate;
+        obj.landingDateBack = this.ticketTo.landingDate;
+      }
+
+      const flight = {
+        fligth: obj,
+      };
+      this.userState.dispatch(addPaidFlight({ fligth: flight.fligth }));
+      this.router.navigate(['/']);
+    }
   }
 
   buttonCartHandlerClick() {
