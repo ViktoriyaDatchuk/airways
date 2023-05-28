@@ -1,11 +1,16 @@
 import { Component, Input } from '@angular/core';
 import {
-  AGEGROUP,
   IFareInfoSummary,
   IPassengerFare,
   IPriceData,
   tariffs,
 } from '../../booking.model';
+import { DataService } from 'src/app/shared/services/data.service';
+import {
+  SettingsState,
+  selectCurrency,
+} from 'src/app/redux/selectors/settings.selector';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-fare',
@@ -14,6 +19,21 @@ import {
 })
 export class FareComponent {
   @Input() public fareInfo!: IFareInfoSummary;
+  currencyIcon!: string;
+
+  constructor(
+    private store: Store<SettingsState>,
+    private dataService: DataService
+  ) {}
+
+  ngOnInit(): void {
+    this.store.select(selectCurrency).subscribe((data) => {
+      this.currencyIcon =
+        this.dataService.currencyIcons[
+          data as keyof typeof this.dataService.currencyIcons
+        ];
+    });
+  }
 
   getSum(passengersFare: IPassengerFare[], fullPrice: number, cur: string) {
     let sum = 0;
@@ -41,6 +61,7 @@ export class FareComponent {
       fare,
       count: passFare.count,
       cur: cur,
+      curIcon: this.currencyIcon,
     };
   }
 }

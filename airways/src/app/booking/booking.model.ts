@@ -72,6 +72,7 @@ export interface IPriceData {
   tax: number;
   fare: number;
   cur: string;
+  curIcon: string;
 }
 
 export interface ITicketInfoSummary {

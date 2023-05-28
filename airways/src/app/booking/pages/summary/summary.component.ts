@@ -27,6 +27,7 @@ import {
 } from 'src/app/redux/selectors/settings.selector';
 import { Router } from '@angular/router';
 import { addFlight } from 'src/app/redux/actions/cart.action';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-summary',
@@ -113,9 +114,40 @@ export class SummaryComponent implements OnInit {
     ticket: IFlightModelWithoutOtherFlights,
     backTicket: IFlightModelWithoutOtherFlights | null
   ): IFareInfoSummary {
-    const backPrice = backTicket ? backTicket.price.eur : 0;
+    let backPrice = 0;
+    if (backTicket) {
+      switch (this.currency) {
+        case 'eur':
+          backPrice = backTicket.price.eur;
+          break;
+        case 'usd':
+          backPrice = backTicket.price.usd;
+          break;
+        case 'rub':
+          backPrice = backTicket.price.rub;
+          break;
+        case 'pln':
+          backPrice = backTicket.price.pln;
+          break;
+      }
+    }
+    let toPrice = 0;
+    switch (this.currency) {
+      case 'eur':
+        toPrice = ticket.price.eur;
+        break;
+      case 'usd':
+        toPrice = ticket.price.usd;
+        break;
+      case 'rub':
+        toPrice = ticket.price.rub;
+        break;
+      case 'pln':
+        toPrice = ticket.price.pln;
+        break;
+    }
     const res = {
-      fullPrice: ticket.price.eur + backPrice,
+      fullPrice: toPrice + backPrice,
       cur: this.currency.toUpperCase(),
       fares: [
         {
@@ -189,7 +221,5 @@ export class SummaryComponent implements OnInit {
   }
 
   // buttonHistoryHandlerClick() {
-  //   // this.dispatchPersonData();
-  //   this.router.navigate(['/somewhere']);
   // }
 }

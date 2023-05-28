@@ -21,7 +21,7 @@
     </ng-container>
     <div class="fare" *ngIf="showButtons">
       <div class="buttons">
-        <button mat-flat-button>Back</button>
+        <button mat-flat-button [routerLink]="['/passenger']">Back</button>
         <button
           (click)="buttonCartHandlerClick()"
           mat-stroked-button
