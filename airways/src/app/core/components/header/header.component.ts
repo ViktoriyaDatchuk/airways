@@ -6,6 +6,10 @@ import {
   setCurrencyFormat,
   setDateFormat,
 } from 'src/app/redux/actions/settings.actoins';
+import {
+  CartState,
+  selectFeature,
+} from 'src/app/redux/selectors/cart.selector';
 import { SettingsState } from 'src/app/redux/selectors/settings.selector';
 
 interface Select {
@@ -21,15 +25,15 @@ export class HeaderComponent implements DoCheck {
   public page!: string;
 
   public datesFormat: Select[] = [
-    { value: 'MM/DD/YYYY', viewValue: 'MM/DD/YYYY' },
-    { value: 'DD/MM/YYYY', viewValue: 'DD/MM/YYYY' },
-    { value: 'YYYY/DD/MM', viewValue: 'YYYY/DD/MM' },
-    { value: 'YYYY/MM/DD', viewValue: 'YYYY/MM/DD' },
+    { value: 'MM/dd/YYYY', viewValue: 'MM/DD/YYYY' },
+    { value: 'dd/MM/YYYY', viewValue: 'DD/MM/YYYY' },
+    { value: 'YYYY/dd/MM', viewValue: 'YYYY/DD/MM' },
+    { value: 'YYYY/MM/dd', viewValue: 'YYYY/MM/DD' },
   ];
 
   public currency: Select[] = [
     { value: 'eur', viewValue: 'EUR' },
-    { value: 'usa', viewValue: 'USA' },
+    { value: 'usd', viewValue: 'USA' },
     { value: 'rub', viewValue: 'RUB' },
     { value: 'pln', viewValue: 'PLN' },
   ];
@@ -42,6 +46,8 @@ export class HeaderComponent implements DoCheck {
   public cartFilter: string =
     'invert(86%) sepia(38%) saturate(4871%) hue-rotate(209deg) brightness(97%) contrast(89%)';
 
+  public bookingPages: string[] = ['booking', 'passangers', 'summary'];
+
   public hidden: boolean = true;
 
   public badgeCounter!: number;
@@ -50,19 +56,26 @@ export class HeaderComponent implements DoCheck {
 
   public userName: string = 'Viktoryia';
 
+  public completed1!: boolean;
+
+  public completed2!: boolean;
+
   constructor(
     private location: Location,
-    private store: Store<SettingsState>
+    private store: Store<SettingsState>,
+    private cartStore: Store<CartState>
   ) {}
 
   ngDoCheck(): void {
     this.page = this.location.path().slice(1);
-    this.badgeCounter = trips.length;
-    // if (this.badgeCounter !== 0) {
-    //   this.hidden = false;
-    // } else {
-    //   this.hidden = true;
-    // }
+    this.cartStore.select(selectFeature).subscribe((data) => {
+      this.badgeCounter = data.flight.length;
+    });
+    if (this.badgeCounter !== 0) {
+      this.hidden = false;
+    } else {
+      this.hidden = true;
+    }
   }
 
   addDateToStore(e: string) {

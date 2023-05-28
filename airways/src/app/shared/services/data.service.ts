@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 export interface ICurrencyIcons {
   eur: string;
-  usa: string;
+  usd: string;
   rub: string;
   pln: string;
 }
@@ -15,7 +15,7 @@ export class DataService {
 
   public currencyIcons: ICurrencyIcons = {
     eur: '€',
-    usa: '$',
+    usd: '$',
     rub: '₽',
     pln: 'zł',
   };
