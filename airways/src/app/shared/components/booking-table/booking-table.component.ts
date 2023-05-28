@@ -17,6 +17,7 @@ import {
   deleteFligth,
 } from 'src/app/redux/actions/cart.action';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-booking-table',
@@ -41,13 +42,17 @@ export class BookingTableComponent implements OnInit, DoCheck {
 
   public sortedTrips!: IFligthForCart[];
 
+  public page!: string;
+
   constructor(
     private dataService: DataService,
     private store: Store<SettingsState>,
-    private cartStore: Store<CartState>
+    private cartStore: Store<CartState>,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
+    this.page = this.location.path().slice(1);
     this.store.select(selectCurrency).subscribe((data) => {
       this.currency = data;
       this.currencyIcon =
@@ -91,7 +96,6 @@ export class BookingTableComponent implements OnInit, DoCheck {
     this.cartStore.dispatch(
       changeSelected({ selected: e.checked, trip: trip })
     );
-    console.log(this.sortedTrips);
     this.updateAllInputs();
   }
 
