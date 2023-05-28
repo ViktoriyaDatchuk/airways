@@ -39,3 +39,15 @@ export interface IPersonsContact {
   phone: string;
   email: string;
 }
+
+export interface IAuthStore {
+  email: string;
+  name: string;
+  lastName: string;
+  birthday: string;
+  sex: string;
+  countryCode: string;
+  phone: string;
+  citizenship: string;
+  isAuth: boolean;
+}
