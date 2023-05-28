@@ -11,7 +11,12 @@ import {
   selectIsReturn,
 } from 'src/app/redux/selectors/booking.selectors';
 import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
-import { AGEGROUP, IPassenger, ITicketInfoSummary } from '../../booking.model';
+import {
+  AGEGROUP,
+  IFareInfoSummary,
+  IPassenger,
+  ITicketInfoSummary,
+} from '../../booking.model';
 
 @Component({
   selector: 'app-summary',
@@ -27,6 +32,11 @@ export class SummaryComponent implements OnInit {
   adults$!: Observable<number>;
   childs$!: Observable<number>;
   infants$!: Observable<number>;
+  adults = 0;
+  childs = 0;
+  infants = 0;
+  // currency$!: Observable<string>;
+  currency = 'eur';
 
   fakePassData: IPassenger[] = [
     {
@@ -57,6 +67,20 @@ export class SummaryComponent implements OnInit {
     this.adults$ = this.state.select(selectAdultsCount);
     this.childs$ = this.state.select(selectChildsCount);
     this.infants$ = this.state.select(selectInfantsCount);
+    // this.currency$ = this.state.select(selectInfantsCount);
+    this.subscribe();
+  }
+
+  subscribe() {
+    this.adults$.subscribe((el) => {
+      this.adults = el;
+    });
+    this.childs$.subscribe((el) => {
+      this.childs = el;
+    });
+    this.infants$.subscribe((el) => {
+      this.infants = el;
+    });
   }
 
   getTicketInfo(ticket: IFlightModelWithoutOtherFlights): ITicketInfoSummary {
@@ -69,6 +93,32 @@ export class SummaryComponent implements OnInit {
       landingDate: new Date(ticket.landingDate),
       gmtTo: ticket.to.gmt,
       passengers: this.fakePassData,
+    };
+    return res;
+  }
+
+  getFareInfo(
+    ticket: IFlightModelWithoutOtherFlights,
+    backTicket: IFlightModelWithoutOtherFlights | null
+  ): IFareInfoSummary {
+    const backPrice = backTicket ? backTicket.price.eur : 0;
+    const res = {
+      fullPrice: ticket.price.eur + backPrice,
+      cur: this.currency.toUpperCase(),
+      fares: [
+        {
+          type: AGEGROUP.Adult,
+          count: this.adults,
+        },
+        {
+          type: AGEGROUP.Child,
+          count: this.childs,
+        },
+        {
+          type: AGEGROUP.Infant,
+          count: this.infants,
+        },
+      ],
     };
     return res;
   }

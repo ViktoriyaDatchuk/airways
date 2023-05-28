@@ -84,3 +84,9 @@ export interface ITicketInfoSummary {
   gmtTo: string;
   passengers: IPassenger[];
 }
+
+export interface IFareInfoSummary {
+  fullPrice: number;
+  cur: string;
+  fares: IPassengerFare[];
+}

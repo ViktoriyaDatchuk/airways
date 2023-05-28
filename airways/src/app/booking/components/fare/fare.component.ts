@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   AGEGROUP,
+  IFareInfoSummary,
   IPassengerFare,
   IPriceData,
   tariffs,
@@ -12,37 +13,25 @@ import {
   styleUrls: ['./fare.component.scss'],
 })
 export class FareComponent {
-  FullPrice = 257.31;
-  cur = 'EUR';
+  @Input() public fareInfo!: IFareInfoSummary;
 
-  passengersFare: IPassengerFare[] = [
-    {
-      type: AGEGROUP.Adult,
-      count: 1,
-    },
-    {
-      type: AGEGROUP.Child,
-      count: 1,
-    },
-    {
-      type: AGEGROUP.Infant,
-      count: 1,
-    },
-  ];
-
-  getSum() {
+  getSum(passengersFare: IPassengerFare[], fullPrice: number, cur: string) {
     let sum = 0;
-    this.passengersFare.forEach((fare) => {
-      const curPrice = this.getData(fare).price;
+    passengersFare.forEach((fare) => {
+      const curPrice = this.getData(fare, fullPrice, cur).price;
       sum += curPrice;
     });
     return sum;
   }
 
-  getData(passFare: IPassengerFare): IPriceData {
+  getData(
+    passFare: IPassengerFare,
+    fullPrice: number,
+    cur: string
+  ): IPriceData {
     const tariff = tariffs.find((t) => t.type === passFare.type) || tariffs[0];
     const str = tariff.str;
-    const price = this.FullPrice * tariff.coefficient * passFare.count;
+    const price = fullPrice * tariff.coefficient * passFare.count;
     const fare = tariff.fare * price;
     const tax = price - fare;
     return {
@@ -51,7 +40,7 @@ export class FareComponent {
       tax,
       fare,
       count: passFare.count,
-      cur: this.cur,
+      cur: cur,
     };
   }
 }

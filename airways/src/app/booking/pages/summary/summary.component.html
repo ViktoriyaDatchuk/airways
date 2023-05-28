@@ -6,19 +6,19 @@
       <span class="icon"></span>
       <h3>Summary</h3>
     </div>
-    <div class="order">
-      <ng-container *ngIf="ticketFrom$ | async as ticketFrom">
+    <ng-container *ngIf="ticketFrom$ | async as ticketFrom">
+      <div class="order">
         <app-order [ticket]="getTicketInfo(ticketFrom)"></app-order>
-      </ng-container>
-      <div *ngIf="returnTicket$ | async">
-        <ng-container *ngIf="ticketTo$ | async as ticketTo">
-          <app-order [ticket]="getTicketInfo(ticketTo)"></app-order>
-        </ng-container>
+        <div *ngIf="returnTicket$ | async">
+          <ng-container *ngIf="ticketTo$ | async as ticketTo">
+            <app-order [ticket]="getTicketInfo(ticketTo)"></app-order>
+          </ng-container>
+        </div>
       </div>
-    </div>
-    <div class="fare">
-      <app-fare></app-fare>
-    </div>
+      <div class="fare">
+        <app-fare [fareInfo]="getFareInfo(ticketFrom, null)"></app-fare>
+      </div>
+    </ng-container>
     <div class="fare" *ngIf="showButtons">
       <div class="buttons">
         <button mat-flat-button>Back</button>

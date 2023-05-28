@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="passFare.count !== 0">
   <div class="total">
     <h4>{{ getTitle() }}</h4>
     <h4>{{ passFare.price | currency : passFare.cur }}</h4>
