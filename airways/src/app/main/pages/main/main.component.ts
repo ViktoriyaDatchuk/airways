@@ -6,7 +6,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, map, startWith } from 'rxjs';
-import { setDateFrom, setDateTo, setFrom, setTo, setTypeTrip } from 'src/app/redux/actions/booking-main.actions';
+import {
+  setDateFrom,
+  setDateTo,
+  setFrom,
+  setTo,
+  setTypeTrip,
+} from 'src/app/redux/actions/booking-main.actions';
 import { IDataTravel } from 'src/app/redux/models/models';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
@@ -17,13 +23,16 @@ import { AirportsService } from 'src/app/shared/services/airways.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  tripTypes = ['round-trip', 'one-way']
+  tripTypes = ['round-trip', 'one-way'];
   return = true;
   fromControl = new FormControl('', Validators.required);
   destControl = new FormControl('', Validators.required);
   startDateControl = new FormControl('', Validators.required);
-  endDateControl = new FormControl('', this.return ? Validators.required : null);
-  
+  endDateControl = new FormControl(
+    '',
+    this.return ? Validators.required : null
+  );
+
   airports: AirportModel[] = [];
   filteredFrom!: Observable<AirportModel[]>;
   filteredDest!: Observable<AirportModel[]>;
@@ -70,51 +79,67 @@ export class MainComponent implements OnInit {
   }
 
   changeInputFields() {
-    const tempDest = this.destControl.value
-    const tempFrom = this.fromControl.value
-    this.fromControl.setValue(tempDest)
-    this.destControl.setValue(tempFrom)
+    const tempDest = this.destControl.value;
+    const tempFrom = this.fromControl.value;
+    this.fromControl.setValue(tempDest);
+    this.destControl.setValue(tempFrom);
   }
 
   changeTrip(e: MatRadioChange) {
     if (e.value === this.tripTypes[0]) {
-      this.return = true
-      this.store.dispatch(setTypeTrip(true))
+      this.return = true;
+      this.store.dispatch(setTypeTrip(true));
     } else if (e.value === this.tripTypes[1]) {
-      this.return = false
-      this.store.dispatch(setTypeTrip(false))
+      this.return = false;
+      this.store.dispatch(setTypeTrip(false));
     }
   }
 
   passengerValid(event: boolean) {
-    this.passengerIsValid = event
+    this.passengerIsValid = event;
   }
 
   validateForm() {
-    let form
+    let form;
     if (this.return) {
-      form = this.destControl.invalid || this.fromControl.invalid || this.endDateControl.invalid || this.startDateControl.invalid
+      form =
+        this.destControl.invalid ||
+        this.fromControl.invalid ||
+        this.endDateControl.invalid ||
+        this.startDateControl.invalid;
     } else {
-      form = this.destControl.invalid|| this.fromControl.invalid || this.startDateControl.invalid
+      form =
+        this.destControl.invalid ||
+        this.fromControl.invalid ||
+        this.startDateControl.invalid;
     }
 
-    this.isValid = !form && this.passengerIsValid
+    this.isValid = !form && this.passengerIsValid;
   }
 
   searchItems() {
-    this.validateForm()
-    if (!this.isValid) return
+    this.validateForm();
+    if (!this.isValid) return;
 
-    this.store.dispatch(setFrom(this.fromControl.value || 'AMS'))
-    this.store.dispatch(setTo(this.destControl.value || 'MAD'))
-    this.store.dispatch(setDateFrom(new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString()))
+    this.store.dispatch(setFrom(this.fromControl.value || 'AMS'));
+    this.store.dispatch(setTo(this.destControl.value || 'MAD'));
+    this.store.dispatch(
+      setDateFrom(
+        new Date(
+          this.startDateControl.value || '2023-09-21T00:00:00.000Z'
+        ).toISOString()
+      )
+    );
     if (this.return) {
-      this.store.dispatch(setDateTo(new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString()))
+      this.store.dispatch(
+        setDateTo(
+          new Date(
+            this.endDateControl.value || '2023-10-11T00:00:00.000Z'
+          ).toISOString()
+        )
+      );
     }
 
-    this.router.navigate(['/booking'])
-
-    console.log(this.destControl.value, this.fromControl.value, new Date(this.startDateControl.value || '2023-09-21T00:00:00.000Z').toISOString(), new Date(this.endDateControl.value || '2023-10-11T00:00:00.000Z').toISOString())
+    this.router.navigate(['/booking']);
   }
-
 }
