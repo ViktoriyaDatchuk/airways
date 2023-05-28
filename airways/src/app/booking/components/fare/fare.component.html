@@ -10,7 +10,7 @@
     <h4 class="primary">
       {{
         getSum(fareInfo.fares, fareInfo.fullPrice, fareInfo.cur)
-          | currency : fareInfo.cur
+          | currency : fareInfo.cur : currencyIcon
       }}
     </h4>
   </div>
