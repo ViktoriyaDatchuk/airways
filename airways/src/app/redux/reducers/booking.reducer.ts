@@ -87,10 +87,6 @@ export const bookingReducer = createReducer(
       };
     }
   }),
-  on(bookinActions.restorePersonsData, (state, { persons }) => ({
-    ...state,
-    personsData: [...persons],
-  })),
   on(bookinActions.setPersonsContact, (state, { personsContacts }) => ({
     ...state,
     personsContacts,

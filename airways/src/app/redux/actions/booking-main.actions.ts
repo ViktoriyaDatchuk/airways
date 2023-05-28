@@ -55,10 +55,6 @@ export const setTicketTo = createAction(
   '[BOOKIN_PAGE] SET TICKET TO',
   props<{ ticketTo: IFlightModelWithoutOtherFlights }>()
 );
-export const restorePersonsData = createAction(
-  '[BOOKIN_PAGE] SET PERSON DATA',
-  props<{ persons: IPersonsData[] }>()
-);
 export const setIsLoadingFlight = createAction(
   '[BOOKIN_PAGE] SET LOADING DATA',
   (loading: boolean) => ({ loading })

@@ -24,7 +24,6 @@ import {
 } from 'src/app/redux/selectors/user.selector';
 import { Router } from '@angular/router';
 import { IDataTravel } from 'src/app/cart/tripsmock';
-import { restorePersonsData } from 'src/app/redux/actions/booking-main.actions';
 
 @Component({
   selector: 'app-booking-table',
@@ -156,14 +155,9 @@ export class BookingTableComponent implements OnInit, DoCheck {
     } else return Number(trip.price.pln.toFixed(2));
   }
 
-  linkToSummary(trip: IFligthForCart) {
+  linkToSummary() {
     if (this.page !== 'cart') {
-      // const personsData = trip.personData;
-      // this.state.dispatch(restorePersonsData(personsData));
-      // setTimeout(() => {
       this.router.navigate(['/booking/summary']);
-      // });
-      // console.log(trip);
     }
   }
 
