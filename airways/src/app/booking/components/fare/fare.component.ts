@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   IFareInfoSummary,
   IPassengerFare,
@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './fare.component.html',
   styleUrls: ['./fare.component.scss'],
 })
-export class FareComponent {
+export class FareComponent implements OnInit {
   @Input() public fareInfo!: IFareInfoSummary;
   currencyIcon!: string;
 
