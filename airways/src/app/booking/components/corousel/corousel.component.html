@@ -1,0 +1,60 @@
+<div class="carousel">
+  <div
+    class="keen-slider carousel__slider"
+    #sliderRef
+    (click)="chooseSlide($event)"
+  >
+    <div
+      class="keen-slider__slide carousel__slide"
+      [class]="setClass(product[1]) + ' idx-' + i"
+      *ngFor="let product of carousel$ | async; index as i"
+    >
+      <p
+        [class]="
+          isFlight(product[1])
+            ? 'carousel__slide-day'
+            : 'carousel__slide-day--off'
+        "
+      >
+        {{ getDay(product[1].takeoffDate) }}
+      </p>
+      <p class="carousel__slide-week">{{ getWeek(product[1].takeoffDate) }}</p>
+      <p
+        class="carousel__slide-cost"
+        *ngIf="isFlight(product[1]); else noFlight"
+      >
+        {{ getCost(product[1]) | currency : currency : currencyIcon }}
+      </p>
+      <ng-template class="carousel__slide-icon" #noFlight>
+        <mat-icon matSuffix class="carousel__slide-icon-fly"
+          >airplanemode_inactive</mat-icon
+        >
+      </ng-template>
+      <div class="carousel__slide-bottom" [class]="getSeatsClass()"></div>
+    </div>
+  </div>
+  <div class="arrow-wrapper arrow-wrapper--left" (click)="slider?.prev()">
+    <svg
+      [ngClass]="'arrow' + (currentSlide === 0 ? 'arrow--disabled' : '')"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
+      />
+    </svg>
+  </div>
+  <div class="arrow-wrapper arrow-wrapper--right" (click)="slider?.next()">
+    <svg
+      [ngClass]="
+        'arrow' + (currentSlide === slideLength ? 'arrow--disabled' : '')
+      "
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"
+      />
+    </svg>
+  </div>
+</div>

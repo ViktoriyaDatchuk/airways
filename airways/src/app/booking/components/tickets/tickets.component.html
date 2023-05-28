@@ -1,0 +1,24 @@
+<div class="tickets">
+    <div class="tickets__header">
+        <img src="./assets/airplane.svg" class="tickets__header-icon"  /> 
+        <span class="tickets__header-text">{{ getDirectionHeader(true) }}</span>
+    </div>
+    <app-corousel *ngIf="hasFromCarusel" [from]="true" ></app-corousel>
+    <app-table [from]="true" (onSelectTicket)="selectedTicket($event)"></app-table>
+
+    <div *ngIf="returnTicket$ | async">
+        <div class="tickets__header">
+            <img src="./assets/airplane.svg" class="tickets__header-icon--left"  /> 
+            <span class="tickets__header-text">{{ getDirectionHeader(false) }}</span>
+        </div>
+        <app-corousel *ngIf="hasToCarusel && returnTicket" [from]="false"></app-corousel>
+        <app-table *ngIf="returnTicket$ | async" [from]="false" (onSelectTicket)="selectedTicket($event)"></app-table>
+    </div>
+    
+
+    
+    <div class="tickets__buttons">
+        <button mat-button color="primary" class="tickets__buttons--first" (click)="buttonBackHandlerClick()">Back</button>
+        <button mat-raised-button color="primary" (click)="buttonContinueHandlerClick()" [disabled]="isDisabledButton()">Continue</button>
+    </div>
+</div>

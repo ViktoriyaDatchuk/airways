@@ -1,0 +1,105 @@
+.container {
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+
+  position: relative;
+  width: 552px;
+
+  /* Neutral/neutral100 */
+  background: #ffffff;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.flight-info {
+  /* Flight */
+  box-sizing: border-box;
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 24px;
+  gap: 8px;
+
+  width: 551px;
+  height: 100px;
+
+  /* Secondary/80 */
+  background: #f1f3f6;
+
+  /* Primary */
+  border-top: 3px solid #11397e;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.title {
+  /* Title/Medium */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+
+  /* identical to box height, or 120% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+
+  /* Neutral/Neutral/Neutral/Neutral/Black */
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.primary {
+  color: #11397e;
+  margin-right: 20px;
+}
+
+.time {
+  margin-left: 36px;
+}
+
+.passanger-info {
+  padding: 20px 24px;
+}
+
+.name {
+  /* Body/Large/Uppercase */
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  /* identical to box height, or 150% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  /* Neutral/neutral0 */
+  color: #1c1b1f;
+}
+
+.info {
+  padding: 0px 0px 0px 28px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  /* identical to box height, or 150% */
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+
+  /* Neutral/Neutral/Neutral/Neutral/Black */
+  color: #000000;
+}

@@ -1,0 +1,101 @@
+<table
+  class="trip-table"
+  matSort
+  matSortStart="desc"
+  (matSortChange)="sortData($event)"
+>
+  <thead class="trip-table__header">
+    <tr>
+      <th class="checkbox-col">
+        <mat-checkbox
+          *ngIf="page === 'cart'"
+          class="example-margin"
+          [checked]="allComplete"
+          (change)="setAll($event.checked)"
+        >
+          All
+        </mat-checkbox>
+      </th>
+      <th mat-sort-header="number">No.</th>
+      <th mat-sort-header="flight">Flight</th>
+      <th mat-sort-header="type">Type trip</th>
+      <th mat-sort-header="data">Data & Time</th>
+      <th class="passengers-title">Passengers</th>
+      <th mat-sort-header="price">Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trip of sortedTrips">
+      <td class="trip-table__row">
+        <section class="checkbox-section">
+          <mat-checkbox
+            *ngIf="page === 'cart'"
+            [checked]="trip.selected"
+            (change)="changeValue(trip, $event)"
+          ></mat-checkbox>
+        </section>
+      </td>
+      <td
+        class="trip-table__row number-row"
+        (click)="linkToSummary()"
+        [style.cursor]="page === 'cart' ? 'default' : 'pointer'"
+      >
+        {{ trip.flightNumber }}
+      </td>
+      <td
+        class="trip-table__row destination-row"
+        *ngIf="trip.type === 'Round Trip'; else secondBlock"
+      >
+        {{ trip.form.city }} - {{ trip.to.city }} - {{ trip.form.city }}
+      </td>
+      <ng-template #secondBlock>
+        <td class="trip-table__row destination-row">
+          {{ trip.form.city }} - {{ trip.to.city }}
+        </td>
+      </ng-template>
+      <td class="trip-table__row">{{ trip.type }}</td>
+      <td
+        class="trip-table__row"
+        *ngIf="trip.type === 'Round Trip'; else anotherBlock"
+      >
+        {{ trip.takeoffDate | date : dateFormat }}
+        {{ trip.takeoffDate | date : "hh:mm" }} -
+        {{ trip.landingDate | date : "hh:mm" }}
+        <br />{{ trip.takeoffDateBack | date : dateFormat }}
+        {{ trip.takeoffDateBack | date : "hh:mm" }} -
+        {{ trip.landingDateBack | date : "hh:mm" }}
+      </td>
+      <ng-template #anotherBlock>
+        <td class="trip-table__row">
+          {{ trip.takeoffDate | date : dateFormat }}
+          {{ trip.takeoffDate | date : "hh:mm" }} -
+          {{ trip.landingDate | date : "hh:mm" }}
+        </td>
+      </ng-template>
+      <td class="trip-table__row">
+        <ul class="passengers-list">
+          <li *ngIf="trip.adults !== 0">{{ trip.adults }} x Adult</li>
+          <li *ngIf="trip.childs !== 0">{{ trip.childs }} x Child</li>
+          <li *ngIf="trip.infants !== 0">{{ trip.infants }} x Infant</li>
+        </ul>
+      </td>
+      <td class="trip-table__row trip-price">
+        {{ currencyIcon }}{{ getPrice(trip) }}
+      </td>
+      <td class="trip-table__row dots-row">
+        <button
+          *ngIf="page === 'cart'"
+          class="dots-button"
+          (click)="toggle($event)"
+        >
+          <img src="./assets/dots.svg" alt="dots" />
+          <app-edit-menu
+            class="menu-position"
+            (deleteItem)="deleteItem($event)"
+          ></app-edit-menu>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

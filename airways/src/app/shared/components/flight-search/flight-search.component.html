@@ -1,0 +1,120 @@
+<div class="flight-search">
+    <div class="flight-search__way">
+        <span class="flight-search__way-text">{{ from$ | async }}</span>
+        <div class="flight-search__way-icon">
+            <img src="./assets/return_trip_24px.svg" />
+        </div>
+        <span class="flight-search__way-text">{{ to$ | async}}</span>
+    </div>
+    <div class="flight-search__info">
+        <div class="flight-search__info-return" *ngIf="return; else returnFalse">Return</div>
+        <ng-template class="flight-search__info-return" #returnFalse>One way</ng-template>
+        <div class="flight-search__info-point"></div>
+        <div class="flight-search__info-date">{{ getDate() }}</div>
+        <div class="flight-search__info-point"></div>
+        <div class="flight-search__info-passagers flight-search__passagers">
+            <span class="flight-search__passagers-text">{{getPerson()}}</span>
+            <mat-icon matSuffix class="flight-search__passagers-icon">person</mat-icon>
+        </div>
+    </div>
+    <div class="flight-search__edit" *ngIf="isBookingPage" (click)="isEdit = !isEdit">Edit</div>
+</div>
+<div *ngIf="isEdit" class="flight-search__bottom-panel">
+    <form action="" class="form">
+        <div class="form__radio">
+          <mat-radio-group>
+            <mat-radio-button value="round-trip" [checked]="return" color="primary" (change)="changeTrip($event)"
+              >Round Trip</mat-radio-button
+            >
+            <mat-radio-button value="one-way" [checked]="!return" color="primary" (change)="changeTrip($event)"
+              >One way</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+        <div class="form__input form__input--from">
+          <mat-form-field class="destination form__width200">
+            <mat-label>From</mat-label>
+            <input
+              type="text"
+              placeholder="From"
+              aria-label="Number"
+              matInput
+              [formControl]="fromControl"
+              [matAutocomplete]="autoFrom"
+              (ngModelChange)="changeFrom()"
+            />
+            <mat-autocomplete autoActiveFirstOption #autoFrom="matAutocomplete">
+              <mat-option
+                *ngFor="let optionFrom of filteredFrom | async"
+                [value]="optionFrom.key"
+              >
+                {{ optionFrom.city }}
+              </mat-option>
+            </mat-autocomplete> 
+          </mat-form-field>
+        </div>
+        <div class="form__input form__input--destination">
+          <mat-form-field class="destination form__width200">
+            <mat-label>Destination</mat-label>
+            <input
+              type="text"
+              placeholder="Choose your destination"
+              aria-label="Number2"
+              matInput
+              [formControl]="destControl"
+              [matAutocomplete]="autoDestination"
+              (ngModelChange)="changeTo()"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #autoDestination="matAutocomplete"
+            >
+              <mat-option
+                *ngFor="let destination of filteredDest | async"
+                [value]="destination.key"
+              >
+                {{ destination.city }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="form__input form__input--dates">
+          <div class="dates form__width300">
+            <mat-form-field appearance="fill" *ngIf="this.return; else soloDatePicker" class="form__width300">
+              <mat-label>Dates</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Start date" [formControl]="startDateControl" (ngModelChange)="changeStartDate()"/>
+                <input matEndDate placeholder="End date" [formControl]="endDateControl" (ngModelChange)="changeEndDate()" />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <ng-template #soloDatePicker>
+            <mat-form-field class="dates form__width300">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="datepicker" [formControl]="startDateControl" (ngModelChange)="changeStartDate()">
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          </ng-template>
+          
+        </div>
+        <div class="inline form__input form__input--passengers">
+            <app-passenger-list (validStatus)="passengerValid($event)"></app-passenger-list>
+        </div>
+      </form>
+</div>

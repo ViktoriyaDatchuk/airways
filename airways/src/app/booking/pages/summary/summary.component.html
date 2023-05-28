@@ -1,0 +1,39 @@
+<div class="summary">
+  <app-flight-search></app-flight-search>
+
+  <div class="container">
+    <div class="title">
+      <span class="icon"></span>
+      <h3>Summary</h3>
+    </div>
+    <ng-container *ngIf="ticketFrom$ | async as ticketFrom">
+      <div class="order">
+        <app-order [ticket]="getTicketInfo(ticketFrom)"></app-order>
+        <div *ngIf="returnTicket$ | async">
+          <ng-container *ngIf="ticketTo$ | async as ticketTo">
+            <app-order [ticket]="getTicketInfo(ticketTo)"></app-order>
+          </ng-container>
+        </div>
+      </div>
+      <div class="fare">
+        <app-fare [fareInfo]="getFareInfo(ticketFrom, null)"></app-fare>
+      </div>
+    </ng-container>
+    <div class="fare" *ngIf="showButtons">
+      <div class="buttons">
+        <button mat-flat-button [routerLink]="['/passenger']">Back</button>
+        <button
+          (click)="buttonCartHandlerClick()"
+          mat-stroked-button
+          color="primary"
+          class="button-spaces"
+        >
+          Add to order cart
+        </button>
+        <button (click)="buyNow()" mat-flat-button color="primary">
+          Buy now
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

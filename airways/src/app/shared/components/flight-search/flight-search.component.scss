@@ -1,0 +1,176 @@
+@import "../../../../scss/abstracts/variables";
+
+.flight-search {
+    display: flex;
+    align-items: center;
+    background: #FAFAFA;
+    height: 68px;
+    padding: 0 156px;
+    &__way {
+        display: flex;
+        &-text {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.15px;
+            color: #000000;
+        }
+        &-icon {
+            margin: 0 16px;
+        }
+    }
+
+    &__info {
+        display: flex;
+        margin-left: 40px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #74767A;
+
+        &-point {
+            width: 4px;
+            height: 4px;
+            background: #0090BD;
+            border-radius: 50%;
+            margin: 8px;
+        }
+    }
+
+    &__passagers {
+        display: flex;
+        position: relative;
+
+        &-icon {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            font-size: 16px;
+            margin-left: 5px;
+        }
+    }
+
+    &__edit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 28px;
+        margin-left: 62px;
+        padding: 4px 8px;
+        background: #F4F6F9;
+        border-radius: 4px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        color: #11397E;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__bottom-panel {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        position: absolute;   
+        padding: 20px;
+        gap: 20px;
+        height: 96px;
+        background: #FFFFFF;
+        max-width: 1400px;
+        width: 100%;
+        z-index: 1;
+    }
+}
+
+
+.card {
+  margin-top: 150px;
+  margin-bottom: 160px;
+  width: 580px;
+  background-color: rgba($color: #ffffff, $alpha: 0.85);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../../assets/Background.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+.inner-container {
+  max-width: $container-width;
+}
+
+.dates {
+    width: 50%
+  }
+
+  
+.switch {
+    position: absolute;
+    right: 20px;
+    top: 80px;
+    background-color: white;
+    border: 0.5px solid grey;
+  }
+
+  
+.danger-text {
+    color: red;
+}
+
+.search {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.inline {
+    display: flex;
+    position: relative;
+    top:-6px;
+    left: -15px;
+}
+
+.form {
+    margin: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    &__radio {
+        margin-right: 10px; 
+    }
+
+    &__input {
+        width: 100px;
+
+        &--passengers {
+        width: 200px;
+        }
+        &--dates {
+        width: 300px;
+        }
+    }
+    &__width200 {
+        width: 200px;
+    }
+    &__width300 {
+        width: 300px;
+    }
+}
+

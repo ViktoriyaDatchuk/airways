@@ -1,0 +1,110 @@
+<div
+  class="header container"
+  [style.background]="page === '' ? backgroundColor : 'white'"
+>
+  <app-auth *ngIf="isAuthOpen"></app-auth>
+  <div class="header__content">
+    <img
+      class="header__content__logo"
+      src="./assets/logo.svg"
+      alt="logo"
+      [routerLink]="['/']"
+    />
+    <div
+      class="header__content__elements"
+      [style.gap]="bookingPages.includes(page) ? '17px' : '40px'"
+    >
+      <button class="title-button" *ngIf="page === ''; else stepperBlock">
+        Book flights
+      </button>
+      <ng-template #stepperBlock>
+        <mat-stepper *ngIf="bookingPages.includes(page)">
+          <mat-step label="Flights" matStepperIcon="phone"> </mat-step>
+          <mat-step label="Passengers"></mat-step>
+          <mat-step label="Review & Payment"></mat-step>
+        </mat-stepper>
+      </ng-template>
+      <mat-form-field appearance="fill" class="date">
+        <mat-select
+          [style.filter]="page === '' ? 'none' : bookingFilter"
+          panelClass="date-select"
+          [value]="datesFormat[0].value"
+          (valueChange)="addDateToStore($event)"
+        >
+          <mat-option *ngFor="let date of datesFormat" [value]="date.value">
+            {{ date.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="currency">
+        <mat-select
+          [style.filter]="
+            page === ''
+              ? 'none'
+              : bookingPages.includes(page)
+              ? bookingFilter
+              : cartFilter
+          "
+          panelClass="currency-select"
+          [value]="currency[0].value"
+          (valueChange)="addCurrencyToStore($event)"
+        >
+          <mat-option *ngFor="let cur of currency" [value]="cur.value">
+            {{ cur.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button
+        class="login-button" (click)="loginButtonHandlerClick()"
+      >
+        <div
+          class="img-container"
+          [style.background]="isAuth ? '#f1f3f6' : 'transparent'"
+        >
+          <img
+            [style.filter]="
+              page === ''
+                ? 'none'
+                : bookingPages.includes(page)
+                ? bookingFilter
+                : cartFilter
+            "
+            src="./assets/header-icons/signin-icon.svg"
+            alt="sign-in"
+          />
+        </div>
+        <span
+          [style.color]="
+            page === ''
+              ? 'white'
+              : bookingPages.includes(page)
+              ? '#49454F'
+              : '#11397E'
+          "
+          class="login-button__text"
+          >{{ isAuth ? userName : "Sign in" }}</span
+        >
+      </button>
+      <span
+        [matBadge]="badgeCounter"
+        matBadgeSize="small"
+        [matBadgeHidden]="hidden"
+        class="basket"
+      >
+        <img
+          [style.margin-left]="bookingPages.includes(page) ? '15px' : '-9px'"
+          [style.filter]="
+            page === ''
+              ? 'none'
+              : bookingPages.includes(page)
+              ? bookingFilter
+              : cartFilter
+          "
+          src="./assets/header-icons/shopping_basket.svg"
+          alt="basket"
+          [routerLink]="['/cart']"
+        />
+      </span>
+    </div>
+  </div>
+</div>

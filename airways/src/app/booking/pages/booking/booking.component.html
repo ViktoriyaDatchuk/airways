@@ -1,0 +1,10 @@
+<div class="booking">
+    <app-flight-search></app-flight-search>
+
+    <app-tickets *ngIf="!ticketIsLoading; else spiner"></app-tickets>
+    <ng-template #spiner>
+        <div class="booking__spiner">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
+</div>

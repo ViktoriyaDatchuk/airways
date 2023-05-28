@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="fare">
+    <app-person
+      *ngFor="let passFare of fareInfo.fares"
+      [passFare]="getData(passFare, fareInfo.fullPrice, fareInfo.cur)"
+    ></app-person>
+  </div>
+  <div class="total">
+    <h4>TOTAL:</h4>
+    <h4 class="primary">
+      {{
+        getSum(fareInfo.fares, fareInfo.fullPrice, fareInfo.cur)
+          | currency : fareInfo.cur : currencyIcon
+      }}
+    </h4>
+  </div>
+</div>
