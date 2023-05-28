@@ -22,6 +22,7 @@ import {
   UserState,
   selectUserFeature,
 } from 'src/app/redux/selectors/user.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-table',
@@ -53,7 +54,8 @@ export class BookingTableComponent implements OnInit, DoCheck {
     private store: Store<SettingsState>,
     private cartStore: Store<CartState>,
     private location: Location,
-    private userStore: Store<UserState>
+    private userStore: Store<UserState>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +109,9 @@ export class BookingTableComponent implements OnInit, DoCheck {
     this.cartStore.dispatch(
       changeSelected({ selected: e.checked, trip: trip })
     );
-    this.updateAllInputs();
+    setTimeout(() => {
+      this.updateAllInputs();
+    });
   }
 
   updateAllInputs() {
@@ -147,6 +151,12 @@ export class BookingTableComponent implements OnInit, DoCheck {
     } else if (this.currency === 'rub') {
       return Number(trip.price.rub.toFixed(2));
     } else return Number(trip.price.pln.toFixed(2));
+  }
+
+  linkToSummary() {
+    if (this.page !== 'cart') {
+      this.router.navigate(['/booking/summary']);
+    }
   }
 
   sortData(sort: Sort) {

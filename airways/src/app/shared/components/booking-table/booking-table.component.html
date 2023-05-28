@@ -8,7 +8,7 @@
     <tr>
       <th class="checkbox-col">
         <mat-checkbox
-          *ngIf="page == 'cart'"
+          *ngIf="page === 'cart'"
           class="example-margin"
           [checked]="allComplete"
           (change)="setAll($event.checked)"
@@ -30,13 +30,19 @@
       <td class="trip-table__row">
         <section class="checkbox-section">
           <mat-checkbox
-            *ngIf="page == 'cart'"
+            *ngIf="page === 'cart'"
             [checked]="trip.selected"
             (change)="changeValue(trip, $event)"
           ></mat-checkbox>
         </section>
       </td>
-      <td class="trip-table__row number-row">{{ trip.flightNumber }}</td>
+      <td
+        class="trip-table__row number-row"
+        (click)="linkToSummary()"
+        [style.cursor]="page === 'cart' ? 'default' : 'pointer'"
+      >
+        {{ trip.flightNumber }}
+      </td>
       <td
         class="trip-table__row destination-row"
         *ngIf="trip.type === 'Round Trip'; else secondBlock"
@@ -79,7 +85,7 @@
       </td>
       <td class="trip-table__row dots-row">
         <button
-          *ngIf="page == 'cart'"
+          *ngIf="page === 'cart'"
           class="dots-button"
           (click)="toggle($event)"
         >
