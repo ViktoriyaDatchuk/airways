@@ -51,7 +51,7 @@ export class HeaderComponent implements DoCheck {
 
   public badgeCounter!: number;
 
-  public isAuth: boolean = true;
+  public isAuth: boolean = false;
 
   public userName: string = 'Viktoryia';
 
