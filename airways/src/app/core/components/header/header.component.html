@@ -17,8 +17,8 @@
         Book flights
       </button>
       <ng-template #stepperBlock>
-        <mat-stepper *ngIf="page === 'booking'">
-          <mat-step label="Flights" matStepperIcon="phone"></mat-step>
+        <mat-stepper *ngIf="bookingPages.includes(page)">
+          <mat-step label="Flights" matStepperIcon="phone"> </mat-step>
           <mat-step label="Passengers"></mat-step>
           <mat-step label="Review & Payment"></mat-step>
         </mat-stepper>
@@ -95,6 +95,7 @@
           "
           src="./assets/header-icons/shopping_basket.svg"
           alt="basket"
+          [routerLink]="['/cart']"
         />
       </span>
     </div>

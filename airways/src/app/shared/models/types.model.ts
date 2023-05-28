@@ -44,33 +44,40 @@ export interface PriceModel {
 }
 
 export interface IFlightModel {
-  flightNumber: string
+  flightNumber: string;
   form: {
-    key: string, name: string, city: string, gmt: string, country: string
-  }
-  landingDate: string 
-  price: {eur: number, usd: number, rub: number, pln: number}
-  seats: {total: number, avaible: number}
-  takeoffDate: string
-  timeMins: number
-  to: {key: string, name: string, city: string, gmt: string , country: string}
-  otherFlights: IOtherFlights
+    key: string;
+    name: string;
+    city: string;
+    gmt: string;
+    country: string;
+  };
+  landingDate: string;
+  price: { eur: number; usd: number; rub: number; pln: number };
+  seats: { total: number; avaible: number };
+  takeoffDate: string;
+  timeMins: number;
+  to: { key: string; name: string; city: string; gmt: string; country: string };
+  otherFlights: IOtherFlights;
 }
 
-export type IFlightModelWithoutOtherFlights = Omit<IFlightModel, 'otherFlights'>
+export type IFlightModelWithoutOtherFlights = Omit<
+  IFlightModel,
+  'otherFlights'
+>;
 // export type IFlightModelWithoutOtherFlights = Omit<Partial<IFlightModel>, 'otherFlights'>
 
 export interface IOtherFlights {
-  "1"?: IFlightModelWithoutOtherFlights
-  "2"?: IFlightModelWithoutOtherFlights
-  "3"?: IFlightModelWithoutOtherFlights
-  "4"?: IFlightModelWithoutOtherFlights
-  "5"?: IFlightModelWithoutOtherFlights
-  "-1"?: IFlightModelWithoutOtherFlights
-  "-2"?: IFlightModelWithoutOtherFlights
-  "-3"?: IFlightModelWithoutOtherFlights
-  "-4"?: IFlightModelWithoutOtherFlights
-  "-5"?: IFlightModelWithoutOtherFlights
+  '1'?: IFlightModelWithoutOtherFlights;
+  '2'?: IFlightModelWithoutOtherFlights;
+  '3'?: IFlightModelWithoutOtherFlights;
+  '4'?: IFlightModelWithoutOtherFlights;
+  '5'?: IFlightModelWithoutOtherFlights;
+  '-1'?: IFlightModelWithoutOtherFlights;
+  '-2'?: IFlightModelWithoutOtherFlights;
+  '-3'?: IFlightModelWithoutOtherFlights;
+  '-4'?: IFlightModelWithoutOtherFlights;
+  '-5'?: IFlightModelWithoutOtherFlights;
 }
 
 export interface FlightModel {
@@ -86,4 +93,14 @@ export interface FlightModel {
 export interface PassengerType {
   title: string;
   age: string;
+}
+
+export interface IFligthForCart extends IFlightModelWithoutOtherFlights {
+  selected: boolean;
+  type: string;
+  adults: number;
+  childs: number;
+  infants: number;
+  takeoffDateBack?: string;
+  landingDateBack?: string;
 }

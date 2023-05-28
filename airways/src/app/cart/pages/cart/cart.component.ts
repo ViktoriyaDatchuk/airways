@@ -1,6 +1,4 @@
 import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
-import { trips } from '../../tripsmock';
-import { IDataTravel } from '../../tripsmock';
 import { DataService } from 'src/app/shared/services/data.service';
 import { Store } from '@ngrx/store';
 import {
@@ -8,6 +6,11 @@ import {
   selectCurrency,
 } from 'src/app/redux/selectors/settings.selector';
 import { BookingTableComponent } from 'src/app/shared/components/booking-table/booking-table.component';
+import {
+  CartState,
+  selectFeature,
+} from 'src/app/redux/selectors/cart.selector';
+import { IFligthForCart } from 'src/app/shared/models/types.model';
 
 @Component({
   selector: 'app-cart',
@@ -16,7 +19,7 @@ import { BookingTableComponent } from 'src/app/shared/components/booking-table/b
 export class CartComponent implements OnInit, AfterViewChecked {
   @ViewChild(BookingTableComponent) child!: BookingTableComponent;
 
-  public trips: IDataTravel[] = trips;
+  public trips!: IFligthForCart[];
 
   public selected: number = 0;
 
@@ -26,7 +29,8 @@ export class CartComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private dataService: DataService,
-    private store: Store<SettingsState>
+    private store: Store<SettingsState>,
+    private cartStore: Store<CartState>
   ) {}
 
   ngOnInit(): void {
@@ -35,6 +39,9 @@ export class CartComponent implements OnInit, AfterViewChecked {
         this.dataService.currencyIcons[
           data as keyof typeof this.dataService.currencyIcons
         ];
+    });
+    this.cartStore.select(selectFeature).subscribe((data) => {
+      this.trips = data.flight;
     });
   }
 

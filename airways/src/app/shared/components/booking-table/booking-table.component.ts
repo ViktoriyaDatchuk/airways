@@ -1,19 +1,29 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
-import { IDataTravel, trips } from '../../../cart/tripsmock';
 import { Store } from '@ngrx/store';
 import {
   SettingsState,
   selectCurrency,
+  selectDate,
 } from 'src/app/redux/selectors/settings.selector';
 import { DataService } from 'src/app/shared/services/data.service';
+import { IFligthForCart } from '../../models/types.model';
+import {
+  CartState,
+  selectFeature,
+} from 'src/app/redux/selectors/cart.selector';
+import {
+  changeSelected,
+  deleteFligth,
+} from 'src/app/redux/actions/cart.action';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-booking-table',
   templateUrl: './booking-table.component.html',
 })
 export class BookingTableComponent implements OnInit, DoCheck {
-  public trips: IDataTravel[] = trips;
+  public trips!: IFligthForCart[];
 
   public isVisible: boolean = false;
 
@@ -25,41 +35,68 @@ export class BookingTableComponent implements OnInit, DoCheck {
 
   public currencyIcon!: string;
 
-  public sortedTrips!: IDataTravel[];
+  public currency!: string;
+
+  public dateFormat!: string;
+
+  public sortedTrips!: IFligthForCart[];
 
   constructor(
     private dataService: DataService,
-    private store: Store<SettingsState>
+    private store: Store<SettingsState>,
+    private cartStore: Store<CartState>
   ) {}
 
   ngOnInit(): void {
     this.store.select(selectCurrency).subscribe((data) => {
+      this.currency = data;
       this.currencyIcon =
         this.dataService.currencyIcons[
           data as keyof typeof this.dataService.currencyIcons
         ];
     });
+    this.store.select(selectDate).subscribe((data) => {
+      this.dateFormat = data;
+    });
+    this.cartStore.select(selectFeature).subscribe((data) => {
+      this.trips = data.flight;
+    });
   }
 
   ngDoCheck(): void {
-    this.sortedTrips = this.trips.slice();
-    this.sum = this.sortedTrips.reduce((sum, trip) => sum + trip.price, 0);
+    this.sortedTrips = [...this.trips];
+    this.selected = this.countSelected();
+    this.sum = this.sortedTrips.reduce(
+      (sum, trip) => sum + trip.price[this.currency as keyof typeof trip.price],
+      0
+    );
   }
 
   setAll(completed: boolean) {
     if (this.allComplete === false) {
       this.allComplete = completed;
-      this.sortedTrips.forEach((trip) => (trip.selected = true));
+      this.sortedTrips.forEach((trip) =>
+        this.cartStore.dispatch(changeSelected({ selected: true, trip: trip }))
+      );
     } else {
       this.allComplete = false;
-      this.sortedTrips.forEach((trip) => (trip.selected = false));
+      this.sortedTrips.forEach((trip) =>
+        this.cartStore.dispatch(changeSelected({ selected: false, trip: trip }))
+      );
     }
     this.selected = this.countSelected();
   }
 
+  changeValue(trip: IFligthForCart, e: MatCheckboxChange) {
+    this.cartStore.dispatch(
+      changeSelected({ selected: e.checked, trip: trip })
+    );
+    console.log(this.sortedTrips);
+    this.updateAllInputs();
+  }
+
   updateAllInputs() {
     this.allComplete = this.sortedTrips.every((trip) => trip.selected);
-    this.selected = this.countSelected();
   }
 
   countSelected() {
@@ -84,11 +121,21 @@ export class BookingTableComponent implements OnInit, DoCheck {
         elem.classList.remove('unhidden');
       }
     );
-    this.trips = this.trips.filter((trip) => trip.number !== number);
+    this.cartStore.dispatch(deleteFligth({ number: number }));
+  }
+
+  getPrice(trip: IFligthForCart): number {
+    if (this.currency === 'eur') {
+      return Number(trip.price.eur.toFixed(2));
+    } else if (this.currency === 'usd') {
+      return Number(trip.price.usd.toFixed(2));
+    } else if (this.currency === 'rub') {
+      return Number(trip.price.rub.toFixed(2));
+    } else return Number(trip.price.pln.toFixed(2));
   }
 
   sortData(sort: Sort) {
-    const data = this.trips.slice();
+    const data = [...this.trips];
     if (!sort.active || sort.direction === '') {
       this.sortedTrips = data;
       return;
@@ -98,19 +145,19 @@ export class BookingTableComponent implements OnInit, DoCheck {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'number':
-          return compare(a.number, b.number, isAsc);
+          return compare(a.flightNumber, b.flightNumber, isAsc);
         case 'flight':
           let first;
           let second;
           if (a.type === 'Round Trip') {
-            first = `${a.from} - ${a.destination} - ${a.from}`;
+            first = `${a.form.city} - ${a.to.city} - ${a.form.city}`;
           } else {
-            first = `${a.from} - ${a.destination}`;
+            first = `${a.form.city} - ${a.to.city}`;
           }
           if (b.type === 'Round Trip') {
-            second = `${b.from} - ${b.destination} - ${b.from}`;
+            second = `${b.form.city} - ${b.to.city} - ${b.form.city}`;
           } else {
-            second = `${b.from} - ${b.destination}`;
+            second = `${b.form.city} - ${b.to.city}`;
           }
           return compare(first, second, isAsc);
         case 'type':
@@ -119,18 +166,22 @@ export class BookingTableComponent implements OnInit, DoCheck {
           let dateFrom;
           let dateTo;
           if (a.type === 'Round Trip') {
-            dateFrom = `${a.dateFrom} - ${a.dateTo}&shy;${a.dateFromBack} - ${a.dateToBack}`;
+            dateFrom = `${a.takeoffDate} - ${a.landingDate}`;
           } else {
-            dateFrom = `${a.dateFrom} - ${a.dateTo}`;
+            dateFrom = `${a.takeoffDate} - ${a.landingDate}`;
           }
           if (b.type === 'Round Trip') {
-            dateTo = `${b.dateFrom} - ${b.dateTo}&shy;${b.dateFromBack} - ${b.dateToBack}`;
+            dateTo = `${b.takeoffDate} - ${b.landingDate}`;
           } else {
-            dateTo = `${b.dateFrom} - ${b.dateTo}`;
+            dateTo = `${b.takeoffDate} - ${b.landingDate}`;
           }
           return compare(dateFrom, dateTo, isAsc);
         case 'price':
-          return compare(a.price, b.price, isAsc);
+          return compare(
+            a.price[this.currency as keyof typeof a.price],
+            b.price[this.currency as keyof typeof b.price],
+            isAsc
+          );
         default:
           return 0;
       }
