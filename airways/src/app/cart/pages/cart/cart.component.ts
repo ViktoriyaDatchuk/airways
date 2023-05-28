@@ -11,6 +11,9 @@ import {
   selectFeature,
 } from 'src/app/redux/selectors/cart.selector';
 import { IFligthForCart } from 'src/app/shared/models/types.model';
+import { UserState } from 'src/app/redux/selectors/user.selector';
+import { addPaidFlight } from 'src/app/redux/actions/user.action';
+import { deleteFligth } from 'src/app/redux/actions/cart.action';
 
 @Component({
   selector: 'app-cart',
@@ -30,7 +33,8 @@ export class CartComponent implements OnInit, AfterViewChecked {
   constructor(
     private dataService: DataService,
     private store: Store<SettingsState>,
-    private cartStore: Store<CartState>
+    private cartStore: Store<CartState>,
+    private userStore: Store<UserState>
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +53,15 @@ export class CartComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       this.selected = this.child.selected;
       this.sum = this.child.sum;
+    });
+  }
+
+  addFlightToUserStore() {
+    this.trips.forEach((trip) => {
+      if (trip.selected === true) {
+        this.userStore.dispatch(addPaidFlight({ fligth: trip }));
+        this.cartStore.dispatch(deleteFligth({ number: trip.flightNumber }));
+      }
     });
   }
 }

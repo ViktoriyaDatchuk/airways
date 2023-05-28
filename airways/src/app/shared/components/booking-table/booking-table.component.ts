@@ -17,6 +17,11 @@ import {
   deleteFligth,
 } from 'src/app/redux/actions/cart.action';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Location } from '@angular/common';
+import {
+  UserState,
+  selectUserFeature,
+} from 'src/app/redux/selectors/user.selector';
 
 @Component({
   selector: 'app-booking-table',
@@ -41,13 +46,18 @@ export class BookingTableComponent implements OnInit, DoCheck {
 
   public sortedTrips!: IFligthForCart[];
 
+  public page!: string;
+
   constructor(
     private dataService: DataService,
     private store: Store<SettingsState>,
-    private cartStore: Store<CartState>
+    private cartStore: Store<CartState>,
+    private location: Location,
+    private userStore: Store<UserState>
   ) {}
 
   ngOnInit(): void {
+    this.page = this.location.path().slice(1);
     this.store.select(selectCurrency).subscribe((data) => {
       this.currency = data;
       this.currencyIcon =
@@ -58,9 +68,15 @@ export class BookingTableComponent implements OnInit, DoCheck {
     this.store.select(selectDate).subscribe((data) => {
       this.dateFormat = data;
     });
-    this.cartStore.select(selectFeature).subscribe((data) => {
-      this.trips = data.flight;
-    });
+    if (this.page === 'cart') {
+      this.cartStore.select(selectFeature).subscribe((data) => {
+        this.trips = data.flight;
+      });
+    } else {
+      this.userStore.select(selectUserFeature).subscribe((data) => {
+        this.trips = data.paidFlight;
+      });
+    }
   }
 
   ngDoCheck(): void {
@@ -91,7 +107,6 @@ export class BookingTableComponent implements OnInit, DoCheck {
     this.cartStore.dispatch(
       changeSelected({ selected: e.checked, trip: trip })
     );
-    console.log(this.sortedTrips);
     this.updateAllInputs();
   }
 
