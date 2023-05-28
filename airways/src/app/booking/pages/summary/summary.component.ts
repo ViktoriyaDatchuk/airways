@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IDataTravel } from 'src/app/redux/models/models';
+import { IDataTravel, IPersonsData } from 'src/app/redux/models/models';
 import {
   selectTicketFrom,
   selectTicketTo,
@@ -9,6 +9,7 @@ import {
   selectChildsCount,
   selectInfantsCount,
   selectIsReturn,
+  selectPersonsData,
 } from 'src/app/redux/selectors/booking.selectors';
 
 import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
@@ -37,31 +38,13 @@ export class SummaryComponent implements OnInit {
   adults$!: Observable<number>;
   childs$!: Observable<number>;
   infants$!: Observable<number>;
+  passInfo$!: Observable<IPersonsData[]>;
+  passInfo: IPersonsData[] = [];
   adults = 0;
   childs = 0;
   infants = 0;
   currency$!: Observable<string>;
   currency = 'rur';
-
-  fakePassData: IPassenger[] = [
-    {
-      name: 'Severus Potter',
-      hasBaggage: true,
-      seat: '19E',
-      type: AGEGROUP.Adult,
-    },
-    {
-      name: 'Odrey Potter',
-      hasBaggage: false,
-      seat: '19E',
-      type: AGEGROUP.Child,
-    },
-    {
-      name: 'Ronald Potter',
-      hasBaggage: true,
-      type: AGEGROUP.Infant,
-    },
-  ];
 
   constructor(
     private state: Store<{ booking: IDataTravel }>,
@@ -75,6 +58,7 @@ export class SummaryComponent implements OnInit {
     this.adults$ = this.state.select(selectAdultsCount);
     this.childs$ = this.state.select(selectChildsCount);
     this.infants$ = this.state.select(selectInfantsCount);
+    this.passInfo$ = this.state.select(selectPersonsData);
     this.currency$ = this.store.select(selectCurrency);
     this.subscribe();
   }
@@ -88,6 +72,9 @@ export class SummaryComponent implements OnInit {
     });
     this.infants$.subscribe((el) => {
       this.infants = el;
+    });
+    this.passInfo$.subscribe((el) => {
+      this.passInfo = el;
     });
     this.currency$.subscribe((el) => {
       this.currency = el;
@@ -103,7 +90,8 @@ export class SummaryComponent implements OnInit {
       gmtFrom: ticket.form.gmt,
       landingDate: new Date(ticket.landingDate),
       gmtTo: ticket.to.gmt,
-      passengers: this.fakePassData,
+      // passengers: this.fakePassData,
+      passengers: this.getPassengers(),
     };
     return res;
   }
@@ -131,6 +119,34 @@ export class SummaryComponent implements OnInit {
         },
       ],
     };
+    return res;
+  }
+
+  getPassengers() {
+    const res = [];
+    const ABC = 'ABCDEF';
+    let num = Math.ceil(Math.random() * 15);
+    let num2 = Math.floor(Math.random() * 6);
+
+    for (let i = 0; i < this.passInfo.length; i++) {
+      const element = this.passInfo[i];
+      const obj: IPassenger = {
+        name: `${element.name} ${element.lastName}`,
+        baggage: element.countWeight ? parseInt(element.countWeight) : 0,
+        isInfant: element.infant,
+      };
+      if (!element.infant) {
+        obj.seat = `${5 + num}${ABC.charAt(num2)}`;
+      }
+
+      res.push(obj);
+
+      num2++;
+      if (num2 === 6) {
+        num++;
+        num2 = 0;
+      }
+    }
     return res;
   }
 }

@@ -16,9 +16,9 @@ export interface INoFlightModel {
 
 export interface IPassenger {
   name: string;
-  hasBaggage: boolean;
+  baggage: number;
   seat?: string;
-  type: AGEGROUP;
+  isInfant: boolean;
 }
 
 export enum FROMTOSTRINGS {
