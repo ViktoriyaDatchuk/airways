@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.total,
+.part {
+  display: flex;
+  justify-content: space-between;
+}
+h4 {
+  margin: 0;
+}
+
+p {
+  margin-left: 30px;
+}

@@ -9,6 +9,7 @@ import { PassengerListComponent } from './components/passenger-list/passenger-li
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 
 
+
 @NgModule({
   declarations: [EditMenuComponent, BookingTableComponent, PassengerTypeComponent, PassengerListComponent, FlightSearchComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],

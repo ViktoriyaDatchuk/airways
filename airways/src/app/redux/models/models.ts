@@ -19,6 +19,8 @@ export interface IDataTravel {
   ticketTo: IFlightModelWithoutOtherFlights | null;
   isLoadingFlight: boolean;
   isRoundTrip: boolean;
+  personsData: IPersonsData[];
+  personsContacts: IPersonsContact | null;
 }
 
 export interface ISettings {
@@ -28,4 +30,20 @@ export interface ISettings {
 
 export interface ICartFlights {
   flight: IFligthForCart[];
+}
+
+export interface IPersonsData {
+  name: string;
+  lastName: string;
+  sex: string;
+  birthDay: string;
+  specialAssistance?: string;
+  countWeight?: string;
+  infant: boolean;
+}
+
+export interface IPersonsContact {
+  code: string;
+  phone: string;
+  email: string;
 }

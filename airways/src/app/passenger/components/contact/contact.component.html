@@ -1,0 +1,26 @@
+<div class="contact">
+    <form action="" class="contact__form" [formGroup]="contactForm">
+        <mat-form-field appearance="fill" class="contact__code">
+            <mat-label>Country code</mat-label>
+            <select matNativeControl formControlName="phoneRegionControl">
+            <option value=""></option>
+            <option *ngFor="let tel of tels; index as i"
+                    [selected]="i === 0">{{ tel.country }} +{{tel.calling_code}}</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field class="contact__phone">
+            <mat-label>Mobile phone number</mat-label>
+            <input matInput placeholder=" e.g. 1111111111" type="tel" formControlName="mobileControl" required>
+            <mat-error *ngIf="checkIfError('mobileControl', 'required')">
+                Phone number required
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="contact__mail" >
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="emailControl" placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="checkIfError('emailControl', 'required')">
+            Email is required
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
