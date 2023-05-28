@@ -15,6 +15,7 @@ export const selectDate = createSelector(selectFeature, (state: ISettings) => {
 
 export const selectCurrency = createSelector(
   selectFeature,
+  
   (state: ISettings) => {
     return state.currency;
   }

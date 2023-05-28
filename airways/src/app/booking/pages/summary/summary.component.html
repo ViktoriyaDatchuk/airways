@@ -6,6 +6,7 @@
       <span class="icon"></span>
       <h3>Summary</h3>
     </div>
+<<<<<<< HEAD
     <ng-container *ngIf="ticketFrom$ | async as ticketFrom">
       <div class="order">
         <app-order [ticket]="getTicketInfo(ticketFrom)"></app-order>
@@ -27,6 +28,14 @@
         </button>
         <button mat-flat-button color="primary">Buy now</button>
       </div>
+=======
+    <div class="order">
+      <app-order></app-order>
+      <app-order></app-order>
+    </div>
+    <div class="fare">
+      <app-fare></app-fare>
+>>>>>>> develop
     </div>
   </div>
 </div>

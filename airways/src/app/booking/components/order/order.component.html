@@ -1,6 +1,7 @@
 <div class="container">
   <div class="flight-info">
     <h4 class="title">
+<<<<<<< HEAD
       <span class="primary">{{ ticket.flightNumber }}</span>
       {{ getAirportsName() }}
     </h4>
@@ -13,6 +14,17 @@
     </p>
   </div>
   <div *ngFor="let person of ticket.passengers" class="passanger-info">
+=======
+      <span class="primary">FR 1925</span>
+      Dublin — Warsaw Modlin
+    </h4>
+    <p class="date">
+      Wednesday, 1 March, 2023
+      <span class="time">8:40 — 12:00</span>
+    </p>
+  </div>
+  <div *ngFor="let person of persons" class="passanger-info">
+>>>>>>> develop
     <p class="name">{{ person.name | uppercase }}</p>
     <p class="info" *ngIf="person.hasBaggage">
       1 checked bag (total 23 kg) included
