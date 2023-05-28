@@ -11,8 +11,10 @@ import {
   selectIsReturn,
   selectPersonsData,
 } from 'src/app/redux/selectors/booking.selectors';
-
-import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
+import {
+  IFlightModelWithoutOtherFlights,
+  IFligthForCart,
+} from 'src/app/shared/models/types.model';
 import {
   AGEGROUP,
   IFareInfoSummary,
@@ -23,6 +25,8 @@ import {
   SettingsState,
   selectCurrency,
 } from 'src/app/redux/selectors/settings.selector';
+import { Router } from '@angular/router';
+import { addFlight } from 'src/app/redux/actions/cart.action';
 
 @Component({
   selector: 'app-summary',
@@ -35,6 +39,8 @@ export class SummaryComponent implements OnInit {
   returnTicket$!: Observable<boolean>;
   ticketFrom$!: Observable<IFlightModelWithoutOtherFlights | null>;
   ticketTo$!: Observable<IFlightModelWithoutOtherFlights | null>;
+  ticketFrom!: IFlightModelWithoutOtherFlights | null;
+  ticketTo!: IFlightModelWithoutOtherFlights | null;
   adults$!: Observable<number>;
   childs$!: Observable<number>;
   infants$!: Observable<number>;
@@ -48,7 +54,8 @@ export class SummaryComponent implements OnInit {
 
   constructor(
     private state: Store<{ booking: IDataTravel }>,
-    private store: Store<SettingsState>
+    private store: Store<SettingsState>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +85,12 @@ export class SummaryComponent implements OnInit {
     });
     this.currency$.subscribe((el) => {
       this.currency = el;
+    });
+    this.ticketFrom$.subscribe((el) => {
+      this.ticketFrom = el;
+    });
+    this.ticketTo$.subscribe((el) => {
+      this.ticketTo = el;
     });
   }
 
@@ -149,4 +162,34 @@ export class SummaryComponent implements OnInit {
     }
     return res;
   }
+
+  buttonCartHandlerClick() {
+    if (this.ticketFrom) {
+      const obj: IFligthForCart = {
+        ...this.ticketFrom,
+        selected: false,
+        type: 'One way',
+        adults: this.adults,
+        childs: this.childs,
+        infants: this.infants,
+      };
+
+      if (this.ticketTo) {
+        obj.type = 'Round Trip';
+        obj.takeoffDateBack = this.ticketTo.takeoffDate;
+        obj.landingDateBack = this.ticketTo.landingDate;
+      }
+
+      const flight = {
+        fligth: obj,
+      };
+      this.state.dispatch(addFlight(flight));
+    }
+    this.router.navigate(['/cart']);
+  }
+
+  // buttonHistoryHandlerClick() {
+  //   // this.dispatchPersonData();
+  //   this.router.navigate(['/somewhere']);
+  // }
 }

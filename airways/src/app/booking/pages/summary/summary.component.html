@@ -22,10 +22,21 @@
     <div class="fare" *ngIf="showButtons">
       <div class="buttons">
         <button mat-flat-button>Back</button>
-        <button mat-stroked-button color="primary" class="button-spaces">
+        <button
+          (click)="buttonCartHandlerClick()"
+          mat-stroked-button
+          color="primary"
+          class="button-spaces"
+        >
           Add to order cart
         </button>
-        <button mat-flat-button color="primary">Buy now</button>
+        <button
+          (click)="buttonCartHandlerClick()"
+          mat-flat-button
+          color="primary"
+        >
+          Buy now
+        </button>
       </div>
     </div>
   </div>
