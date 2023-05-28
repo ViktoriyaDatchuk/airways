@@ -10,6 +10,7 @@ import {
   selectInfantsCount,
   selectIsReturn,
 } from 'src/app/redux/selectors/booking.selectors';
+
 import { IFlightModelWithoutOtherFlights } from 'src/app/shared/models/types.model';
 import {
   AGEGROUP,
@@ -17,6 +18,10 @@ import {
   IPassenger,
   ITicketInfoSummary,
 } from '../../booking.model';
+import {
+  SettingsState,
+  selectCurrency,
+} from 'src/app/redux/selectors/settings.selector';
 
 @Component({
   selector: 'app-summary',
@@ -35,8 +40,8 @@ export class SummaryComponent implements OnInit {
   adults = 0;
   childs = 0;
   infants = 0;
-  // currency$!: Observable<string>;
-  currency = 'eur';
+  currency$!: Observable<string>;
+  currency = 'rur';
 
   fakePassData: IPassenger[] = [
     {
@@ -58,7 +63,10 @@ export class SummaryComponent implements OnInit {
     },
   ];
 
-  constructor(private state: Store<{ booking: IDataTravel }>) {}
+  constructor(
+    private state: Store<{ booking: IDataTravel }>,
+    private store: Store<SettingsState>
+  ) {}
 
   ngOnInit(): void {
     this.returnTicket$ = this.state.select(selectIsReturn);
@@ -67,7 +75,7 @@ export class SummaryComponent implements OnInit {
     this.adults$ = this.state.select(selectAdultsCount);
     this.childs$ = this.state.select(selectChildsCount);
     this.infants$ = this.state.select(selectInfantsCount);
-    // this.currency$ = this.state.select(selectInfantsCount);
+    this.currency$ = this.store.select(selectCurrency);
     this.subscribe();
   }
 
@@ -80,6 +88,9 @@ export class SummaryComponent implements OnInit {
     });
     this.infants$.subscribe((el) => {
       this.infants = el;
+    });
+    this.currency$.subscribe((el) => {
+      this.currency = el;
     });
   }
 
