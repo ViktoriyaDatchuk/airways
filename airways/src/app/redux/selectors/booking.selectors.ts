@@ -88,3 +88,15 @@ export const selectFlightIsLoading = createSelector(
   (state: IDataTravel) => {
     return state.isLoadingFlight},
 );
+
+export const selectPersonsData = createSelector(
+  selectFeature,
+  (state: IDataTravel) => {
+    return state.personsData},
+);
+
+export const selectPersonsContacts = createSelector(
+  selectFeature,
+  (state: IDataTravel) => {
+    return state.personsContacts},
+);
