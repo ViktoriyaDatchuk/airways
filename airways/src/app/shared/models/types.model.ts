@@ -1,5 +1,3 @@
-import { IDataTravel } from 'src/app/redux/models/models';
-
 export interface AirportModel {
   key: string;
   name: string;
@@ -97,6 +95,12 @@ export interface PassengerType {
   age: string;
 }
 
-export interface DataTravelForCart extends IDataTravel {
-  selected?: boolean;
+export interface IFligthForCart extends IFlightModelWithoutOtherFlights {
+  selected: boolean;
+  type: string;
+  adults: number;
+  childs: number;
+  infants: number;
+  takeoffDateBack?: string;
+  landingDateBack?: string;
 }

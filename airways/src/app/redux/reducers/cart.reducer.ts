@@ -1,13 +1,34 @@
 import { createReducer, on } from '@ngrx/store';
-import { IFlightModel } from 'src/app/shared/models/types.model';
-import { addFlight } from '../actions/cart.action';
+import {
+  addFlight,
+  changeSelected,
+  deleteFligth,
+} from '../actions/cart.action';
+import { ICartFlights } from '../models/models';
 
-export const initialState: IFlightModel[] = [];
+export const initialState: ICartFlights = {
+  flight: [],
+};
 
 export const cartReducer = createReducer(
   initialState,
   on(addFlight, (state, { fligth }) => ({
     ...state,
-    fligth,
+    flight: [...state.flight, fligth],
+  })),
+  on(changeSelected, (state, { selected, trip }) => ({
+    ...state,
+    flight: state.flight.map((item) =>
+      trip.flightNumber === item.flightNumber
+        ? {
+            ...item,
+            selected: selected,
+          }
+        : item
+    ),
+  })),
+  on(deleteFligth, (state, { number }) => ({
+    ...state,
+    flight: state.flight.filter((item) => item.flightNumber !== number),
   }))
 );

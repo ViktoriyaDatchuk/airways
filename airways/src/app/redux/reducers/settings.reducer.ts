@@ -3,7 +3,7 @@ import { ISettings } from '../models/models';
 import * as settingsAction from '../actions/settings.actoins';
 
 export const initialState: ISettings = {
-  date: 'MM/DD/YYYY',
+  date: 'MM/dd/YYYY',
   currency: 'eur',
 };
 

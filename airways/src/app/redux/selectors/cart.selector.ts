@@ -1,7 +1,7 @@
-import { IFlightModel } from 'src/app/shared/models/types.model';
+import { ICartFlights } from '../models/models';
 
 export interface CartState {
-  cart: IFlightModel[];
+  cart: ICartFlights;
 }
 
 export const selectFeature = (state: CartState) => {

@@ -1,4 +1,9 @@
-<table class="trip-table" matSort (matSortChange)="sortData($event)">
+<table
+  class="trip-table"
+  matSort
+  matSortStart="desc"
+  (matSortChange)="sortData($event)"
+>
   <thead class="trip-table__header">
     <tr>
       <th class="checkbox-col">
@@ -24,21 +29,21 @@
       <td class="trip-table__row">
         <section class="checkbox-section">
           <mat-checkbox
-            [(ngModel)]="trip.selected"
-            (ngModelChange)="updateAllInputs()"
+            [checked]="trip.selected"
+            (change)="changeValue(trip, $event)"
           ></mat-checkbox>
         </section>
       </td>
-      <td class="trip-table__row number-row">{{ trip.number }}</td>
+      <td class="trip-table__row number-row">{{ trip.flightNumber }}</td>
       <td
         class="trip-table__row destination-row"
         *ngIf="trip.type === 'Round Trip'; else secondBlock"
       >
-        {{ trip.from }} - {{ trip.destination }} - {{ trip.from }}
+        {{ trip.form.city }} - {{ trip.to.city }} - {{ trip.form.city }}
       </td>
       <ng-template #secondBlock>
         <td class="trip-table__row destination-row">
-          {{ trip.from }} - {{ trip.destination }}
+          {{ trip.form.city }} - {{ trip.to.city }}
         </td>
       </ng-template>
       <td class="trip-table__row">{{ trip.type }}</td>
@@ -46,15 +51,18 @@
         class="trip-table__row"
         *ngIf="trip.type === 'Round Trip'; else anotherBlock"
       >
-        {{ trip.dateFrom }} - {{ trip.dateTo.slice(-5) }}<br />{{
-          trip.dateFromBack
-        }}
-        -
-        {{ trip.dateToBack?.slice(-5) }}
+        {{ trip.takeoffDate | date : dateFormat }}
+        {{ trip.takeoffDate | date : "hh:mm" }} -
+        {{ trip.landingDate | date : "hh:mm" }}
+        <br />{{ trip.takeoffDateBack | date : dateFormat }}
+        {{ trip.takeoffDateBack | date : "hh:mm" }} -
+        {{ trip.landingDateBack | date : "hh:mm" }}
       </td>
       <ng-template #anotherBlock>
         <td class="trip-table__row">
-          {{ trip.dateFrom }} - {{ trip.dateTo.slice(-5) }}
+          {{ trip.takeoffDate | date : dateFormat }}
+          {{ trip.takeoffDate | date : "hh:mm" }} -
+          {{ trip.landingDate | date : "hh:mm" }}
         </td>
       </ng-template>
       <td class="trip-table__row">
@@ -65,7 +73,7 @@
         </ul>
       </td>
       <td class="trip-table__row trip-price">
-        {{ currencyIcon }}{{ trip.price }}
+        {{ currencyIcon }} {{ getPrice(trip) }}
       </td>
       <td class="trip-table__row dots-row">
         <button class="dots-button" (click)="toggle($event)">

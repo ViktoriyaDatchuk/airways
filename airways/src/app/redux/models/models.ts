@@ -1,5 +1,9 @@
-import { ISliderData } from "src/app/booking/booking.model";
-import { IFlightModel, IFlightModelWithoutOtherFlights } from "src/app/shared/models/types.model";
+import { ISliderData } from 'src/app/booking/booking.model';
+import {
+  IFlightModel,
+  IFlightModelWithoutOtherFlights,
+  IFligthForCart,
+} from 'src/app/shared/models/types.model';
 
 export interface IDataTravel {
   from: string;
@@ -20,4 +24,8 @@ export interface IDataTravel {
 export interface ISettings {
   date: string;
   currency: string;
+}
+
+export interface ICartFlights {
+  flight: IFligthForCart[];
 }
