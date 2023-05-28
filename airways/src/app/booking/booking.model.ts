@@ -73,3 +73,14 @@ export interface IPriceData {
   fare: number;
   cur: string;
 }
+
+export interface ITicketInfoSummary {
+  flightNumber: string;
+  nameFrom: string;
+  nameTo: string;
+  takeoffDate: Date;
+  gmtFrom: string;
+  landingDate: Date;
+  gmtTo: string;
+  passengers: IPassenger[];
+}

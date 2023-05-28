@@ -7,11 +7,26 @@
       <h3>Summary</h3>
     </div>
     <div class="order">
-      <app-order></app-order>
-      <app-order></app-order>
+      <ng-container *ngIf="ticketFrom$ | async as ticketFrom">
+        <app-order [ticket]="getTicketInfo(ticketFrom)"></app-order>
+      </ng-container>
+      <div *ngIf="returnTicket$ | async">
+        <ng-container *ngIf="ticketTo$ | async as ticketTo">
+          <app-order [ticket]="getTicketInfo(ticketTo)"></app-order>
+        </ng-container>
+      </div>
     </div>
     <div class="fare">
       <app-fare></app-fare>
+    </div>
+    <div class="fare" *ngIf="showButtons">
+      <div class="buttons">
+        <button mat-flat-button>Back</button>
+        <button mat-stroked-button color="primary" class="button-spaces">
+          Add to order cart
+        </button>
+        <button mat-flat-button color="primary">Buy now</button>
+      </div>
     </div>
   </div>
 </div>
