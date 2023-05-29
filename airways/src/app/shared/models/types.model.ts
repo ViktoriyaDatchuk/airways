@@ -1,3 +1,5 @@
+import { IPersonsData } from 'src/app/redux/models/models';
+
 export interface AirportModel {
   key: string;
   name: string;
@@ -103,4 +105,5 @@ export interface IFligthForCart extends IFlightModelWithoutOtherFlights {
   infants: number;
   takeoffDateBack?: string;
   landingDateBack?: string;
+  personData: IPersonsData[];
 }
