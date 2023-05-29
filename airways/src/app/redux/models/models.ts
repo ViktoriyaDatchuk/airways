@@ -32,6 +32,10 @@ export interface ICartFlights {
   flight: IFligthForCart[];
 }
 
+export interface IUserFlights {
+  paidFlight: IFligthForCart[];
+}
+
 export interface IPersonsData {
   name: string;
   lastName: string;

@@ -21,7 +21,7 @@
     </ng-container>
     <div class="fare" *ngIf="showButtons">
       <div class="buttons">
-        <button mat-flat-button>Back</button>
+        <button mat-flat-button [routerLink]="['/passenger']">Back</button>
         <button
           (click)="buttonCartHandlerClick()"
           mat-stroked-button
@@ -30,11 +30,7 @@
         >
           Add to order cart
         </button>
-        <button
-          (click)="buttonCartHandlerClick()"
-          mat-flat-button
-          color="primary"
-        >
+        <button (click)="buyNow()" mat-flat-button color="primary">
           Buy now
         </button>
       </div>

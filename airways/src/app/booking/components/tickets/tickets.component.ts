@@ -105,10 +105,7 @@ export class TicketsComponent implements AfterContentInit, OnInit {
     this.returnTicket$ = this.store.select(selectIsReturn);
     this.returnTicket$.subscribe((el) => {
       this.returnTicket = el;
-      console.log(this.returnTicket, '1');
     });
-
-    console.log(this.returnTicket, '2');
 
     this.store.select(selectFeature).subscribe((data) => {
       this.fligth = data;

@@ -49,7 +49,7 @@ export class HeaderComponent implements DoCheck, OnInit {
   public cartFilter: string =
     'invert(86%) sepia(38%) saturate(4871%) hue-rotate(209deg) brightness(97%) contrast(89%)';
 
-  public bookingPages: string[] = ['booking', 'passangers', 'summary'];
+  public bookingPages: string[] = ['booking', 'passenger', 'booking/summary'];
 
   public hidden: boolean = true;
 

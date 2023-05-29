@@ -12,7 +12,7 @@
     />
     <div
       class="header__content__elements"
-      [style.gap]="page === 'booking' ? '17px' : '40px'"
+      [style.gap]="bookingPages.includes(page) ? '17px' : '40px'"
     >
       <button class="title-button" *ngIf="page === ''; else stepperBlock">
         Book flights
@@ -41,7 +41,7 @@
           [style.filter]="
             page === ''
               ? 'none'
-              : page === 'booking'
+              : bookingPages.includes(page)
               ? bookingFilter
               : cartFilter
           "
@@ -54,7 +54,10 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <button class="login-button" (click)="loginButtonHandlerClick()">
+      <button
+        class="login-button" (click)="loginButtonHandlerClick()"
+        [routerLink]="isAuth ? ['/user', userName] : ['/']"
+      >
         <div
           class="img-container"
           [style.background]="isAuth ? '#f1f3f6' : 'transparent'"
@@ -63,7 +66,7 @@
             [style.filter]="
               page === ''
                 ? 'none'
-                : page === 'booking'
+                : bookingPages.includes(page)
                 ? bookingFilter
                 : cartFilter
             "
@@ -73,7 +76,11 @@
         </div>
         <span
           [style.color]="
-            page === '' ? 'white' : page === 'booking' ? '#49454F' : '#11397E'
+            page === ''
+              ? 'white'
+              : bookingPages.includes(page)
+              ? '#49454F'
+              : '#11397E'
           "
           class="login-button__text"
           >{{ isAuth ? userName : "Sign in" }}</span
@@ -86,11 +93,11 @@
         class="basket"
       >
         <img
-          [style.margin-left]="page === 'booking' ? '15px' : '-9px'"
+          [style.margin-left]="bookingPages.includes(page) ? '15px' : '-9px'"
           [style.filter]="
             page === ''
               ? 'none'
-              : page === 'booking'
+              : bookingPages.includes(page)
               ? bookingFilter
               : cartFilter
           "
