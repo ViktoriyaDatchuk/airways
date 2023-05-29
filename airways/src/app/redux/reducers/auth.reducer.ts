@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { IAuthStore } from '../models/models';
-import {setNewUser} from '../actions/auth.actions'
+import {setIsAuth, setIsAuthOpenWindow, setNewUser} from '../actions/auth.actions'
 
 export const initialState: IAuthStore = {
     email: '',
@@ -12,6 +12,7 @@ export const initialState: IAuthStore = {
     phone: '',
     sex: '',
     isAuth: false,
+    isAuthWindowOpen: false,
 };
 
 export const authReducer = createReducer(
@@ -19,5 +20,13 @@ export const authReducer = createReducer(
   on(setNewUser, (state, { userData }) => ({
     ...state,
     ...userData,
+  })),
+  on(setIsAuth, (state, { isAuth }) => ({
+    ...state,
+    isAuth,
+  })),
+  on(setIsAuthOpenWindow, (state, { isAuthWindowOpen }) => ({
+    ...state,
+    isAuthWindowOpen,
   })),
 )

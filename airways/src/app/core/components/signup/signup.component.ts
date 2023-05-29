@@ -3,8 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {callingCode} from '../../../shared/data/calling-code'
 import { IAuthStore } from 'src/app/redux/models/models';
 import { Store } from '@ngrx/store';
-import { setNewUser } from 'src/app/redux/actions/auth.actions';
+import { setIsAuth, setIsAuthOpenWindow, setNewUser } from 'src/app/redux/actions/auth.actions';
 import { selectFeature } from 'src/app/redux/selectors/auth.selectors';
+import { AirportsService } from 'src/app/shared/services/airways.service';
+import { RegistrationModel, User } from 'src/app/shared/models/types.model';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -28,7 +31,11 @@ export class SignupComponent {
     sex: new FormControl(''),
   });
 
-  constructor(private store: Store<{ auth: IAuthStore}>) {
+  constructor(
+    private store: Store<{ auth: IAuthStore}>,
+    private airportService: AirportsService,
+    private cookies: CookieService,
+    ) {
 
   }
 
@@ -41,24 +48,29 @@ export class SignupComponent {
   }
 
   submit() {
-    this.store.dispatch(setNewUser(this.createUserData()))
-    this.store.select(selectFeature).subscribe((el) => {
-      console.log(el)
+    // this.store.dispatch(setNewUser(this.createUserData()))
+    this.airportService.registration(this.createUserData()).subscribe((el) => {
+      this.cookies.set('auth', el.token)
+      this.store.dispatch(setIsAuthOpenWindow(false))
     })
+    // this.store.select(selectFeature).subscribe((el) => {
+    //   console.log(el)
+    // })
     // console.log(this.signup)
     console.log('submit')
   }
 
-  createUserData(): Omit<IAuthStore, 'isAuth'> {
+  createUserData(): RegistrationModel {
     return {
-      birthday: this.signup.get('birthday')?.value || '',
+      dateOfBirth: this.signup.get('birthday')?.value || '',
       citizenship: this.signup.get('citizenship')?.value || '',
       countryCode: this.signup.get('phoneRegion')?.value || '',
       email: this.signup.get('email')?.value || '',
       lastName: this.signup.get('lastname')?.value || '',
-      name: this.signup.get('name')?.value || '',
+      firstName: this.signup.get('name')?.value || '',
       phone: this.signup.get('phoneNumber')?.value || '',
-      sex: this.signup.get('sex')?.value || '',
+      gender: this.signup.get('sex')?.value || '',
+      password: this.signup.get('password')?.value || ''
     }
   }
 

@@ -58,4 +58,5 @@ export interface IAuthStore {
   phone: string;
   citizenship: string;
   isAuth: boolean;
+  isAuthWindowOpen: boolean;
 }

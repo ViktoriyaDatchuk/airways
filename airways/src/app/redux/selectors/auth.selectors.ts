@@ -10,7 +10,19 @@ export const selectFeature = (state: AppState) => {
     return state.auth
 };
 
-export const selectFrom = createSelector(
+export const selectIsAuth = createSelector(
+  selectFeature,
+  (state: IAuthStore) => {
+    return state.isAuth},
+);
+
+export const selectIsAuthWindowOpen = createSelector(
+  selectFeature,
+  (state: IAuthStore) => {
+    return state.isAuthWindowOpen},
+);
+
+export const selectFirstName = createSelector(
   selectFeature,
   (state: IAuthStore) => {
     return state.name},

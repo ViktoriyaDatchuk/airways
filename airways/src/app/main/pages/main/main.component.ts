@@ -10,6 +10,8 @@ import { setDateFrom, setDateTo, setFrom, setTo, setTypeTrip } from 'src/app/red
 import { IDataTravel } from 'src/app/redux/models/models';
 import { AirportModel } from 'src/app/shared/models/types.model';
 import { AirportsService } from 'src/app/shared/services/airways.service';
+import { CookieService } from 'ngx-cookie-service';
+import { setIsAuth, setNewUser } from 'src/app/redux/actions/auth.actions';
 
 @Component({
   selector: 'app-main',
@@ -35,7 +37,9 @@ export class MainComponent implements OnInit {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
     private router: Router,
-    private store: Store<{ booking: IDataTravel }>
+    private store: Store<{ booking: IDataTravel }>,
+    private authStore: Store<{ auth: IDataTravel }>,
+    private cookieService: CookieService
   ) {
     this.matIconRegistry.addSvgIcon(
       'switch',
@@ -53,6 +57,21 @@ export class MainComponent implements OnInit {
       startWith(''),
       map((value) => this._filter(value || ''))
     );
+      if (this.cookieService.get('auth')) {
+        this.airportService.authMe(this.cookieService.get('auth')).subscribe((el) => {
+          this.authStore.dispatch(setIsAuth(true))
+          this.authStore.dispatch(setNewUser({
+            birthday: el.dateOfBirth,
+            citizenship: el.citizenship,
+            countryCode: el.countryCode,
+            email: el.email,
+            lastName: el.lastName,
+            name: el.firstName,
+            phone: el.phone,
+            sex: el.gender
+          }))
+        })
+      }
   }
 
   private _filter(value: string): AirportModel[] {

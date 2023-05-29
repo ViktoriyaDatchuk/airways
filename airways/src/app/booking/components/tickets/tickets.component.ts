@@ -131,8 +131,8 @@ export class TicketsComponent implements AfterContentInit, OnInit {
 
   buttonContinueHandlerClick() {
     this.router.navigate(['/passenger']);
-    this.addFligthToStore();
-    this.addFligthToStore2();
+    // this.addFligthToStore();
+    // this.addFligthToStore2();
   }
 
   addFligthToStore() {
