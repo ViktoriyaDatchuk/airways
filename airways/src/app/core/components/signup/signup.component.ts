@@ -3,10 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {callingCode} from '../../../shared/data/calling-code'
 import { IAuthStore } from 'src/app/redux/models/models';
 import { Store } from '@ngrx/store';
-import { setIsAuth, setIsAuthOpenWindow, setNewUser } from 'src/app/redux/actions/auth.actions';
-import { selectFeature } from 'src/app/redux/selectors/auth.selectors';
+import { setIsAuthOpenWindow } from 'src/app/redux/actions/auth.actions';
 import { AirportsService } from 'src/app/shared/services/airways.service';
-import { RegistrationModel, User } from 'src/app/shared/models/types.model';
+import { RegistrationModel } from 'src/app/shared/models/types.model';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -48,16 +47,10 @@ export class SignupComponent {
   }
 
   submit() {
-    // this.store.dispatch(setNewUser(this.createUserData()))
     this.airportService.registration(this.createUserData()).subscribe((el) => {
       this.cookies.set('auth', el.token)
       this.store.dispatch(setIsAuthOpenWindow(false))
     })
-    // this.store.select(selectFeature).subscribe((el) => {
-    //   console.log(el)
-    // })
-    // console.log(this.signup)
-    console.log('submit')
   }
 
   createUserData(): RegistrationModel {

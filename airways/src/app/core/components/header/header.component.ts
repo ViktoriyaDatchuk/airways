@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, DoCheck, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { trips } from 'src/app/cart/tripsmock';
 import { setIsAuthOpenWindow } from 'src/app/redux/actions/auth.actions';
 import {
   setCurrencyFormat,
@@ -69,7 +69,8 @@ export class HeaderComponent implements DoCheck, OnInit {
     private location: Location,
     private store: Store<SettingsState>,
     private authStore: Store<{auth: IAuthStore}>,
-    private cartStore: Store<CartState>
+    private cartStore: Store<CartState>,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.authStore.select(selectIsAuthWindowOpen).subscribe((el) => {
@@ -105,8 +106,10 @@ export class HeaderComponent implements DoCheck, OnInit {
   }
 
   loginButtonHandlerClick() {
-    // if (!this.isAuth) {
+    if (!this.isAuth) {
       this.authStore.dispatch(setIsAuthOpenWindow(!this.isAuthOpen))
-    // }
+    } else {
+      this.router.navigate(['/user', this.userName])
+    }
   }
 }

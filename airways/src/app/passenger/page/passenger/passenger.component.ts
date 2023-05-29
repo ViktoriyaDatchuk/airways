@@ -64,7 +64,7 @@ export class PassengerComponent implements OnInit, AfterViewInit {
 
   buttonContinueHandlerClick() {
     this.dispatchPersonData();
-    this.router.navigate(['/summary'])
+    this.router.navigate(['/booking/summary'])
   }
 
   isDisabledButton() {

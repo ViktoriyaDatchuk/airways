@@ -11,6 +11,7 @@ import { SummaryComponent } from './pages/summary/summary.component';
 import { OrderComponent } from './components/order/order.component';
 import { FareComponent } from './components/fare/fare.component';
 import { PersonComponent } from './components/person/person.component';
+import { aboutGuard } from '../shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { PersonComponent } from './components/person/person.component';
     SwiperModule,
     RouterModule.forChild([
       { path: '', component: BookingComponent },
-      { path: 'summary', component: SummaryComponent },
+      { path: 'summary', component: SummaryComponent, canActivate: [aboutGuard] },
     ]),
   ],
 })
